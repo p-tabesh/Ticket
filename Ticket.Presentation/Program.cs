@@ -23,7 +23,7 @@ if (app.Environment.IsDevelopment())
 builder.Services.AddDbContext<TicketDbContext>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("TicketDatabase"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
 
 app.UseHttpsRedirection();
