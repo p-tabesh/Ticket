@@ -18,8 +18,11 @@ namespace Ticket.Infrastructure.Context
         public DbSet<TicketAudit> TicketAudit { get; set; }
         public DbSet<TicketStatusHistory> TicketStatusHistory { get; set; }
         public DbSet<TicketNote> TicketNote { get; set; }
-        
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
