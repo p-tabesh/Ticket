@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj": {}
+    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {}
   },
   "projects": {
     "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
@@ -59,14 +59,14 @@
         }
       }
     },
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj": {
+    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
-        "projectName": "Ticket.Test",
-        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
+        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
+        "projectName": "Ticket.Infrastructure",
+        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\obj\\",
+        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -98,6 +98,24 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

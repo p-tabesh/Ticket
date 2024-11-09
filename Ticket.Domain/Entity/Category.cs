@@ -11,7 +11,7 @@ public class Category
     public User? DefaultUserAsign { get; private set; }
     public int? DefaultUserAsignId { get; private set; }
     public ICollection<Field>? Fields { get; private set; }
-    public ICollection<Ticket>? Tickets { get; private set; }
+    public ICollection<Tickets>? Tickets { get; private set; }
     public Category()
     {
         Fields = new List<Field>();
@@ -20,8 +20,8 @@ public class Category
     public Category(string title, int? parentId, int? defaultUserAsignId)
     {
         if (string.IsNullOrEmpty(title))
-            throw new Exception("title cannot be null");
-
+            throw new Exception("Title cannot be empty");
+        
         Title = title;
         ParentId = parentId;
         DefaultUserAsignId = defaultUserAsignId;

@@ -3,7 +3,7 @@
 namespace Ticket.Domain.Entity;
 
 
-public class Ticket
+public class Tickets
 {
     public int Id { get; private set; }
     public string Subject { get; private set; }
