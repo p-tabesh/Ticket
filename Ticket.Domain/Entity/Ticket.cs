@@ -1,4 +1,5 @@
-﻿using Ticket.Domain.Enum;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Ticket.Domain.Enum;
 
 namespace Ticket.Domain.Entity;
 
@@ -24,6 +25,7 @@ public class Tickets
     public User User { get; private set; }
     public int UserId { get; private set; }
     // AssignUser
+    [NotMapped]
     public User AssignUser { get; private set; }
     public int AssignUserId { get; private set; }
 
@@ -31,4 +33,9 @@ public class Tickets
     public ICollection<TicketAudit> TicketAudit {  get; private set; }
     public ICollection<TicketStatusHistory> TicketStatusHistory { get; private set; }
     public ICollection<TicketNote> TicketNote { get; private set; }
+
+    public Tickets()
+    {
+        
+    }
 }

@@ -19,6 +19,9 @@ namespace Ticket.Infrastructure.EntityType
                 .WithMany()
                 .HasForeignKey(u => u.TeamId);
 
+            
+
+
         }
     }
 }

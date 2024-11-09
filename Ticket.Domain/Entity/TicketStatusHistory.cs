@@ -6,4 +6,8 @@ public class TicketStatusHistory
 {
     public int Id { get; private set; }
     public Status Status { get; private set; }
+    public TicketStatusHistory()
+    {
+        
+    }
 }

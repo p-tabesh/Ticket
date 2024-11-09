@@ -8,4 +8,9 @@ public class TicketNote
     public int TicketId { get; private set; }
     public User User { get; private set; }
     public Tickets Ticket { get; private set; }
+
+    public TicketNote()
+    {
+        
+    }
 }
