@@ -9,8 +9,8 @@ public class User
     public Team Team { get; private set; }
     public int TeamId { get; private set; }
 
-    public ICollection<Ticket> Tickets {  get; private set; }
-    public ICollection<Ticket> AssignedTickets { get; private set; }
+    public ICollection<Tickets> Tickets {  get; private set; }
+    public ICollection<Tickets> AssignedTickets { get; private set; }
     public ICollection<TicketAudit> TicketAudits { get; private set; }
     public ICollection<TicketNote> Notes { get; private set; }
     public ICollection<Category> Categories { get; private set; }

@@ -16,3 +16,4 @@ C:\Users\Pooya\source\repos\Ticket\Ticket.Test\obj\Debug\net8.0\refint\Ticket.Te
 C:\Users\Pooya\source\repos\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.pdb
 C:\Users\Pooya\source\repos\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.genruntimeconfig.cache
 C:\Users\Pooya\source\repos\Ticket\Ticket.Test\obj\Debug\net8.0\ref\Ticket.Test.dll
+C:\Users\Pooya\source\repos\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.sourcelink.json

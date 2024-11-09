@@ -10,7 +10,7 @@ public class TicketAudit
     public DateTime CreationDate { get; private set; }
 
     // Ticket
-    public Ticket Ticket { get; private set; }
+    public Tickets Ticket { get; private set; }
     public int TicketId { get; private set; }
 
     //User

@@ -7,5 +7,5 @@ public class TicketNote
     public int UserId { get; private set; }
     public int TicketId { get; private set; }
     public User User { get; private set; }
-    public Ticket Ticket { get; private set; }
+    public Tickets Ticket { get; private set; }
 }

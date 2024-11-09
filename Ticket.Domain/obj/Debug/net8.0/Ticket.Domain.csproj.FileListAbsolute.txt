@@ -9,3 +9,4 @@ C:\Users\Pooya\source\repos\Ticket\Ticket.Domain\obj\Debug\net8.0\Ticket.Domain.
 C:\Users\Pooya\source\repos\Ticket\Ticket.Domain\obj\Debug\net8.0\refint\Ticket.Domain.dll
 C:\Users\Pooya\source\repos\Ticket\Ticket.Domain\obj\Debug\net8.0\Ticket.Domain.pdb
 C:\Users\Pooya\source\repos\Ticket\Ticket.Domain\obj\Debug\net8.0\ref\Ticket.Domain.dll
+C:\Users\Pooya\source\repos\Ticket\Ticket.Domain\obj\Debug\net8.0\Ticket.Domain.sourcelink.json

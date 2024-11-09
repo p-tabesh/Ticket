@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 using Ticket.Domain.Entity;
+using Ticket.Infrastructure.EntityType;
 
 namespace Ticket.Infrastructure.Context
 {
@@ -21,7 +22,10 @@ namespace Ticket.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FieldEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryFieldEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
         }
     }
 }
