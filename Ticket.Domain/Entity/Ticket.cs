@@ -25,7 +25,6 @@ public class Tickets
     public User User { get; private set; }
     public int UserId { get; private set; }
     // AssignUser
-    [NotMapped]
     public User AssignUser { get; private set; }
     public int AssignUserId { get; private set; }
 

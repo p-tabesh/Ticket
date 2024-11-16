@@ -15,12 +15,6 @@ public class CategoryFieldEntityTypeConfiguration : IEntityTypeConfiguration<Cat
     {
         builder.HasKey(c => c.Id);
 
-        builder.HasOne(c => c.Category)
-            .WithMany()
-            .HasForeignKey(c => c.Id);
-
-        builder.HasOne(f => f.Field)
-            .WithMany()
-            .HasForeignKey(f => f.FieldId);
+        
     }
 }

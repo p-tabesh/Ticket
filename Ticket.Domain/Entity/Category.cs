@@ -8,6 +8,7 @@ public class Category
     public string Title { get; private set; }
     public Category? Parent { get; private set; }
     public int? ParentId { get; private set; }
+    public ICollection<Category> ChildCategories { get; private set; }
     public User? DefaultUserAsign { get; private set; }
     public int? DefaultUserAsignId { get; private set; }
     public ICollection<Field>? Fields { get; private set; }

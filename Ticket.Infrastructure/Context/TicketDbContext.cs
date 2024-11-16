@@ -12,6 +12,7 @@ namespace Ticket.Infrastructure.Context
 
         public DbSet<Category> Category { get; set; }
         public DbSet<Field> Field { get; set; }
+        public DbSet<CategoryField> CategoryField { get; set; }
         public DbSet<Team> Team { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Tickets> Tickets { get; set; }
@@ -29,6 +30,11 @@ namespace Ticket.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new FieldEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryFieldEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TicketEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TeamEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TicketAuditEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TicketStatusHistoryEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TicketNoteEntityTypeConfiguration());
         }
     }
 }

@@ -13,6 +13,11 @@ namespace Ticket.Infrastructure.EntityType
     {
         public void Configure(EntityTypeBuilder<Field> builder)
         {
+            builder.HasKey(f => f.Id);
+
+            builder.HasMany(c => c.Categories)
+                .WithMany(f => f.Fields)
+                .UsingEntity<CategoryField>();
             
         }
     }
