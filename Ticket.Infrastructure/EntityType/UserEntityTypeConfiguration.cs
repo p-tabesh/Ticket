@@ -30,7 +30,7 @@ namespace Ticket.Infrastructure.EntityType
                 .HasForeignKey(u => u.UserId);
 
             // user who ticket assigned
-            builder.HasMany(t => t.Tickets)
+            builder.HasMany(t => t.AssignedTickets)
                 .WithOne(u => u.AssignUser)
                 .HasForeignKey(u => u.AssignUserId);
 
