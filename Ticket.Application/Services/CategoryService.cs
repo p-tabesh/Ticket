@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
-using Ticket.Domain.Enums;
 using System.Runtime.InteropServices.ComTypes;
 using Ticket.Domain.Enum;
+using System.Security.Cryptography;
 
 namespace Ticket.Application.Services;
 
@@ -57,7 +57,8 @@ public class CategoryService
 
     public void AddField(string fieldName, FieldType fieldType, bool isRequired)
     {
-
+        var field = new Field(fieldName, fieldType, isRequired);
+        
     }
     
 }

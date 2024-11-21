@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ticket.Domain.Entity;
 using Ticket.Application.Services;
+using Ticket.Presentation.Models;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -16,11 +17,11 @@ public class CategoryController : ControllerBase
 
     [HttpPost]
     [Route("add-category")]
-    public IActionResult AddCategory(string title, int? parentCategoryId, int userId)
+    public IActionResult AddCategory([FromQuery] CategoryModel categoryModel)
     {
         try
         {
-            _categoryService.AddCategory(title, parentCategoryId, userId);
+            _categoryService.AddCategory(categoryModel.Title,categoryModel.ParentCategory,categoryModel.UserId);
             return Ok("Category Added Successfully");
         }
         catch (Exception e)
