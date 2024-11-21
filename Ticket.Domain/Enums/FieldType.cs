@@ -1,6 +1,6 @@
 ﻿namespace Ticket.Domain.Enum;
 
-public enum Type
+public enum FieldType
 {
     None,
     String,

@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Ticket.Application.Services;
+using Ticket.Domain.IRepository;
 using Ticket.Infrastructure;
 using Ticket.Infrastructure.Context;
+using Ticket.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,11 @@ builder.Services.AddDbContext<TicketDbContext>(
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 var app = builder.Build();
 

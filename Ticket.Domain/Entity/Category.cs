@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Ticket.Domain.Entity;
 
@@ -9,7 +10,7 @@ public class Category
     public Category? Parent { get; private set; }
     public int? ParentId { get; private set; }
     public ICollection<Category> ChildCategories { get; private set; }
-    public User? DefaultUserAsign { get; private set; }
+    public User DefaultUserAsign { get; private set; }
     public int? DefaultUserAsignId { get; private set; }
     public ICollection<Field>? Fields { get; private set; }
     public ICollection<Tickets>? Tickets { get; private set; }
@@ -18,22 +19,28 @@ public class Category
         Fields = new List<Field>();
     }
 
-    public Category(string title, int? parentId, int? defaultUserAsignId)
+    public Category(string title, int? parentId, User defaultUserAsign)
     {
         if (string.IsNullOrEmpty(title))
             throw new Exception("Title cannot be empty");
         
         Title = title;
         ParentId = parentId;
-        DefaultUserAsignId = defaultUserAsignId;
+        DefaultUserAsign = defaultUserAsign;
     }
 
-    public void AddField(string fieldName, Enum.Type type, bool isRequired)
+    public void AddField(string fieldName, Enum.FieldType fieldType, bool isRequired)
     {
-        if (Fields == null)
-            Fields = new List<Field>();
+        Fields ??= new List<Field>();
 
-        var field = new Field(fieldName, type, isRequired);
+        var field = new Field(fieldName, fieldType, isRequired);
         Fields.Add(field);
+    }
+
+    public void UpdateDefaultUserAssinge(User defaultUserAsign)
+    {
+        if (DefaultUserAsign == defaultUserAsign)
+            throw new Exception("user already is default for this category");
+        DefaultUserAsign = defaultUserAsign;
     }
 }

@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.10",
           "Swashbuckle.AspNetCore": "6.6.2",
+          "Ticket.Application": "1.0.0",
           "Ticket.Domain": "1.0.0",
           "Ticket.Infrastructure": "1.0.0"
         },
@@ -941,6 +942,14 @@
           }
         }
       },
+      "Ticket.Application/1.0.0": {
+        "dependencies": {
+          "Ticket.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Ticket.Application.dll": {}
+        }
+      },
       "Ticket.Domain/1.0.0": {
         "runtime": {
           "Ticket.Domain.dll": {}
@@ -1537,6 +1546,11 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "Ticket.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Ticket.Domain/1.0.0": {
       "type": "project",

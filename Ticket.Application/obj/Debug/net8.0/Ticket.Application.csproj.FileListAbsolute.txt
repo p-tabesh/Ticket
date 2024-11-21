@@ -22,3 +22,7 @@ C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Appl
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\refint\Ticket.Application.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\ref\Ticket.Application.dll
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Domain.dll
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Domain.pdb
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.AssemblyReference.cache
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.CopyComplete
