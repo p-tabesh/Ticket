@@ -16,7 +16,10 @@
       },
       "Ticket.Domain/1.0.0": {
         "runtime": {
-          "Ticket.Domain.dll": {}
+          "Ticket.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

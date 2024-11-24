@@ -30,7 +30,7 @@ public class CategoryController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("update-defaultUser")]
     public IActionResult UpdateDefaultUserAssigne(int categoryId, int userId)
     {

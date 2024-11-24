@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Ticket.Application.Services;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure;
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<TicketDbContext>(
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 
 var app = builder.Build();
