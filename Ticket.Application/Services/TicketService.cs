@@ -37,6 +37,8 @@ public class TicketService
         ticket.AddAudit(Domain.Enum.Action.Add,$"Ticket Added By {user.Username}",user);
         
         _ticketRepository.Add(ticket);
+
+
         
     }
 }

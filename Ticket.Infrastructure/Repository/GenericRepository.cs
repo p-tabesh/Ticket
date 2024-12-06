@@ -16,7 +16,6 @@ public class GenericRepository<TEntity> where TEntity : class, IGenericRepositoy
     }
     public void Add(TEntity entity)
     {
-        //_context.Add(TEntity item);
         _dbset.Add(entity);
     }
 
