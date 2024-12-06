@@ -4,7 +4,7 @@ using Ticket.Domain.IRepository;
 
 namespace Ticket.Infrastructure.Repository;
 
-public class GenericRepository<TEntity> where TEntity : class, IGenericRepositoy<TEntity>
+public class GenericRepository<TEntity> : IGenericRepositoy<TEntity> where TEntity : class
 {
     private TicketDbContext _context;
     private DbSet<TEntity> _dbset;

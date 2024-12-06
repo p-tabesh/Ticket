@@ -1,4 +1,5 @@
-﻿using Ticket.Infrastructure.Context;
+﻿using Ticket.Domain.Entity;
+using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 
 namespace Ticket.Infrastructure.UnitOfWork;
@@ -8,8 +9,9 @@ public class UnitOfWork : IDisposable
     private TicketRepository _ticketRepository;
     private UserRepository _userRepository;
     private CategoryRepository _categoryRepository;
+    
+
     private TicketDbContext _context;
-    private bool _disposed = false;
     public UnitOfWork(TicketDbContext context)
     {
         _context = context;
@@ -50,7 +52,8 @@ public class UnitOfWork : IDisposable
         _context.SaveChanges();
     }
 
-    
+
+    private bool _disposed = false;
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)
