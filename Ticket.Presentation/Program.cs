@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Ticket.Application.Services;
@@ -21,7 +22,9 @@ builder.Services.AddDbContext<TicketDbContext>(
     });
 
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 

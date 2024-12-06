@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ticket.Domain.Entity;
 using Ticket.Application.Services;
-using Ticket.Presentation.Models;
+using Ticket.Application.Models;
 
 namespace Ticket.Presentation.Controllers;
 

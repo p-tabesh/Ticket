@@ -17,8 +17,12 @@ public class TicketAudit
     public User User { get; private set; }
     public int UserId { get; private set; }
 
-    public TicketAudit()
+    private TicketAudit() { }
+    public TicketAudit(Enum.Action action, string description, User user)
     {
-        
+        Action = action;
+        Description = description;
+        User = user;
+        CreationDate = DateTime.Now;
     }
 }

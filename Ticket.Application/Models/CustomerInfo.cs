@@ -1,4 +1,4 @@
-﻿namespace Ticket.Presentation.Models;
+﻿namespace Ticket.Application.Models;
 
 public class CustomerInfo
 {

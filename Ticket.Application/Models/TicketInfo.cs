@@ -1,6 +1,6 @@
 ﻿using Ticket.Domain.Enum;
 
-namespace Ticket.Presentation.Models;
+namespace Ticket.Application.Models;
 
 public class TicketInfo
 {

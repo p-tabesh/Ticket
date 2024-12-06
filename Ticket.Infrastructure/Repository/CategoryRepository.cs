@@ -31,7 +31,8 @@ public class CategoryRepository : ICategoryRepository
 
     public User GetDefaultUser(int categoryId)
     {
-        throw new NotImplementedException();
+        var defaultUser = _context.Category.FirstOrDefault(u => u.Id == categoryId);
+        return defaultUser.DefaultUserAsign;
     }
 
     public void Update(Category category)

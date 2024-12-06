@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Ticket.Application.Models;
 using Ticket.Application.Services;
-using Ticket.Presentation.Models;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -16,9 +15,9 @@ public class TicketController : Controller
 
     [HttpPost]
     [Route("add")]
-    public IActionResult AddTicket([FromQuery] TicketModel ticketModel)
+    public IActionResult AddTicket([FromQuery] TicketInfo ticketInfo, CustomerInfo customerInfo)
     {
-        //_ticketService.AddTicket(ticketModel.TicketInfo, ticketModel.CustomerInfo);
+        _ticketService.AddTicket(ticketInfo, customerInfo);
         return Ok();
     }
 }
