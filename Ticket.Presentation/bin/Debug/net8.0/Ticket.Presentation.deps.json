@@ -944,7 +944,8 @@
       },
       "Ticket.Application/1.0.0": {
         "dependencies": {
-          "Ticket.Domain": "1.0.0"
+          "Ticket.Domain": "1.0.0",
+          "Ticket.Infrastructure": "1.0.0"
         },
         "runtime": {
           "Ticket.Application.dll": {

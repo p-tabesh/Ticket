@@ -31,6 +31,9 @@
             "projectReferences": {
               "C:\\Users\\Pooya\\source\\repos\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
                 "projectPath": "C:\\Users\\Pooya\\source\\repos\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              },
+              "C:\\Users\\Pooya\\source\\repos\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\source\\repos\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
               }
             }
           }

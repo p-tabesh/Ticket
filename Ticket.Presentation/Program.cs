@@ -6,6 +6,7 @@ using Ticket.Domain.IRepository;
 using Ticket.Infrastructure;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
+using Ticket.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<TicketDbContext>(
 
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

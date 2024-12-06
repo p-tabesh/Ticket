@@ -30,3 +30,5 @@ C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Ap
 C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\refint\Ticket.Application.dll
 C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.pdb
 C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\ref\Ticket.Application.dll
+C:\Users\Pooya\source\repos\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Infrastructure.dll
+C:\Users\Pooya\source\repos\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Infrastructure.pdb

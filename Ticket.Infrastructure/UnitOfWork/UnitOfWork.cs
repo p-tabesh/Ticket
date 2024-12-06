@@ -3,13 +3,13 @@ using Ticket.Infrastructure.Repository;
 
 namespace Ticket.Infrastructure.UnitOfWork;
 
-public class UnitOfWork
+public class UnitOfWork : IDisposable
 {
     private TicketRepository _ticketRepository;
     private UserRepository _userRepository;
     private CategoryRepository _categoryRepository;
     private TicketDbContext _context;
-
+    private bool _disposed = false;
     public UnitOfWork(TicketDbContext context)
     {
         _context = context;
@@ -45,9 +45,26 @@ public class UnitOfWork
             return _categoryRepository;
         }
     }
-
     public void Save()
     {
         _context.SaveChanges();
+    }
+
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if(disposing)
+            {
+                _context.Dispose();
+            }
+        }
+        _disposed = true;
+    }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

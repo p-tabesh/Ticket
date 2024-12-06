@@ -13,6 +13,6 @@ public class TicketRepository : ITicketRepository
     public void Add(Tickets ticket)
     {
         _context.Add(ticket);
-        _context.SaveChanges();
+        //_context.SaveChanges();
     }
 }
