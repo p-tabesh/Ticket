@@ -15,7 +15,7 @@ public class TicketController : Controller
 
     [HttpPost]
     [Route("add")]
-    public IActionResult AddTicket([FromQuery] TicketInfo ticketInfo, CustomerInfo customerInfo)
+    public IActionResult AddTicket([FromBody] TicketInfo ticketInfo, CustomerInfo customerInfo)
     {
         _ticketService.AddTicket(ticketInfo, customerInfo);
         return Ok();

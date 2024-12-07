@@ -42,7 +42,7 @@ public class UnitOfWork : IDisposable
     {
         get
         {
-            if (CategoryRepository == null)
+            if (_categoryRepository == null)
                 _categoryRepository = new CategoryRepository(_context);
             return _categoryRepository;
         }
