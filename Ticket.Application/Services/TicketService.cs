@@ -1,9 +1,12 @@
-﻿using Ticket.Domain.IRepository;
-using Ticket.Application.Models;
+﻿using Ticket.Application.Models;
 using Ticket.Domain.Entity;
 using Ticket.Domain.Enum;
 using Ticket.Infrastructure.UnitOfWork;
 using Ticket.Infrastructure.Context;
+using System.Resources;
+using System.Reflection;
+using Ticket.Domain.Exceptions;
+
 namespace Ticket.Application.Services;
 
 public class TicketService
@@ -14,20 +17,23 @@ public class TicketService
     private TicketDbContext _context;
     public TicketService(TicketDbContext context)
     {
-        //_ticketRepository = ticketRepository;
-        //_categoryRepository = categoryRepository;
-        //_userRepository = userRepository;
         _context = context;
     }
-
-
     public void AddTicket(TicketInfo ticketInfo, CustomerInfo customerInfo)
     {
+        var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages",Assembly.GetExecutingAssembly());
+
         using (var UOW = new UnitOfWork(_context))
         {
-            var user = UOW.UserRepository.GetById(ticketInfo.UserId);
-            var assignUser = UOW.CategoryRepository.GetDefaultUser(ticketInfo.CategoryId);
             var category = UOW.CategoryRepository.GetById(ticketInfo.CategoryId);
+            if (category == null)
+                //throw new CategoryException(resourceManager.GetString("CategoryNotFound"));
+                throw new InvalidOperationException();
+            
+            var assignUser = category.DefaultUserAsign;
+            var user = UOW.UserRepository.GetById(ticketInfo.UserId);
+
+            
 
             var ticket = new Tickets(ticketInfo.Subject,
                                ticketInfo.Body,

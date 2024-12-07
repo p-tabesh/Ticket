@@ -34,3 +34,5 @@ C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Appl
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\refint\Ticket.Application.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\ref\Ticket.Application.dll
+C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.Resources.CategoryExceptionMessages.resources
+C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.GenerateResource.cache

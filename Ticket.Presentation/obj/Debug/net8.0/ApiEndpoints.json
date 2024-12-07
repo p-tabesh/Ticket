@@ -55,34 +55,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "CategoryId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "UserId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "UserAssigneId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Subject",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Body",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Priority",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "ticketInfo",
+        "Type": "Ticket.Application.Models.TicketInfo",
+        "IsRequired": true
       },
       {
         "Name": "NationalCode",
