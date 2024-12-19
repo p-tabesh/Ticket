@@ -1,4 +1,4 @@
-﻿namespace Ticket.Domain.Enum;
+﻿namespace Ticket.Domain.Enums;
 
 public enum Priority
 {

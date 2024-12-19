@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
+﻿using Ticket.Domain.Enums;
 
 namespace Ticket.Domain.Entity;
 
@@ -29,7 +28,7 @@ public class Category
         DefaultUserAsign = defaultUserAsign;
     }
 
-    public void AddField(string fieldName, Enum.FieldType fieldType, bool isRequired)
+    public void AddField(string fieldName, FieldType fieldType, bool isRequired)
     {
         Fields ??= new List<Field>();
 

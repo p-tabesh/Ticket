@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Ticket.Domain.Enum;
+using Ticket.Domain.Enums;
 
 namespace Ticket.Domain.Entity;
 
@@ -38,8 +38,8 @@ public class Tickets
     /// </summary>
     private Tickets()
     {
-        TicketAudit = new List<TicketAudit>();
-        TicketStatusHistory = new List<TicketStatusHistory>();
+        //TicketAudit = new List<TicketAudit>();
+        //TicketStatusHistory = new List<TicketStatusHistory>();
     }
     public Tickets(string subject,
                     string body,
@@ -82,12 +82,12 @@ public class Tickets
     #endregion
 
     #region TicketAudit
-    public void AddAudit(Enum.Action action, string description, User user)
+    public void AddAudit(Enums.Action action, string description, User user)
     {
         if (TicketAudit == null)
             TicketAudit = new List<TicketAudit>();
 
-        var ticketAudit = new TicketAudit(action,description,user);
+        var ticketAudit = new TicketAudit(action, description, user);
         TicketAudit.Add(ticketAudit);
     }
     #endregion

@@ -1,29 +1,40 @@
-﻿using System;
-using Ticket.Domain;
-using Ticket.Domain.Entity;
-
-namespace Test;
+﻿namespace Test;
 
 class MainTest
 {
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
-        var t = new Test2();
+       
     }
 }
 
 class Test
 {
-    public Test()
+    public int Salam { get; set; }
+    
+}
+
+class MyClass:Test
+{
+    public int Adad { get; set; }
+    public string Reshte { get; set; }
+}
+
+
+public class IntList
+{
+    private int[] _intArray = new int[10];
+    public void Add(int Adad)
     {
-        Console.WriteLine("parent constructor");
+        _intArray.Append(Adad);
     }
 }
 
-class Test2: Test
+public class StringList
 {
-    public Test2()
+    private string[] _stringArray = new string[10];
+    public void Add(string Reshte)
     {
-        Console.WriteLine("child constructor");
+        _stringArray.Append(Reshte);
     }
 }

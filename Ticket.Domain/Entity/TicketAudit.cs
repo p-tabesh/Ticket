@@ -1,11 +1,11 @@
-﻿using Ticket.Domain.Enum;
+﻿using Ticket.Domain.Enums;
 
 namespace Ticket.Domain.Entity;
 
 public class TicketAudit
 {
     public int Id { get; private set; }
-    public Enum.Action Action { get; private set; }
+    public Enums.Action Action { get; private set; }
     public string Description { get; private set; }
     public DateTime CreationDate { get; private set; }
 
@@ -18,7 +18,7 @@ public class TicketAudit
     public int UserId { get; private set; }
 
     private TicketAudit() { }
-    public TicketAudit(Enum.Action action, string description, User user)
+    public TicketAudit(Enums.Action action, string description, User user)
     {
         Action = action;
         Description = description;

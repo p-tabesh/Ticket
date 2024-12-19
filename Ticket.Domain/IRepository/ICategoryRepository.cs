@@ -9,5 +9,6 @@ public interface ICategoryRepository
     void Delete(Category category);
     void Update(Category category);
     void UpdateDefaultUser(int categoryId, int userId);
-    User GetDefaultUser(int categoryId);
+    User GetDefaultUser(int categoryId);   
 }
+

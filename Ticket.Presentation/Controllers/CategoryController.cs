@@ -14,7 +14,7 @@ public class CategoryController : ControllerBase
     {
         _categoryService = categoryService;
     }
-
+    
     [HttpPost]
     [Route("add-category")]
     public IActionResult AddCategory([FromQuery] CategoryModel categoryModel)
@@ -44,5 +44,21 @@ public class CategoryController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPost]
+    [Route("add-field")]
+    public IActionResult AddFieldToCategory(FieldModel fieldModel)
+    {
+        try
+        {
+            _categoryService.AddField(fieldModel);
+            return Ok("Field added to category successfuly");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 }
 

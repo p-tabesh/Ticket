@@ -10,6 +10,7 @@ using Ticket.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -26,9 +27,10 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
+builder.Services.AddScoped(typeof(IGenericRepositoy<>), typeof(GenericRepository<>));
 
 
 
@@ -41,6 +43,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Error");
+//    app.UseHsts();
+//}
 
 app.UseHttpsRedirection();
 

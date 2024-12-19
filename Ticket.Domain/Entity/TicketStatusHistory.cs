@@ -1,4 +1,4 @@
-﻿using Ticket.Domain.Enum;
+﻿using Ticket.Domain.Enums;
 
 namespace Ticket.Domain.Entity;
 

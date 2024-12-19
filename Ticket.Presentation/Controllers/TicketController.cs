@@ -8,9 +8,11 @@ namespace Ticket.Presentation.Controllers;
 [Route("ticket")]
 public class TicketController : Controller
 {
-    private TicketService _ticketService;
-    public TicketController(TicketService ticketService)
+    private readonly TicketService _ticketService;
+    private readonly ILogger<TicketController> _logger;
+    public TicketController(TicketService ticketService, ILogger<TicketController> logger)
     {
+        _logger = logger;
         _ticketService = ticketService;
     }
 
@@ -20,11 +22,14 @@ public class TicketController : Controller
     {
         try
         {
+            _logger.LogInformation("test logger");
             _ticketService.AddTicket(ticketInfo, customerInfo);
             return Ok();
         }
         catch (CategoryException ex)
         {
+            
+            _logger.LogError(ex.Message);
             return BadRequest(ex.Message);
         }
         catch (InvalidOperationException ex)
@@ -35,6 +40,5 @@ public class TicketController : Controller
         {
             return BadRequest(ex.Message);
         }
-        
     }
 }

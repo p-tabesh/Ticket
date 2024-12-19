@@ -1,11 +1,10 @@
 ﻿using Ticket.Application.Models;
 using Ticket.Domain.Entity;
-using Ticket.Domain.Enum;
+using Ticket.Domain.Enums;
 using Ticket.Infrastructure.UnitOfWork;
 using Ticket.Infrastructure.Context;
 using System.Resources;
 using System.Reflection;
-using Ticket.Domain.Exceptions;
 
 namespace Ticket.Application.Services;
 
@@ -45,7 +44,7 @@ public class TicketService
                                user);
 
             ticket.AddStatusHistory(Status.Open);
-            ticket.AddAudit(Domain.Enum.Action.Add, $"Ticket Added By {user.Username}", user);
+            ticket.AddAudit(Domain.Enums.Action.Add, $"Ticket Added By {user.Username}", user);
 
             UOW.TicketRepository.Add(ticket);
             UOW.Save();

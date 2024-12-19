@@ -16,6 +16,8 @@ C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Ap
 C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\ref\Ticket.Application.dll
 C:\Users\Pooya\source\repos\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Infrastructure.dll
 C:\Users\Pooya\source\repos\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Infrastructure.pdb
+C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.Resources.CategoryExceptionMessages.resources
+C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.GenerateResource.cache
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Application.deps.json
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Application.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Application.pdb
@@ -24,6 +26,8 @@ C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Infr
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Domain.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\bin\Debug\net8.0\Ticket.Infrastructure.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.AssemblyReference.cache
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.Resources.CategoryExceptionMessages.resources
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.GenerateResource.cache
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.AssemblyInfoInputs.cache
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.AssemblyInfo.cs
@@ -34,5 +38,3 @@ C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Appl
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\refint\Ticket.Application.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Application\obj\Debug\net8.0\ref\Ticket.Application.dll
-C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.Resources.CategoryExceptionMessages.resources
-C:\Users\Pooya\source\repos\Ticket\Ticket.Application\obj\Debug\net8.0\Ticket.Application.csproj.GenerateResource.cache

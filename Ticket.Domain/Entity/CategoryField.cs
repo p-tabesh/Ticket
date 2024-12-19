@@ -13,8 +13,10 @@ public class CategoryField
     public int CategoryId { get; private set; }
     public Field Field { get; private set; }
     public int FieldId { get; private set; }
-    public CategoryField()
+    private CategoryField() { }
+    public CategoryField(Category category, Field field)
     {
-        
+        Category = category;
+        Field = field;
     }
 }

@@ -7,7 +7,7 @@ namespace Ticket.Infrastructure.Repository;
 
 public class CategoryRepository : ICategoryRepository
 {
-    private TicketDbContext _context;
+    private readonly TicketDbContext _context;
 
     public CategoryRepository(TicketDbContext context)
     {
