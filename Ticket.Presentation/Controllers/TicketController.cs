@@ -2,6 +2,7 @@
 using Ticket.Application.Models;
 using Ticket.Application.Services;
 using Ticket.Domain.Exceptions;
+using Prometheus;
 
 namespace Ticket.Presentation.Controllers;
 

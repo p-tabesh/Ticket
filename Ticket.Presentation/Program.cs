@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Prometheus;
 using Ticket.Application.Services;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure;
@@ -8,7 +9,10 @@ using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 using Ticket.Infrastructure.UnitOfWork;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 
 // Add services to the container.
@@ -36,11 +40,15 @@ builder.Services.AddScoped(typeof(IGenericRepositoy<>), typeof(GenericRepository
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseMetricServer();
+    app.UseHttpMetrics();
 }
 
 //if (!app.Environment.IsDevelopment())

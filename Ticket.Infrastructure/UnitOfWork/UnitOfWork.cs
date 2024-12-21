@@ -9,6 +9,7 @@ public class UnitOfWork : IDisposable
     private TicketRepository _ticketRepository;
     private UserRepository _userRepository;
     private CategoryRepository _categoryRepository;
+    private GenericRepository<Category> _genericRepository;
 
     private readonly TicketDbContext _context;
 

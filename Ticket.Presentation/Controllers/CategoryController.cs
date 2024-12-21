@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Ticket.Domain.Entity;
 using Ticket.Application.Services;
 using Ticket.Application.Models;
+using Prometheus;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -10,8 +11,14 @@ namespace Ticket.Presentation.Controllers;
 public class CategoryController : ControllerBase
 {
     private CategoryService _categoryService;
+    
+
+    Counter _counter;
+    Gauge _gauge;
     public CategoryController(CategoryService categoryService)
     {
+        _counter = Metrics.CreateCounter("TestCounterMetric", "test metric counter");
+        _gauge = Metrics.CreateGauge("GojeTest", "GOJE GILASI");
         _categoryService = categoryService;
     }
     
@@ -21,6 +28,8 @@ public class CategoryController : ControllerBase
     {
         try
         {
+            _counter.Inc(1);
+            _counter.Publish();
             _categoryService.AddCategory(categoryModel.Title,categoryModel.ParentCategory,categoryModel.UserId);
             return Ok("Category Added Successfully");
         }
