@@ -3,6 +3,7 @@ using Ticket.Application.Models;
 using Ticket.Application.Services;
 using Ticket.Domain.Exceptions;
 using Prometheus;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -11,8 +12,10 @@ public class TicketController : Controller
 {
     private readonly TicketService _ticketService;
     private readonly ILogger<TicketController> _logger;
-    public TicketController(TicketService ticketService, ILogger<TicketController> logger)
+    private readonly IDistributedCache _distributedCache;
+    public TicketController(TicketService ticketService, ILogger<TicketController> logger, IDistributedCache distributedCache)
     {
+        _distributedCache = distributedCache;
         _logger = logger;
         _ticketService = ticketService;
     }
