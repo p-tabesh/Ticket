@@ -22,15 +22,15 @@ public class TicketService
     {
         var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages",Assembly.GetExecutingAssembly());
 
-        using (var UOW = new UnitOfWork(_context))
+        using (var mainUoW = new NastedUnitOfWork(_context))
         {
-            var category = UOW.CategoryRepository.GetById(ticketInfo.CategoryId);
+            var category = mainUoW.CategoryRepository.GetById(ticketInfo.CategoryId);
             if (category == null)
                 //throw new CategoryException(resourceManager.GetString("CategoryNotFound"));
                 throw new InvalidOperationException();
             
             var assignUser = category.DefaultUserAsign;
-            var user = UOW.UserRepository.GetById(ticketInfo.UserId);
+            var user = mainUoW.UserRepository.GetById(ticketInfo.UserId);
 
             
 
@@ -46,8 +46,11 @@ public class TicketService
             ticket.AddStatusHistory(Status.Open);
             ticket.AddAudit(Domain.Enums.Action.Add, $"Ticket Added By {user.Username}", user);
 
-            UOW.TicketRepository.Add(ticket);
-            UOW.Save();
+            
+            mainUoW.TicketRepository.Add(ticket);
+            mainUoW.Commit();
         }
+
+        
     }
 }

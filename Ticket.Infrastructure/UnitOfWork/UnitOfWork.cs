@@ -1,4 +1,5 @@
-﻿using Ticket.Domain.Entity;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using Ticket.Domain.Entity;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 
@@ -6,6 +7,8 @@ namespace Ticket.Infrastructure.UnitOfWork;
 
 public class UnitOfWork : IDisposable
 {
+
+    private IDbContextTransaction _transaction;
     private TicketRepository _ticketRepository;
     private UserRepository _userRepository;
     private CategoryRepository _categoryRepository;
@@ -13,11 +16,17 @@ public class UnitOfWork : IDisposable
 
     private readonly TicketDbContext _context;
 
+    private readonly UnitOfWork? _parentUnitOfWork;
+
     public UnitOfWork(TicketDbContext context)
     {
         _context = context;
     }
 
+    public void BeginTransaction()
+    {
+        _transaction = _context.Database.BeginTransaction();
+    }
 
     public TicketRepository TicketRepository
     {
@@ -48,9 +57,14 @@ public class UnitOfWork : IDisposable
             return _categoryRepository;
         }
     }
-    public void Save()
+    public void Rollback()
+    {
+        _transaction?.Rollback();
+    }
+    public void Commit()
     {
         _context.SaveChanges();
+        _transaction?.Commit();
     }
 
 
@@ -59,16 +73,57 @@ public class UnitOfWork : IDisposable
     {
         if (!_disposed)
         {
-            if(disposing)
+            if (disposing)
             {
                 _context.Dispose();
             }
         }
+        _context.Dispose();
+        _transaction?.Dispose();
         _disposed = true;
     }
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
+    }
+}
+
+
+
+public class NastedUnitOfWork : UnitOfWork
+{
+    static private int _transactionDepth;
+
+    public NastedUnitOfWork(TicketDbContext context)
+        : base(context)
+    {
+        if (_transactionDepth == 0)
+        {
+            base.BeginTransaction();
+        }
+        _transactionDepth++;
+    }
+
+
+    public new void Commit()
+    {
+        _transactionDepth--;
+
+        if (_transactionDepth == 0)
+            base.Commit();
+    }
+
+    public new void Rollback()
+    {
+        _transactionDepth--;
+        if (_transactionDepth == 0)
+            base.Rollback();
+    }
+
+    public new void Dispose()
+    {
+        if (_transactionDepth == 0)
+            base.Dispose();
     }
 }

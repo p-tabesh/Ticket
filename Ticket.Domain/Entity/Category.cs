@@ -22,7 +22,12 @@ public class Category
     {
         if (string.IsNullOrEmpty(title))
             throw new Exception("Title cannot be empty");
-        
+
+        if (new List<Category>().Any(c => c.Title == title))
+        {
+            throw new ArgumentException("category already exists");
+        }
+
         Title = title;
         ParentId = parentId;
         DefaultUserAsign = defaultUserAsign;

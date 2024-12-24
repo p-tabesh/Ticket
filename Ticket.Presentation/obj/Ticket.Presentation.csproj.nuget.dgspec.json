@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {}
+    "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+    "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj",
         "projectName": "Ticket.Application",
-        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj",
-        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\obj\\",
+        "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj",
+        "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,17 +22,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
-                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
               },
-              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+              "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
               }
             }
           }
@@ -41,6 +42,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -62,21 +68,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+    "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj",
         "projectName": "Ticket.Domain",
-        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj",
-        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj",
+        "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -84,6 +90,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -96,6 +103,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -117,21 +129,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+    "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
         "projectName": "Ticket.Infrastructure",
-        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -139,14 +151,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
-                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
               }
             }
           }
@@ -155,6 +168,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -198,21 +216,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {
+    "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+        "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
         "projectName": "Ticket.Presentation",
-        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
-        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
+        "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+        "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -220,20 +238,21 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
-                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
+              "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
               },
-              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
-                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
               },
-              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+              "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
               }
             }
           }
@@ -242,6 +261,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -267,10 +291,6 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.10, )"
-            },
-            "Microsoft.Extensions.Caching.StackExchangeRedis": {
-              "target": "Package",
-              "version": "[9.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -304,7 +324,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.108/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

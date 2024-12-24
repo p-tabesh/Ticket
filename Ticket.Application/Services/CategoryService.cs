@@ -34,7 +34,7 @@ public class CategoryService
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            throw new Exception(e.Message, e);
         }
     }
 
