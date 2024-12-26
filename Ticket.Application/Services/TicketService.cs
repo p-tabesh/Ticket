@@ -1,7 +1,7 @@
 ﻿using Ticket.Application.Models;
 using Ticket.Domain.Entity;
 using Ticket.Domain.Enums;
-using Ticket.Infrastructure.UnitsOfWork;
+using Ticket.Infrastructure.UnitOfWork;
 using Ticket.Infrastructure.Context;
 using System.Resources;
 using System.Reflection;
@@ -12,30 +12,39 @@ namespace Ticket.Application.Services;
 
 public class TicketService
 {
-    private TicketUnitOfWork _unitOfWork;
-    public TicketService(TicketUnitOfWork ticketUnitOfWork)
+    private TicketDbContext _ticketDbContext;
+    public TicketService(TicketDbContext dbContext)
     {
-        _unitOfWork = ticketUnitOfWork;
+        _ticketDbContext = dbContext;
     }
     public void AddTicket(TicketInfo ticketInfo, CustomerInfo customerInfo)
     {
         var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages",Assembly.GetExecutingAssembly());
 
-        var category = _unitOfWork.categoryRepository.GetById(ticketInfo.CategoryId);
-        var assignUser = _unitOfWork.categoryRepository.GetDefaultUser(ticketInfo.CategoryId);
-        var user = _unitOfWork.userRepository.GetById(ticketInfo.UserId);
+        using (var UoW = new UnitOfWork<TicketDbContext>(_ticketDbContext))
+        {
+            var ticketRepository = UoW.GetGenericRepositoy<Tickets>();
+            var userRepository = UoW.GetGenericRepositoy<User>();
+            var categoryRepository = UoW.GetGenericRepositoy<Category>();
+            var category = categoryRepository.GetById(ticketInfo.CategoryId);
+            var user = userRepository.GetById(ticketInfo.UserId);
+            var assignUser = category.DefaultUserAsign;
+            var ticket = new Tickets(ticketInfo.Subject,
+                               ticketInfo.Body,
+                               ticketInfo.Priority,
+                               customerInfo.NationalCode,
+                               customerInfo.PhoneNumber,
+                               category,
+                               assignUser,
+                               user);
+            ticket.AddStatusHistory(Status.Open);
+            ticket.AddAudit(Domain.Enums.Action.Add, "added", user);
+            ticketRepository.Add(ticket);
+            UoW.Commit();
+        }
 
-        var ticket = new Tickets(ticketInfo.Subject,
-                           ticketInfo.Body,
-                           ticketInfo.Priority,
-                           customerInfo.NationalCode,
-                           customerInfo.PhoneNumber,
-                           category,
-                           assignUser,
-                           user);
 
-        _unitOfWork.ticketRepository.Add(ticket);
-        _unitOfWork.Commit();
+
     }
 }
     

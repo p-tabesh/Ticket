@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Prometheus;
 using Ticket.Application.Services;
 using Ticket.Domain.IRepository;
+using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 using Ticket.Infrastructure.UnitOfWork;
-using Ticket.Infrastructure.UnitsOfWork;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,15 +29,15 @@ builder.Services.AddDbContext<TicketDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
 
-builder.Services.AddStackExchangeRedisCache(
-        option =>
-        {
-            builder.Configuration.GetConnectionString("RedisConnectionString");
-        });
+//builder.Services.AddStackExchangeRedisCache(
+//        option =>
+//        {
+//            builder.Configuration.GetConnectionString("RedisConnectionString");
+//        });
 
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
-builder.Services.AddScoped<TicketUnitOfWork>();
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork<TicketDbContext>));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();

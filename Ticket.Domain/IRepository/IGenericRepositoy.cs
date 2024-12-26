@@ -3,6 +3,7 @@
 public interface IReadReposity<out TEntity>
 {
     TEntity GetById(int id);
+    IQueryable<TEntity> GetAll();
 }
 public interface IWriteRepository<in TEntity>
 {
@@ -10,8 +11,8 @@ public interface IWriteRepository<in TEntity>
     void Update(TEntity entity);
     void Remove(TEntity entity);
 }
-public interface IGenericRepositoy<TEntity>: IWriteRepository<TEntity>, IReadReposity<TEntity> 
-    where TEntity:class 
+public interface IGenericRepositoy<TEntity> : IWriteRepository<TEntity>, IReadReposity<TEntity>
+    where TEntity : class
 {
-    
+
 }

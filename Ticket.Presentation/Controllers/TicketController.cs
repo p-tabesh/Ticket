@@ -12,10 +12,10 @@ public class TicketController : Controller
 {
     private readonly TicketService _ticketService;
     private readonly ILogger<TicketController> _logger;
-    private readonly IDistributedCache _distributedCache;
-    public TicketController(TicketService ticketService, ILogger<TicketController> logger, IDistributedCache distributedCache)
+    //private readonly IDistributedCache _distributedCache;
+    public TicketController(TicketService ticketService, ILogger<TicketController> logger/*, IDistributedCache distributedCache*/)
     {
-        _distributedCache = distributedCache;
+        //_distributedCache = distributedCache;
         _logger = logger;
         _ticketService = ticketService;
     }

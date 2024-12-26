@@ -35,4 +35,8 @@ public class GenericRepository<TEntity> : IGenericRepositoy<TEntity> where TEnti
         return entity;
     }
 
+    public IQueryable<TEntity> GetAll()
+    {
+        return _dbset;
+    }
 }

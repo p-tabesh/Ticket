@@ -27,6 +27,22 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
+    "Method": "AddFieldToCategory",
+    "RelativePath": "category/add-field",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fieldModel",
+        "Type": "Ticket.Application.Models.FieldModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "UpdateDefaultUserAssigne",
     "RelativePath": "category/update-defaultUser",
     "HttpMethod": "PUT",
@@ -40,6 +56,43 @@
       },
       {
         "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.OtpManagerController",
+    "Method": "GetOtp",
+    "RelativePath": "OtpManager/get-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "phoneNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.OtpManagerController",
+    "Method": "ValidateOtp",
+    "RelativePath": "OtpManager/validate-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "phone",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Otp",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -70,6 +123,36 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.UserController",
+    "Method": "AddUser",
+    "RelativePath": "user/add-user",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.UserController",
+    "Method": "ChangePassword",
+    "RelativePath": "user/change-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.UserController",
+    "Method": "ChangeUsername",
+    "RelativePath": "user/change-username",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]
