@@ -8,6 +8,7 @@ using Ticket.Infrastructure;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 using Ticket.Infrastructure.UnitOfWork;
+using Ticket.Infrastructure.UnitsOfWork;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,12 +25,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TicketDbContext>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
+
+builder.Services.AddStackExchangeRedisCache(
+        option =>
+        {
+            builder.Configuration.GetConnectionString("RedisConnectionString");
+        });
 
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
-builder.Services.AddScoped<UnitOfWork>();
+builder.Services.AddScoped<TicketUnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();

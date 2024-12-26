@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ticket.Infrastructure.Context;
 using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ticket.Infrastructure.Repository;
 
@@ -34,4 +35,5 @@ public class UserRepository: IUserRepository
             throw new Exception(e.Message);
         }
     }
+    
 }
