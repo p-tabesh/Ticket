@@ -25,7 +25,7 @@ public class Tickets
     public User User { get; private set; }
     public int UserId { get; private set; }
     // AssignUser
-    public User AssignUser { get; private set; } = new User();
+    public User AssignUser { get; private set; }
     public int AssignUserId { get; private set; }
 
     // Audit
@@ -47,10 +47,8 @@ public class Tickets
                     string nationalCode,
                     string phoneNumber,
                     Category category,
-                    User assignUser,
                     User user)
     {
-
         Subject = subject;
         Body = body;
         Priority = priority;
@@ -58,7 +56,6 @@ public class Tickets
         PhoneNumber = phoneNumber;
         Category = category;
         User = user;
-        AssignUser = assignUser;
         CreationDate = DateTime.Now;
     }
 
@@ -66,7 +63,19 @@ public class Tickets
     #region User
     public void AssignTicket(User user)
     {
-
+        if (user is null)
+        {
+            throw new Exception("user doesnt exists");
+        } 
+        if (!user.IsActive)
+        {
+            throw new Exception("cannot assign ticket to inactive user");
+        }
+        if (user == this.User)
+        {
+            throw new InvalidOperationException("invalid operation");
+        }
+        this.AssignUser = user;
     }
     #endregion
 
@@ -79,7 +88,8 @@ public class Tickets
         var ticketStatusHistory = new TicketStatusHistory(status);
         TicketStatusHistory.Add(ticketStatusHistory);
     }
-    #endregion
+    #endregion  
+
 
     #region TicketAudit
     public void AddAudit(Enums.Action action, string description, User user)

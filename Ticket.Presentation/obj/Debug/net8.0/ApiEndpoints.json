@@ -108,19 +108,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ticketInfo",
-        "Type": "Ticket.Application.Models.TicketInfo",
+        "Name": "ticketModel",
+        "Type": "Ticket.Application.Models.TicketModel",
         "IsRequired": true
-      },
-      {
-        "Name": "NationalCode",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "PhoneNumber",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -132,7 +122,13 @@
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "userModel",
+        "Type": "Ticket.Application.Models.UserModel",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -153,6 +149,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.UserController",
+    "Method": "GetUser",
+    "RelativePath": "user/users/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   }
 ]

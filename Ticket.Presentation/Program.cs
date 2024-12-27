@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Prometheus;
+using Ticket.Application.Mappings;
 using Ticket.Application.Services;
 using Ticket.Domain.IRepository;
 using Ticket.Domain.IUnitOfWork;
-using Ticket.Infrastructure;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 using Ticket.Infrastructure.UnitOfWork;
@@ -18,31 +16,44 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
+// Swagger Configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// SqlServer Configuration
 builder.Services.AddDbContext<TicketDbContext>(
     options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
 
+// Mapper Configuration
+builder.Services.AddAutoMapper(typeof(TicketMappingProfile));
+
+
+// Redis Connection
 //builder.Services.AddStackExchangeRedisCache(
 //        option =>
 //        {
 //            builder.Configuration.GetConnectionString("RedisConnectionString");
 //        });
 
+
+// Services
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
+builder.Services.AddScoped<UserService>();
+// UnitOfWork
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork<TicketDbContext>));
+builder.Services.AddScoped(typeof(IGenericRepositoy<>), typeof(GenericRepository<>));
+// Repositories
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped(typeof(IGenericRepositoy<>), typeof(GenericRepository<>));
 
 
 
@@ -59,11 +70,6 @@ if (app.Environment.IsDevelopment())
     app.UseHttpMetrics();
 }
 
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Error");
-//    app.UseHsts();
-//}
 
 app.UseHttpsRedirection();
 

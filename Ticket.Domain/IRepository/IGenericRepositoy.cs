@@ -1,11 +1,14 @@
-﻿namespace Ticket.Domain.IRepository;
+﻿using System.Linq.Expressions;
 
-public interface IReadReposity<out TEntity>
+namespace Ticket.Domain.IRepository;
+
+public interface IReadReposity<TEntity>
 {
+    IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression);
     TEntity GetById(int id);
     IQueryable<TEntity> GetAll();
 }
-public interface IWriteRepository<in TEntity>
+public interface IWriteRepository<TEntity>
 {
     void Add(TEntity entity);
     void Update(TEntity entity);

@@ -1,0 +1,67 @@
+﻿using Microsoft.IdentityModel.Tokens;
+using Ticket.Application.Models;
+using Ticket.Application.Utilities;
+using Ticket.Domain.Entity;
+using Ticket.Infrastructure.Context;
+using Ticket.Infrastructure.UnitOfWork;
+
+namespace Ticket.Application.Services;
+
+public class UserService
+{
+    private TicketDbContext _context;
+
+    public UserService(TicketDbContext context)
+    {
+        _context = context;
+    }
+
+    public void AddUser(UserModel userModel)
+    {
+
+        using (var UoW = new UnitOfWork<TicketDbContext>(_context))
+        {
+            var teamRepository = UoW.GetGenericRepositoy<Team>();
+            var userRepository = UoW.GetGenericRepositoy<User>();
+
+            if (userRepository.GetByCondition(user => user.Username == userModel.UserName).FirstOrDefault() != null)
+            {
+                UoW.Rollback();
+                throw new InvalidOperationException("User Already Exists");
+            }
+            if (!PasswordChecker.IsSecure(userModel.Password))
+            {
+                UoW.Rollback();
+                throw new Exception("Password security isnt enough");
+            }
+            if (!userModel.Email.Contains("@gmail.com"))
+            {
+                throw new ArgumentException("email invalid");
+            }
+            
+            var team = teamRepository.GetById(userModel.TeamId);
+
+            var user = new User(userModel.UserName, userModel.Password, userModel.Email, team);
+            userRepository.Add(user);
+            UoW.Commit();
+        }
+    }
+    public IEnumerable<User> GetUsers()
+    {
+        using (var UoW = new UnitOfWork<TicketDbContext>(_context))
+        {
+            var userRepository = UoW.GetGenericRepositoy<User>();
+            var users = userRepository.GetAll().ToList();
+            return users;
+        }
+    }
+    public User GetUser(int id)
+    {
+        using (var UoW = new UnitOfWork<TicketDbContext>(_context))
+        {
+            var userRepository = UoW.GetGenericRepositoy<User>();
+            var user = userRepository.GetById(id);
+            return user;
+        }
+    }
+}

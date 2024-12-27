@@ -4,6 +4,8 @@ using Ticket.Application.Services;
 using Ticket.Domain.Exceptions;
 using Prometheus;
 using Microsoft.Extensions.Caching.Distributed;
+using AutoMapper;
+using Ticket.Domain.Entity;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -12,6 +14,7 @@ public class TicketController : Controller
 {
     private readonly TicketService _ticketService;
     private readonly ILogger<TicketController> _logger;
+    
     //private readonly IDistributedCache _distributedCache;
     public TicketController(TicketService ticketService, ILogger<TicketController> logger/*, IDistributedCache distributedCache*/)
     {
@@ -22,17 +25,17 @@ public class TicketController : Controller
 
     [HttpPost]
     [Route("add")]
-    public IActionResult AddTicket([FromBody] TicketInfo ticketInfo, CustomerInfo customerInfo)
+    public IActionResult AddTicket([FromBody] TicketModel ticketModel)
     {
         try
-        {
+        {            
+            
             _logger.LogInformation("test logger");
-            _ticketService.AddTicket(ticketInfo, customerInfo);
+            _ticketService.AddTicket(ticketModel);
             return Ok();
         }
         catch (CategoryException ex)
         {
-            
             _logger.LogError(ex.Message);
             return BadRequest(ex.Message);
         }
@@ -42,7 +45,7 @@ public class TicketController : Controller
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(ex.Message+" inner: "+ ex.InnerException);
         }
     }
 }

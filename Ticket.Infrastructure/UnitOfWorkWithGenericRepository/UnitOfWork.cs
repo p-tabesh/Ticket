@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ticket.Domain.IRepository;
+﻿using Ticket.Domain.IRepository;
 using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;

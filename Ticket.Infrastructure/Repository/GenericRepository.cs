@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Ticket.Infrastructure.Context;
 using Ticket.Domain.IRepository;
+using System.Linq.Expressions;
 
 namespace Ticket.Infrastructure.Repository;
 
@@ -38,5 +39,11 @@ public class GenericRepository<TEntity> : IGenericRepositoy<TEntity> where TEnti
     public IQueryable<TEntity> GetAll()
     {
         return _dbset;
+    }
+
+    public IEnumerable<TEntity> GetByCondition(Expression<Func<TEntity, bool>> expression)
+    {
+        IEnumerable<TEntity> entity = _dbset.Where(expression).ToList();
+        return entity;
     }
 }

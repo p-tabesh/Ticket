@@ -449,3 +449,4 @@ C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\scopedcss\bun
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\Ticket.P.D9D3FFED.Up2Date
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\Ticket.Presentation.genruntimeconfig.cache
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\ref\Ticket.Presentation.dll
+C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\AutoMapper.dll
