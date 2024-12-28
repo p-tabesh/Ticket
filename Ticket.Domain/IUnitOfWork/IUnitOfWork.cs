@@ -4,7 +4,7 @@ namespace Ticket.Domain.IUnitOfWork;
 
 public interface IUnitOfWork : IDisposable
 {
-    IGenericRepositoy<T> GetGenericRepositoy<T>() where T: class;
+    
     void Commit();
     void Rollback();
 }

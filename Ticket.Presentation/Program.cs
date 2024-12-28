@@ -13,7 +13,11 @@ using Ticket.Infrastructure.UnitOfWork;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
+builder.Services.AddCors(
+    option =>
+    {
+        option.AddPolicy("AllowAll", builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+    });
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -47,9 +51,11 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<UserService>();
 // UnitOfWork
+builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork<TicketDbContext>));
 builder.Services.AddScoped(typeof(IGenericRepositoy<>), typeof(GenericRepository<>));
 // Repositories
+
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
@@ -59,7 +65,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
-
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

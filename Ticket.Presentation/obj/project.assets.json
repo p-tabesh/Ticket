@@ -75,6 +75,15 @@
           }
         }
       },
+      "Microsoft.AspNet.Cors/5.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/System.Web.Cors.dll": {}
+        },
+        "runtime": {
+          "lib/net45/System.Web.Cors.dll": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
         "type": "package",
         "compile": {
@@ -1782,6 +1791,20 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "Microsoft.AspNet.Cors/5.3.0": {
+      "sha512": "GmnL9NNGTheEcUVSzjnFaMaCEIwWdvP6mBed1ux/7M0D2yc+uzZ6UN/gAA5mva1BZmah0G+F+MVaPkoValWpmQ==",
+      "type": "package",
+      "path": "microsoft.aspnet.cors/5.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NET.icon.png",
+        "NET_Library_EULA_ENU.txt",
+        "lib/net45/System.Web.Cors.dll",
+        "microsoft.aspnet.cors.5.3.0.nupkg.sha512",
+        "microsoft.aspnet.cors.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
@@ -4693,6 +4716,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Microsoft.AspNet.Cors >= 5.3.0",
       "Microsoft.EntityFrameworkCore >= 8.0.10",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.10",
@@ -4706,19 +4730,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pooya\\.nuget\\packages\\": {}
+    "C:\\Users\\p.tabesh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
       "projectName": "Ticket.Presentation",
-      "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
-      "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
+      "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+      "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4726,21 +4750,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
-              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
+            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
             },
-            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
-              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
             },
-            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
             }
           }
         }
@@ -4749,17 +4772,16 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Microsoft.AspNet.Cors": {
+            "target": "Package",
+            "version": "[5.3.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.10, )"
@@ -4812,8 +4834,20 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.108/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Cors 5.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Cors",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
