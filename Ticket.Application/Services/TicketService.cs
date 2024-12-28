@@ -7,42 +7,60 @@ using System.Resources;
 using System.Reflection;
 using Ticket.Infrastructure.Repository;
 using AutoMapper;
+using Ticket.Domain.IRepository;
 
 
 namespace Ticket.Application.Services;
 
 public class TicketService
 {
+    private ITicketRepository _ticketRepository;
+    private ICategoryRepository _categoryRepository;
+    private IUserRepository _userRepository;
     private TicketDbContext _ticketDbContext;
     private IMapper _mapper;
-    public TicketService(TicketDbContext dbContext, IMapper mapper)
+    public TicketService(
+        TicketDbContext dbContext,
+        IMapper mapper,
+        ITicketRepository ticketRepository,
+        ICategoryRepository categoryRepository,
+        IUserRepository userRepository
+        )
     {
         _ticketDbContext = dbContext;
         _mapper = mapper;
+        _ticketRepository = ticketRepository;
+        _categoryRepository = categoryRepository;
+        _userRepository = userRepository;
+
     }
     public void AddTicket(TicketModel ticketModel)
     {
-        var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages",Assembly.GetExecutingAssembly());
+        var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages", Assembly.GetExecutingAssembly());
 
-        using (var UoW = new UnitOfWork<TicketDbContext>(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext))
         {
-            var ticketRepository = UoW.GetGenericRepositoy<Tickets>();
-            var userRepository = UoW.GetGenericRepositoy<User>();
-            var categoryRepository = UoW.GetGenericRepositoy<Category>();
-            var category = categoryRepository.GetById(ticketModel.CategoryId);
 
-            var user = userRepository.GetById(ticketModel.UserId);
-            var assignUser = category.DefaultUserAsign;
+            var category = _categoryRepository.GetById(ticketModel.CategoryId);
+            var user = _userRepository.GetById(ticketModel.UserId);
+            var assignUser = _categoryRepository.GetDefaultUser(ticketModel.CategoryId);
 
-            var ticket = _mapper.Map<Tickets>(ticketModel);
-            ticket.AssignTicket(assignUser);
+            var ticket = new Tickets(ticketModel.Subject,
+                                     ticketModel.Body,
+                                     ticketModel.Priority,
+                                     ticketModel.NationalCode,
+                                     ticketModel.PhoneNumber,
+                                     category,
+                                     user);
+
+            ticket.AssignTicket(_userRepository.GetById(2));
             ticket.AddStatusHistory(Status.Open);
             ticket.AddAudit(Domain.Enums.Action.Add, "added", user);
-            ticketRepository.Add(ticket);
+            _ticketRepository.Add(ticket);
             UoW.Commit();
         }
     }
 }
-    
+
 
 

@@ -7,53 +7,39 @@ using Ticket.Infrastructure.Repository;
 
 namespace Ticket.Infrastructure.UnitOfWork;
 
-public sealed class UnitOfWork: IUnitOfWork
+public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private TicketDbContext _dbContext;
+    public TicketDbContext Context;
     private bool _disposed;
-    public UnitOfWork(ContextFactory dbContextFactory)
+    public UnitOfWork(TicketDbContext context)
     {
-        _dbContext = dbContextFactory.Context;
+        Context = context;
     }
-    
+
     public void Commit()
     {
-        _dbContext.Commit();
+        Context.SaveChanges();
     }
-    
-    public void Dispose()
+    public void Rollback()
+    {
+        Context.ChangeTracker.Clear();
+    }
+    public void Dispose(bool disposing)
     {
         if (!_disposed)
         {
-            _dbContext.Dispose();
+            if (disposing)
+            {
+                Context?.Dispose();
+            }
             _disposed = true;
-            GC.SuppressFinalize(this);
         }
     }
-
-    public void Rollback()
+    public void Dispose()
     {
-        _dbContext.Rollback();
-    }
+        GC.SuppressFinalize(this);
+        Dispose(true);
+    }    
 }
 
 
-public class ContextFactory
-{
-    private TicketDbContext _dbContext;
-    private IDbContextFactory<TicketDbContext> _dbContextFactory;
-
-    public ContextFactory(IDbContextFactory<TicketDbContext> dbContextFactory)
-    {
-        _dbContext = dbContextFactory.CreateDbContext();
-    }
-    public TicketDbContext Context
-    {
-        get
-        {
-            if (_dbContext == null)
-                return _dbContextFactory.CreateDbContext();
-            return _dbContext;
-        }
-    }
-}

@@ -452,3 +452,4 @@ C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\ref\Ticket.Pr
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\System.Web.Cors.dll
+C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\System.Web.Cors.dll

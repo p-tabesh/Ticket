@@ -34,6 +34,12 @@ builder.Services.AddDbContext<TicketDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
 
+//builder.Services.AddDbContextFactory<TicketDbContext>(
+//    options =>
+//    {
+//        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
+//    });
+
 // Mapper Configuration
 builder.Services.AddAutoMapper(typeof(TicketMappingProfile));
 
@@ -51,15 +57,14 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<UserService>();
 // UnitOfWork
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork<TicketDbContext>));
-builder.Services.AddScoped(typeof(IGenericRepositoy<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Repositories
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
 
 

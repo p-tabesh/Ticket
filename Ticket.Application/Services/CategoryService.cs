@@ -10,7 +10,7 @@ public class CategoryService
     private ICategoryRepository _categoryRepository;
     private IUserRepository _userRepository;
     private ICategoryFieldRepository _categoryFieldRepository;
-    private IGenericRepositoy<CategoryField> _categoryFieldGenericRepository;
+    
     public CategoryService(ICategoryRepository categoryRepository, IUserRepository userRepository, ICategoryFieldRepository categoryFieldRepository)
     {
         _categoryRepository = categoryRepository;

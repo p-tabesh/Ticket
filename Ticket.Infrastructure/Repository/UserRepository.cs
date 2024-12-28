@@ -35,5 +35,15 @@ public class UserRepository: IUserRepository
             throw new Exception(e.Message);
         }
     }
-    
+    public User GetByUsername(string username)
+    {
+        var user = _ticketDbContext.Users.FirstOrDefault(user => user.Username == username);
+        return user;
+    }
+
+    public IEnumerable<User> GetAll()
+    {
+        var users = _ticketDbContext.Users.ToList();
+        return users;
+    }
 }

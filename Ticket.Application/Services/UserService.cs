@@ -2,6 +2,7 @@
 using Ticket.Application.Models;
 using Ticket.Application.Utilities;
 using Ticket.Domain.Entity;
+using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.UnitOfWork;
 
@@ -10,21 +11,22 @@ namespace Ticket.Application.Services;
 public class UserService
 {
     private TicketDbContext _context;
-
-    public UserService(TicketDbContext context)
+    private IUserRepository _userRepository;
+    private ITeamRepository _tenantRepository;
+    public UserService(TicketDbContext context, IUserRepository userRepository, ITeamRepository teamRepository)
     {
         _context = context;
+        _userRepository = userRepository;
+        _tenantRepository = teamRepository;
     }
 
     public void AddUser(UserModel userModel)
     {
 
-        using (var UoW = new UnitOfWork<TicketDbContext>(_context))
+        using (var UoW = new UnitOfWork(_context))
         {
-            var teamRepository = UoW.GetGenericRepositoy<Team>();
-            var userRepository = UoW.GetGenericRepositoy<User>();
 
-            if (userRepository.GetByCondition(user => user.Username == userModel.UserName).FirstOrDefault() != null)
+            if (_userRepository.GetByUsername(userModel.UserName) != null)
             {
                 UoW.Rollback();
                 throw new InvalidOperationException("User Already Exists");
@@ -38,30 +40,22 @@ public class UserService
             {
                 throw new ArgumentException("email invalid");
             }
-            
-            var team = teamRepository.GetById(userModel.TeamId);
+
+            var team = _tenantRepository.GetById(userModel.TeamId);
 
             var user = new User(userModel.UserName, userModel.Password, userModel.Email, team);
-            userRepository.Add(user);
+            _userRepository.Add(user);
             UoW.Commit();
         }
     }
     public IEnumerable<User> GetUsers()
     {
-        using (var UoW = new UnitOfWork<TicketDbContext>(_context))
-        {
-            var userRepository = UoW.GetGenericRepositoy<User>();
-            var users = userRepository.GetAll().ToList();
-            return users;
-        }
+        var users = _userRepository.GetAll().ToList();
+        return users;
     }
     public User GetUser(int id)
     {
-        using (var UoW = new UnitOfWork<TicketDbContext>(_context))
-        {
-            var userRepository = UoW.GetGenericRepositoy<User>();
-            var user = userRepository.GetById(id);
-            return user;
-        }
+        var user = _userRepository.GetById(id);
+        return user;
     }
 }
