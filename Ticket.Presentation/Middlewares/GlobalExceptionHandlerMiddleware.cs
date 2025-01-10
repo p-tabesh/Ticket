@@ -33,6 +33,7 @@ namespace Ticket.Presentation.Middlewares
                     await context.Response.WriteAsync("category exception returned");
                     break;
                 default:
+                    await context.Response.WriteAsync(exception.Message);
                     break;
             }
         }

@@ -8,6 +8,10 @@ using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 using Ticket.Infrastructure.UnitOfWork;
 using Ticket.Presentation.Middlewares;
+using RedLockNet;
+using StackExchange.Redis;
+using RedLockNet.SERedis;
+using RedLockNet.SERedis.Configuration;
 
 
 
@@ -51,8 +55,13 @@ builder.Services.AddAutoMapper(typeof(TicketMappingProfile));
 //        {
 //            builder.Configuration.GetConnectionString("RedisConnectionString");
 //        });
+var multiplexer = new List<RedLockMultiplexer>
+{
+    ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString"))
+};
 
-
+var redlockFactory = RedLockFactory.Create(multiplexer);
+builder.Services.AddSingleton<IDistributedLockFactory>(redlockFactory);
 // Services
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
