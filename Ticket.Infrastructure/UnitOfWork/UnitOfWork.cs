@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Ticket.Domain.IRepository;
-using Ticket.Domain.IUnitOfWork;
+﻿using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
-using Ticket.Infrastructure.Repository;
 
 namespace Ticket.Infrastructure.UnitOfWork;
 
@@ -37,8 +33,8 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
     }
     public void Dispose()
     {
-        GC.SuppressFinalize(this);
         Dispose(true);
+        GC.SuppressFinalize(this);
     }    
 }
 

@@ -18,7 +18,7 @@
           }
         }
       },
-      "Azure.Core/1.35.0": {
+      "Azure.Core/1.36.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
@@ -58,6 +58,41 @@
         },
         "runtime": {
           "lib/netstandard2.0/Azure.Identity.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager/1.9.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.36.0",
+          "System.Text.Json": "4.7.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.ResourceManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.ResourceManager.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager.Reservations/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.36.0",
+          "Azure.ResourceManager": "1.9.0",
+          "System.Text.Json": "4.7.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.ResourceManager.Reservations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.ResourceManager.Reservations.dll": {
             "related": ".xml"
           }
         }
@@ -1733,16 +1768,16 @@
         "lib/net6.0/AutoMapper.xml"
       ]
     },
-    "Azure.Core/1.35.0": {
-      "sha512": "hENcx03Jyuqv05F4RBEPbxz29UrM3Nbhnr6Wl6NQpoU9BCIbL3XLentrxDCTrH54NLS11Exxi/o8MYgT/cnKFA==",
+    "Azure.Core/1.36.0": {
+      "sha512": "vwqFZdHS4dzPlI7FFRkPx9ctA+aGGeRev3gnzG8lntWvKMmBhAmulABi1O9CEvS3/jzYt7yA+0pqVdxkpAd7dQ==",
       "type": "package",
-      "path": "azure.core/1.35.0",
+      "path": "azure.core/1.36.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "CHANGELOG.md",
         "README.md",
-        "azure.core.1.35.0.nupkg.sha512",
+        "azure.core.1.36.0.nupkg.sha512",
         "azure.core.nuspec",
         "azureicon.png",
         "lib/net461/Azure.Core.dll",
@@ -1773,6 +1808,38 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Azure.ResourceManager/1.9.0": {
+      "sha512": "Ki3ethQJOkr0JuKnkazhKP5/bV849x1scwDSS61rrzf2/nmDM56jJmmCARHsFBoZfYQPd4lwCC2SeYfmLOY2wQ==",
+      "type": "package",
+      "path": "azure.resourcemanager/1.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.1.9.0.nupkg.sha512",
+        "azure.resourcemanager.nuspec",
+        "azureicon.png",
+        "lib/netstandard2.0/Azure.ResourceManager.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.xml"
+      ]
+    },
+    "Azure.ResourceManager.Reservations/1.4.0": {
+      "sha512": "4WzEDYheI248NzaBD9c5svRFWoe/CQ3nNF0NR/DNXq4qvynDnuhW0pW8XwMlq1ov/vQ9NlAOZClZX8CMute+/A==",
+      "type": "package",
+      "path": "azure.resourcemanager.reservations/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.reservations.1.4.0.nupkg.sha512",
+        "azure.resourcemanager.reservations.nuspec",
+        "azureicon.png",
+        "lib/netstandard2.0/Azure.ResourceManager.Reservations.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.Reservations.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -4716,6 +4783,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Azure.ResourceManager.Reservations >= 1.4.0",
       "Microsoft.AspNet.Cors >= 5.3.0",
       "Microsoft.EntityFrameworkCore >= 8.0.10",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.10",
@@ -4784,6 +4852,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Azure.ResourceManager.Reservations": {
+            "target": "Package",
+            "version": "[1.4.0, )"
+          },
           "Microsoft.AspNet.Cors": {
             "target": "Package",
             "version": "[5.3.0, )"

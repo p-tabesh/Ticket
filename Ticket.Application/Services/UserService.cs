@@ -2,6 +2,7 @@
 using Ticket.Application.Models;
 using Ticket.Application.Utilities;
 using Ticket.Domain.Entity;
+using Ticket.Domain.Exceptions;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.UnitOfWork;
@@ -55,6 +56,7 @@ public class UserService
     }
     public User GetUser(int id)
     {
+        throw new CategoryException();
         var user = _userRepository.GetById(id);
         return user;
     }

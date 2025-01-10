@@ -7,6 +7,7 @@ using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 using Ticket.Infrastructure.UnitOfWork;
+using Ticket.Presentation.Middlewares;
 
 
 
@@ -65,11 +66,12 @@ builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
-
+builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
 
 var app = builder.Build();
 
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.

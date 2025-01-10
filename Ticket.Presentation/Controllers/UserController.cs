@@ -39,9 +39,8 @@ namespace Ticket.Presentation.Controllers
         [Route("users/{id?}")]
         public IActionResult GetUser([FromRoute]int? id)
         {
-            try
-            {
-                
+            //try
+            //{
                 if (id != null)
                 {
                     var user = _userService.GetUser(id.Value);
@@ -51,11 +50,11 @@ namespace Ticket.Presentation.Controllers
                 }
                 var users = _userService.GetUsers();
                 return Ok(users);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message + " \ninner ex?" + e.InnerException);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest(e.Message + " \ninner ex?" + e.InnerException);
+            //}
 
         }
         [HttpPost]
