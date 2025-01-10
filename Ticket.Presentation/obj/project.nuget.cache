@@ -1,14 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "6GByFUbHrkE=",
+  "dgSpecHash": "hQSFnnkiGaQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pooya\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
-    "C:\\Users\\Pooya\\.nuget\\packages\\azure.core\\1.36.0\\azure.core.1.36.0.nupkg.sha512",
+    "C:\\Users\\Pooya\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
-    "C:\\Users\\Pooya\\.nuget\\packages\\azure.resourcemanager\\1.9.0\\azure.resourcemanager.1.9.0.nupkg.sha512",
-    "C:\\Users\\Pooya\\.nuget\\packages\\azure.resourcemanager.reservations\\1.4.0\\azure.resourcemanager.reservations.1.4.0.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\microsoft.aspnet.cors\\5.3.0\\microsoft.aspnet.cors.5.3.0.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

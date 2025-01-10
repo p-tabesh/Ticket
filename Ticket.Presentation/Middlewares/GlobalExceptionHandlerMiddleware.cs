@@ -1,8 +1,4 @@
-﻿
-
-using System.Net;
-using System.Text.Json;
-using Ticket.Domain.Exceptions;
+﻿using Ticket.Domain.Exceptions;
 
 namespace Ticket.Presentation.Middlewares
 {
@@ -13,6 +9,7 @@ namespace Ticket.Presentation.Middlewares
         public GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHandlerMiddleware> logger)
         {
             _logger = logger;
+            
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
