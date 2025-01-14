@@ -1,62 +1,64 @@
 ﻿using Ticket.Domain.Entity;
-using Ticket.Domain.IRepository;
 using Ticket.Application.Models;
-using System;
+using Ticket.Infrastructure.UnitOfWork;
+using Ticket.Infrastructure.Context;
 
 namespace Ticket.Application.Services;
 
 public class CategoryService
 {
-    private ICategoryRepository _categoryRepository;
-    private IUserRepository _userRepository;
-    private ICategoryFieldRepository _categoryFieldRepository;
-    
-    public CategoryService(ICategoryRepository categoryRepository, IUserRepository userRepository, ICategoryFieldRepository categoryFieldRepository)
+    TicketDbContext _dbContext;
+
+    public CategoryService(TicketDbContext dbContext)
     {
-        _categoryRepository = categoryRepository;
-        _userRepository = userRepository;
-        _categoryFieldRepository = categoryFieldRepository;
+        _dbContext = dbContext;
     }
 
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
+        using var UoW = new UnitOfWork(_dbContext);
         if (title == null)
             throw new ArgumentNullException("title must have value.");
 
-        var user = _userRepository.GetById(defaultUserAssingeId);
+        var user = UoW.UserRepository.GetById(defaultUserAssingeId);
+
         if (user == null)
             throw new ArgumentException("user doesnt exists");
 
         try
         {
             var category = new Category(title, parentId, user);
-            _categoryRepository.Add(category);
+            UoW.CategoryRepository.Add(category);
         }
         catch (Exception e)
         {
+            UoW.Rollback();
             throw new Exception(e.Message, e);
         }
     }
 
     public void UpdateDefaultUserAssigne(int categoryId, int userId)
     {
-        var category = _categoryRepository.GetById(categoryId) ?? throw new Exception("category doesnt exists");
-        var user = _userRepository.GetById(userId) ?? throw new Exception("user doesnt exists");
+        using var UoW = new UnitOfWork(_dbContext);
+        var category = UoW.CategoryRepository.GetById(categoryId) ?? throw new Exception("category doesnt exists");
+        var user = UoW.UserRepository.GetById(userId) ?? throw new Exception("user doesnt exists");
 
         if (category.DefaultUserAsign == user)
             throw new Exception("user already is default for this category");
 
         category.UpdateDefaultUserAssinge(user);
-        _categoryRepository.Update(category);
+        UoW.CategoryRepository.Update(category);
+        UoW.Commit();
     }
 
     public void AddField(FieldModel fieldModel)
     {
+        using var UoW = new UnitOfWork(_dbContext);
         var field = new Field(fieldModel.Name, fieldModel.FieldType, fieldModel.IsRequired);
-        var category = _categoryRepository.GetById(fieldModel.CategoryId);
+        var category = UoW.CategoryRepository.GetById(fieldModel.CategoryId);
         var categoryField = new CategoryField(category, field);
-
-        _categoryFieldRepository.Add(categoryField);
+        UoW.CategoryFieldRepository.Add(categoryField);
+        UoW.Commit();
     }
 
 }

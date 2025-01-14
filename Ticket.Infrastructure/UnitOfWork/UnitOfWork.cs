@@ -1,24 +1,92 @@
 ﻿using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
+using Ticket.Infrastructure.Repository;
 
 namespace Ticket.Infrastructure.UnitOfWork;
 
 public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
-    public TicketDbContext Context;
+    private readonly TicketDbContext _context;
     private bool _disposed;
+
+    private CategoryFieldRepository _categoryFieldRepository; // is set this as static good?
+    private CategoryRepository _categoryRepository;
+    private TeamRepository _teamRepository;
+    private TicketRepository _ticketRepository;
+    private UserRepository _userRepository;
     public UnitOfWork(TicketDbContext context)
     {
-        Context = context;
+        _context = context;
     }
 
+    public TicketRepository TicketRepository
+    {
+        get
+        {
+            if (_ticketRepository == null)
+            {
+                _ticketRepository = new TicketRepository(_context);
+                return _ticketRepository;
+            }
+            return _ticketRepository;
+        }
+    }
+    public UserRepository UserRepository
+    {
+        get
+        {
+            if (_userRepository == null)
+            {
+                _userRepository = new UserRepository(_context);
+            }
+            return _userRepository;
+        }
+    }
+    public TeamRepository TeamRepository
+    {
+        get
+        {
+            if (_teamRepository == null)
+            {
+                _teamRepository = new TeamRepository(_context);
+                return _teamRepository;
+            }
+            return _teamRepository;
+        }
+    }
+
+    public CategoryFieldRepository CategoryFieldRepository
+    {
+        get
+        {
+            if (_categoryFieldRepository == null)
+            {
+                _categoryFieldRepository = new CategoryFieldRepository(_context);
+                return _categoryFieldRepository;
+            }
+            return _categoryFieldRepository;
+        }
+    }
+
+    public CategoryRepository CategoryRepository
+    {
+        get
+        {
+            if (_categoryRepository == null)
+            {
+                _categoryRepository = new CategoryRepository(_context);
+                return (_categoryRepository);
+            }
+            return _categoryRepository;
+        }
+    }
     public void Commit()
     {
-        Context.SaveChanges();
+        _context.SaveChanges();
     }
     public void Rollback()
     {
-        Context.ChangeTracker.Clear();
+        _context.ChangeTracker.Clear();
     }
     public void Dispose(bool disposing)
     {
@@ -26,7 +94,7 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
         {
             if (disposing)
             {
-                Context?.Dispose();
+                _context?.Dispose();
             }
             _disposed = true;
         }
@@ -35,7 +103,7 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
     {
         Dispose(true);
         GC.SuppressFinalize(this);
-    }    
+    }
 }
 
 
