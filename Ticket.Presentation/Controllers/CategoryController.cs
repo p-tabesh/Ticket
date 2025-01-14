@@ -11,25 +11,21 @@ namespace Ticket.Presentation.Controllers;
 public class CategoryController : ControllerBase
 {
     private CategoryService _categoryService;
-    
 
-    Counter _counter;
-    Gauge _gauge;
     public CategoryController(CategoryService categoryService)
     {
-        _counter = Metrics.CreateCounter("TestCounterMetric", "test metric counter");
-        _gauge = Metrics.CreateGauge("GojeTest", "GOJE GILASI");
+        //_counter = Metrics.CreateCounter("TestCounterMetric", "test metric counter");
+        //_gauge = Metrics.CreateGauge("GojeTest", "GOJE GILASI");
         _categoryService = categoryService;
     }
-    
     [HttpPost]
     [Route("add-category")]
     public IActionResult AddCategory([FromQuery] CategoryModel categoryModel)
     {
         try
         {
-            _counter.Inc(1);
-            _counter.Publish();
+            //_counter.Inc(1);
+            //_counter.Publish();
             _categoryService.AddCategory(categoryModel.Title,categoryModel.ParentCategory,categoryModel.UserId);
             return Ok("Category Added Successfully");
         }

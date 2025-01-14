@@ -31,7 +31,7 @@ public class TicketController : Controller
     {
         using var _lock = await _lockFactory.CreateLockAsync("add-ticket-lock", TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         if (_lock.IsAcquired)
-        { 
+        {
             _logger.LogInformation("locked");
             _ticketService.AddTicket(ticketModel);
             return Ok();

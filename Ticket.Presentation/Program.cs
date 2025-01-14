@@ -12,6 +12,8 @@ using RedLockNet;
 using StackExchange.Redis;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 
 
@@ -45,8 +47,6 @@ builder.Services.AddDbContext<TicketDbContext>(
 //        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
 //    });
 
-// Mapper Configuration
-builder.Services.AddAutoMapper(typeof(TicketMappingProfile));
 
 
 // Redis Connection
@@ -77,9 +77,15 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
+// Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
+//builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); // Need Authorize for all controllers
 
 var app = builder.Build();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseCors("AllowAll");
 

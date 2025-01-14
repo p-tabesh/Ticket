@@ -56,7 +56,6 @@ public class UserService
     }
     public User GetUser(int id)
     {
-        throw new CategoryException();
         var user = _userRepository.GetById(id);
         return user;
     }

@@ -18,17 +18,14 @@ public class TicketService
     private ICategoryRepository _categoryRepository;
     private IUserRepository _userRepository;
     private TicketDbContext _ticketDbContext;
-    private IMapper _mapper;
     public TicketService(
         TicketDbContext dbContext,
-        IMapper mapper,
         ITicketRepository ticketRepository,
         ICategoryRepository categoryRepository,
         IUserRepository userRepository
         )
     {
         _ticketDbContext = dbContext;
-        _mapper = mapper;
         _ticketRepository = ticketRepository;
         _categoryRepository = categoryRepository;
         _userRepository = userRepository;

@@ -5,6 +5,8 @@ using Ticket.Infrastructure.Context;
 
 namespace Ticket.Infrastructure.Repository;
 
+
+
 public class CategoryRepository : ICategoryRepository
 {
     private readonly TicketDbContext _context;
@@ -16,7 +18,6 @@ public class CategoryRepository : ICategoryRepository
     public void Add(Category category)
     {
         _context.Category.Add(category);
-        _context.SaveChanges();
     }
 
     public Category GetById(int id)
@@ -38,7 +39,6 @@ public class CategoryRepository : ICategoryRepository
     public void Update(Category category)
     {
         _context.Category.FirstOrDefault(c => c.Id == category.Id);
-        _context.SaveChanges();
     }
 
     public void UpdateDefaultUser(int categoryId, int userId)

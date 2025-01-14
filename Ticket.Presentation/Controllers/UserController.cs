@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Models;
 using Ticket.Application.Services;
 using Ticket.Infrastructure.Context;
@@ -15,6 +17,7 @@ namespace Ticket.Presentation.Controllers
             _userService = userService;
         }
 
+        [Authorize(CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("add-user")]
         public IActionResult AddUser([FromBody] UserModel userModel)

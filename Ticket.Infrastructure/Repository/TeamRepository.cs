@@ -8,9 +8,7 @@ public class TeamRepository : ITeamRepository
 {
     private TicketDbContext _context;
     public TeamRepository(TicketDbContext context)
-    {
-        _context = context;
-    }
+       => _context = context;
     public void Add(Team team)
     {
         throw new NotImplementedException();
