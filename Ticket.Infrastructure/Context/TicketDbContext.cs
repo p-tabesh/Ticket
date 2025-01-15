@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Ticket.Domain.Entity;
-using Ticket.Infrastructure.EntityType;
+using Ticket.Infrastructure.Configuration;
 
 namespace Ticket.Infrastructure.Context;
 

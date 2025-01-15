@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using Ticket.Domain.Entity;
 
-namespace Ticket.Infrastructure.EntityType;
+namespace Ticket.Infrastructure.Configuration;
 
 public class TicketEntityTypeConfiguration : IEntityTypeConfiguration<Tickets>
 {

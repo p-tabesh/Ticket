@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ticket.Domain.Entity;
 
-namespace Ticket.Infrastructure.EntityType;
+namespace Ticket.Infrastructure.Configuration;
 
 public class CategoryFieldEntityTypeConfiguration : IEntityTypeConfiguration<CategoryField>
 {
@@ -15,6 +15,6 @@ public class CategoryFieldEntityTypeConfiguration : IEntityTypeConfiguration<Cat
     {
         builder.HasKey(c => c.Id);
 
-        
+
     }
 }

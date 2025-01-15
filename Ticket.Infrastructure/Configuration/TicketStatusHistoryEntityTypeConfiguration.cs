@@ -3,7 +3,7 @@ using Ticket.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Ticket.Infrastructure.EntityType;
+namespace Ticket.Infrastructure.Configuration;
 
 public class TicketStatusHistoryEntityTypeConfiguration : IEntityTypeConfiguration<TicketStatusHistory>
 {

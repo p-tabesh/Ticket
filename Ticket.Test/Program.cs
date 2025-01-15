@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Data;
 
-namespace Test;
+namespace Ticket.Test;
 
 class MainTest
 {
     static void Main(string[] args)
     {
-        
+
     }
 }
 

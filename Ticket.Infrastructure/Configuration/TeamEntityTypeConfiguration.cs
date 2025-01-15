@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ticket.Domain.Entity;
 
-namespace Ticket.Infrastructure.EntityType;
+namespace Ticket.Infrastructure.Configuration;
 
 
 public class TeamEntityTypeConfiguration : IEntityTypeConfiguration<Team>
@@ -12,7 +12,7 @@ public class TeamEntityTypeConfiguration : IEntityTypeConfiguration<Team>
         builder.HasKey(x => x.Id);
 
         builder.HasMany(u => u.Users)
-            .WithOne( t => t.Team)
+            .WithOne(t => t.Team)
             .HasForeignKey(f => f.TeamId);
 
     }

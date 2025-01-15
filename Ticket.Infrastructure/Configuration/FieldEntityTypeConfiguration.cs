@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ticket.Domain.Entity;
 
-namespace Ticket.Infrastructure.EntityType
+namespace Ticket.Infrastructure.Configuration
 {
     public class FieldEntityTypeConfiguration : IEntityTypeConfiguration<Field>
     {
@@ -18,7 +18,7 @@ namespace Ticket.Infrastructure.EntityType
             builder.HasMany(c => c.Categories)
                 .WithMany(f => f.Fields)
                 .UsingEntity<CategoryField>();
-            
+
         }
     }
 }

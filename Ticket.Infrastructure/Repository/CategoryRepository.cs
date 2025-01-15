@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using Ticket.Domain.Entity;
+﻿using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 

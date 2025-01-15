@@ -26,7 +26,6 @@ RUN dotnet publish -c release -o /app/publish
 # stage 2 : runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-
 COPY --from=build /app/publish .
 
 #Expose port and set entry point

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ticket.Domain.Entity;
 
 
-namespace Ticket.Infrastructure.EntityType
+namespace Ticket.Infrastructure.Configuration
 {
     public class CategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category>
     {
@@ -12,13 +12,13 @@ namespace Ticket.Infrastructure.EntityType
             builder.HasKey(c => c.Id);
 
             builder.HasMany(c => c.ChildCategories)
-                .WithOne( c=> c.Parent)
+                .WithOne(c => c.Parent)
                 .HasForeignKey(c => c.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.DefaultUserAsign)
-                .WithMany( u=>u.Categories)
-                .HasForeignKey(c=>c.DefaultUserAsignId)
+                .WithMany(u => u.Categories)
+                .HasForeignKey(c => c.DefaultUserAsignId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(f => f.Fields)

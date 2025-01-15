@@ -1,4 +1,5 @@
-﻿using Ticket.Application.Models;
+﻿using Ticket.Application.Extentions;
+using Ticket.Application.Models;
 using Ticket.Application.Utilities;
 using Ticket.Domain.Entity;
 using Ticket.Infrastructure.Context;
@@ -29,7 +30,7 @@ public class UserService
                 throw new ArgumentException("email invalid");
 
             var team = UoW.TeamRepository.GetById(userModel.TeamId);
-            var user = new User(userModel.UserName, userModel.Password, userModel.Email, team);
+            var user = new User(userModel.UserName, userModel.Password.ToSha256(), userModel.Email, team);
 
             UoW.UserRepository.Add(user);
             UoW.Commit();

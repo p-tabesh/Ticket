@@ -79,8 +79,11 @@ builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
 // Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie();
-//builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); // Need Authorize for all controllers
+    .AddCookie(option => option.Cookie.SameSite = SameSiteMode.Strict);
+
+// Need Authorize for all controllers
+builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); 
+
 
 var app = builder.Build();
 
@@ -88,6 +91,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseCors("AllowAll");
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -97,12 +103,5 @@ if (app.Environment.IsDevelopment())
     app.UseMetricServer();
     app.UseHttpMetrics();
 }
-
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();

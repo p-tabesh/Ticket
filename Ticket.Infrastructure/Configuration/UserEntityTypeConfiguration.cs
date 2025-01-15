@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ticket.Domain.Entity;
 
-namespace Ticket.Infrastructure.EntityType
+namespace Ticket.Infrastructure.Configuration
 {
     public class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {
@@ -16,7 +16,7 @@ namespace Ticket.Infrastructure.EntityType
             builder.HasKey(t => t.Id);
 
             builder.HasOne(u => u.Team)
-                .WithMany( t=>t.Users)
+                .WithMany(t => t.Users)
                 .HasForeignKey(u => u.TeamId);
 
 
