@@ -1,5 +1,36 @@
 [
   {
+    "ContainingType": "Ticket.Presentation.Controllers.AccountController",
+    "Method": "Login",
+    "RelativePath": "account/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.AccountController",
+    "Method": "Logout",
+    "RelativePath": "account/logout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "AddCategory",
     "RelativePath": "category/add-category",
@@ -8,19 +39,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Title",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ParentCategory",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "UserId",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "categoryModel",
+        "Type": "Ticket.Application.Models.CategoryModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -43,8 +64,24 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
+    "Method": "GetCategoryFields",
+    "RelativePath": "category/get-fields",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "UpdateDefaultUserAssigne",
-    "RelativePath": "category/update-defaultUser",
+    "RelativePath": "category/update-defaultUserAssignee",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -111,6 +148,90 @@
         "Name": "ticketModel",
         "Type": "Ticket.Application.Models.TicketModel",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "AddTicketNote",
+    "RelativePath": "ticket/add-note",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "note",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "ChangeTicketStatus",
+    "RelativePath": "ticket/change-ticket-status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "newStatus",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "CloseTicket",
+    "RelativePath": "ticket/close-ticket",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "responseBody",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "Tickets",
+    "RelativePath": "ticket/tickets/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

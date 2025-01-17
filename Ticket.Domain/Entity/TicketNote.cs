@@ -9,8 +9,9 @@ public class TicketNote
     public User User { get; private set; }
     public Tickets Ticket { get; private set; }
 
-    public TicketNote()
+    private TicketNote() { }
+    public TicketNote(string note)
     {
-        
+        Note = note;
     }
 }

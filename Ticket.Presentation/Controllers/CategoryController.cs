@@ -1,69 +1,47 @@
 using Microsoft.AspNetCore.Mvc;
-using Ticket.Domain.Entity;
 using Ticket.Application.Services;
 using Ticket.Application.Models;
-using Prometheus;
+using System.Text.Json;
 
 namespace Ticket.Presentation.Controllers;
 
 [ApiController]
 [Route("category")]
-public class CategoryController : ControllerBase
+public class CategoryController : Controller
 {
     private CategoryService _categoryService;
 
-    public CategoryController(CategoryService categoryService)
-    {
-        //_counter = Metrics.CreateCounter("TestCounterMetric", "test metric counter");
-        //_gauge = Metrics.CreateGauge("GojeTest", "GOJE GILASI");
-        _categoryService = categoryService;
-    }
+    public CategoryController(CategoryService categoryService) => _categoryService = categoryService;
+
     [HttpPost]
     [Route("add-category")]
-    public IActionResult AddCategory([FromQuery] CategoryModel categoryModel)
+    public IActionResult AddCategory([FromBody] CategoryModel categoryModel)
     {
-        try
-        {
-            //_counter.Inc(1);
-            //_counter.Publish();
-            _categoryService.AddCategory(categoryModel.Title,categoryModel.ParentCategory,categoryModel.UserId);
-            return Ok("Category Added Successfully");
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.UserId);
+        return Json(new ResponseBaseModel { IsSuccess = true, Message = "success", StatusCode = 200 });
     }
 
     [HttpPut]
-    [Route("update-defaultUser")]
+    [Route("update-defaultUserAssignee")]
     public IActionResult UpdateDefaultUserAssigne(int categoryId, int userId)
     {
-        try
-        {
-            _categoryService.UpdateDefaultUserAssigne(categoryId, userId);
-            return Ok("default user updated");
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        _categoryService.UpdateDefaultUserAssigne(categoryId, userId);
+        return Ok(new ResponseBaseModel { IsSuccess = true, Message = "success", StatusCode = 200 });
     }
 
     [HttpPost]
     [Route("add-field")]
-    public IActionResult AddFieldToCategory(FieldModel fieldModel)
+    public IActionResult AddFieldToCategory([FromBody] FieldModel fieldModel)
     {
-        try
-        {
-            _categoryService.AddField(fieldModel);
-            return Ok("Field added to category successfuly");
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        _categoryService.AddField(fieldModel);
+        return Ok(new ResponseBaseModel { IsSuccess = true, Message = "success", StatusCode = 200 });
     }
 
+    [HttpGet]
+    [Route("get-fields")]
+    public IActionResult GetCategoryFields(int categoryId)
+    {
+        var fields = _categoryService.GetCategoryFields(categoryId);
+        return Ok(fields);
+    }
 }
-

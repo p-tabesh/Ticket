@@ -12,6 +12,16 @@ public class TicketRepository : ITicketRepository
     }
     public void Add(Tickets ticket)
     {
-        _context.Add(ticket);
+        _context.Tickets.Add(ticket);
+    }
+
+    public void Update(Tickets ticket)
+    {
+        _context.Tickets.Update(ticket);
+    }
+    public Tickets GetById(int id)
+    {
+        var ticket = _context.Tickets.FirstOrDefault(t => t.Id == id);
+        return ticket;
     }
 }

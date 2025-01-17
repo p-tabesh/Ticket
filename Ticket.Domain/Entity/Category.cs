@@ -47,4 +47,10 @@ public class Category
             throw new Exception("user already is default for this category");
         DefaultUserAsign = defaultUserAsign;
     }
+
+    public List<Field> GetFields()
+    {
+        var fields = this.Fields.ToList();
+        return fields;
+    }
 }

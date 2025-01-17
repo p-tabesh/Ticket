@@ -76,6 +76,7 @@ public class Tickets
             throw new InvalidOperationException("invalid operation");
         }
         this.AssignUser = user;
+        AddAudit(Enums.Action.Update, $"Ticket Assigned to {user.Username}", user);
     }
     #endregion
 
@@ -101,4 +102,23 @@ public class Tickets
         TicketAudit.Add(ticketAudit);
     }
     #endregion
+
+    public void CloseTicket(string responseBody)
+    {
+        if (string.IsNullOrEmpty(responseBody))
+            throw new InvalidOperationException();
+        this.ResponseBody = responseBody;
+        AddStatusHistory(Status.Closed);
+        AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.User);
+    }
+    
+    public void AddNote(string note)
+    {
+        if (string.IsNullOrEmpty (note))
+            throw new InvalidOperationException();
+        if (TicketNote == null)
+            TicketNote = new List<TicketNote>();
+        var ticketNote = new TicketNote(note);
+        TicketNote.Add(ticketNote);
+    }
 }

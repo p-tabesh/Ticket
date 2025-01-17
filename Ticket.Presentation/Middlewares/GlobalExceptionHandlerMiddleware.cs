@@ -1,15 +1,18 @@
-﻿using Ticket.Domain.Exceptions;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Ticket.Application.Models;
+using Ticket.Domain.Exceptions;
 
 namespace Ticket.Presentation.Middlewares
 {
     public class GlobalExceptionHandlerMiddleware : IMiddleware
     {
         private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;
-        
+
         public GlobalExceptionHandlerMiddleware(ILogger<GlobalExceptionHandlerMiddleware> logger)
         {
             _logger = logger;
-            
+
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -26,14 +29,14 @@ namespace Ticket.Presentation.Middlewares
 
         public async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            
+
             switch (exception)
             {
                 case CategoryException:
                     await context.Response.WriteAsync("category exception returned");
                     break;
                 default:
-                    await context.Response.WriteAsync(exception.Message);
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(new ResponseBaseModel() { IsSuccess = false, StatusCode = context.Response.StatusCode, Message = "something went wrong" }));
                     break;
             }
         }

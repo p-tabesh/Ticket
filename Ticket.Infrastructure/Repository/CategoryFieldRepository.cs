@@ -1,10 +1,11 @@
-﻿using Ticket.Domain.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 
 namespace Ticket.Infrastructure.Repository;
 
-public class CategoryFieldRepository:ICategoryFieldRepository
+public class CategoryFieldRepository : ICategoryFieldRepository
 {
     private readonly TicketDbContext _context;
     public CategoryFieldRepository(TicketDbContext context)
@@ -15,11 +16,16 @@ public class CategoryFieldRepository:ICategoryFieldRepository
     public void Add(CategoryField categoryField)
     {
         _context.CategoryField.Add(categoryField);
-        _context.SaveChanges();
     }
 
     public void Remove(CategoryField categoryField)
     {
-        throw new NotImplementedException();
+        _context.CategoryField.Remove(categoryField);
+    }
+
+    public IEnumerable<CategoryField> GetFields(int categoryId)
+    {
+        var categoryFields = _context.CategoryField.Include(field => field.Category).Where(f => f.CategoryId == categoryId).ToList();
+        return categoryFields;
     }
 }

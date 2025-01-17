@@ -1,4 +1,5 @@
-﻿using Ticket.Domain.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 
@@ -24,6 +25,7 @@ public class CategoryRepository : ICategoryRepository
         var category = _context.Category.FirstOrDefault(c => c.Id == id);
         return category;
     }
+    
     public void Delete(Category category)
     {
         throw new NotImplementedException();

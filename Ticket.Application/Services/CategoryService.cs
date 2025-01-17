@@ -9,10 +9,7 @@ public class CategoryService
 {
     TicketDbContext _dbContext;
 
-    public CategoryService(TicketDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    public CategoryService(TicketDbContext dbContext) => _dbContext = dbContext;
 
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
@@ -61,4 +58,12 @@ public class CategoryService
         UoW.Commit();
     }
 
+    public IEnumerable<CategoryField> GetCategoryFields(int categoryId)
+    {
+        using (var UoW = new UnitOfWork(_dbContext))
+        {
+            var fields = UoW.CategoryFieldRepository.GetFields(categoryId);
+            return fields;
+        }
+    }
 }

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
-using Ticket.Application.Mappings;
 using Ticket.Application.Services;
 using Ticket.Domain.IRepository;
 using Ticket.Domain.IUnitOfWork;
@@ -13,7 +12,6 @@ using StackExchange.Redis;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc.Authorization;
 
 
 
@@ -82,8 +80,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(option => option.Cookie.SameSite = SameSiteMode.Strict);
 
 // Need Authorize for all controllers
-builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); 
+//builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); 
 
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5000); // Ensure this matches your Docker port mapping
+});
 
 var app = builder.Build();
 

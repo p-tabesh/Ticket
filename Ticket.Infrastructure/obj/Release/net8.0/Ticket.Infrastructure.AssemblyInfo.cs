@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ticket.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+355f1911605fc51ef001cf713fd782667d82f6ce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+802513236a76e0492eb73b9572b011b3603508f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ticket.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ticket.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

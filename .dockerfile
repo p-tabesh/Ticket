@@ -1,39 +1,31 @@
-# FROM mcr.microsoft.com/dotnet/runtime:latest AS base
-# WORKDIR /app
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 5000
 
-# Stage 1 = build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
+
 WORKDIR /src
 
-# Copy entire solution file and restore dependecies
-COPY "*.sln" .
-COPY ["Ticket.Domain/*.csproj","Ticket.Domain/"]
-COPY ["Ticket.Infrastructure/*.csproj","Ticket.Infrastructure/"]
-COPY ["Ticket.Application/*.csproj","Ticket.Application/"]
-COPY ["Ticket.Presentation/*.csproj","Ticket.Presentation/"]
-COPY ["Ticket.Test/*.csproj","Ticket.Test/"]
+COPY ["Ticket.Domain/Ticket.Domain.csproj","Ticket.Domain/"]
+COPY ["Ticket.Infrastructure/Ticket.Infrastructure.csproj","Ticket.Infrastructure/"]
+COPY ["Ticket.Application/Ticket.Application.csproj","Ticket.Application/"]
+COPY ["Ticket.Presentation/Ticket.Presentation.csproj","Ticket.Presentation/"]
+COPY ["Ticket.Test/Ticket.Test.csproj","Ticket.Test/"]
 
+RUN dotnet restore "Ticket.Presentation/Ticket.Presentation.csproj"
 
-RUN dotnet restore
-
-
-# Copy rest of file and build the app
 COPY . .
-WORKDIR /src/Ticket.Presentation
-RUN dotnet publish -c release -o /app/publish
+WORKDIR "/src/Ticket.Presentation/"
+RUN dotnet build "Ticket.Presentation.csproj" -c Release -o /app/build
 
+FROM build AS publish
 
-# stage 2 : runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+RUN dotnet publish "Ticket.Presentation.csproj" -c Release -o /app/publish
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/publish .
-
-#Expose port and set entry point
-EXPOSE 80
-ENTRYPOINT ["dotnet","Ticket.Presentation.dll"]
-
-
-
-
-
-
+COPY --from=publish /app/publish .
+ENTRYPOINT [ "dotnet","Ticket.Presentation.dll" ]

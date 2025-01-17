@@ -36,7 +36,7 @@ public class UserService
             UoW.Commit();
         }
     }
-    public IEnumerable<User> GetUsers()
+    public IEnumerable<User> GetAllUsers()
     {
         using var UoW = new UnitOfWork(_context);   
         var users = UoW.UserRepository.GetAll().ToList();
