@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
 EXPOSE 5000
 
 
@@ -16,6 +15,8 @@ COPY ["Ticket.Presentation/Ticket.Presentation.csproj","Ticket.Presentation/"]
 COPY ["Ticket.Test/Ticket.Test.csproj","Ticket.Test/"]
 
 RUN dotnet restore "Ticket.Presentation/Ticket.Presentation.csproj"
+RUN dotnet restore "Ticket.Infrastructure/Ticket.Infrastructure.csproj"
+RUN dotnet restore "Ticket.Application/Ticket.Application.csproj"
 
 COPY . .
 WORKDIR "/src/Ticket.Presentation/"

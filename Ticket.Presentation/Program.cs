@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddCors(
     option =>
@@ -36,7 +37,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TicketDbContext>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlConnectionString"));
     });
 
 //builder.Services.AddDbContextFactory<TicketDbContext>(
@@ -89,6 +90,12 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<TicketDbContext>();
+    dbContext.Database.Migrate();
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
@@ -96,12 +103,16 @@ app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
+app.Urls.Add("http://0.0.0.0:5000");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(option =>
+    {
+        option.SwaggerEndpoint("/swagger/v1/swagger.json","API v1");
+        option.RoutePrefix = string.Empty;
+    });
     app.UseMetricServer();
     app.UseHttpMetrics();
 }

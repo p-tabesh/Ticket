@@ -1,14 +1,16 @@
 services:
   app:
+    container_name: ticketcontainer
     build:
       context: .
       dockerfile: .dockerfile
     ports:
       - "5000:5000"
       # - "5001:443"
-    # environment:
+    environment:
       # - DockerConnectionStrings__SqlConnectionString=Server=sql_server2022;Database=SalesDb;MultipleActiveResultSets=true
       # - DockerConnectionStrings__RedisConnectionString=localhost:6379,abortConnect=false
+        - DockerConnectionStrings__SqlConnectionString=Server=sqlserver,1433;Database=TicketDb;User=sa;Password=SA#@Complex#@Password__.123;TrustServerCertificate=True
     depends_on:
       # - redis
       - sqlserver
@@ -21,10 +23,16 @@ services:
   #   command: ["redis-server"]
 
   sqlserver:
-    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sqlserver
     environment:
-      SA_PASSWORD: SA#@Complex#@Password__.123
+      SA_PASSWORD: "SA#@Complex#@Password__.123"
       ACCEPT_EULA: "Y"
+      MSSQL_TCPENCRYPT: "false"
     ports:
       - "1433:1433"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "SA#@Complex#@Password__.123", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
