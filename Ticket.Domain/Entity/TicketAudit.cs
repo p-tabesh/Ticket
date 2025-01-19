@@ -18,11 +18,11 @@ public class TicketAudit
     public int UserId { get; private set; }
 
     private TicketAudit() { }
-    public TicketAudit(Enums.Action action, string description, User user)
+    public TicketAudit(Enums.Action action, string description, int userId)
     {
         Action = action;
         Description = description;
-        User = user;
+        UserId = userId;
         CreationDate = DateTime.Now;
     }
 }

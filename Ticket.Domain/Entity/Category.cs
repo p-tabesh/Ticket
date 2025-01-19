@@ -33,6 +33,11 @@ public class Category
         DefaultUserAsign = defaultUserAsign;
     }
 
+    public override string ToString()
+    {
+        return Title;
+    }
+
     public void AddField(string fieldName, FieldType fieldType, bool isRequired)
     {
         Fields ??= new List<Field>();

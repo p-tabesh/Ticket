@@ -1,4 +1,6 @@
-﻿using Ticket.Domain.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Ticket.Domain.Entity;
+using Ticket.Domain.Enums;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 namespace Ticket.Infrastructure.Repository;
@@ -21,7 +23,18 @@ public class TicketRepository : ITicketRepository
     }
     public Tickets GetById(int id)
     {
-        var ticket = _context.Tickets.FirstOrDefault(t => t.Id == id);
+        var ticket = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).FirstOrDefault(t => t.Id == id);
         return ticket;
+    }
+
+    public IEnumerable<Tickets> GetWithSpecificState(Status status)
+    {
+        var tickets = _context.Tickets.Where(s => s.Status == status).Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).ToList();
+        return tickets;
+    }
+    public IEnumerable<Tickets> GetAll()
+    {
+        var tickets = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).ToList();
+        return tickets;
     }
 }

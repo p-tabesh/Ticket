@@ -46,37 +46,26 @@ public class Tickets
                     Priority priority,
                     string nationalCode,
                     string phoneNumber,
-                    Category category,
-                    User user)
+                    int categoryId,
+                    int userId)
     {
         Subject = subject;
         Body = body;
         Priority = priority;
         NationalCode = nationalCode;
         PhoneNumber = phoneNumber;
-        Category = category;
-        User = user;
+        CategoryId = categoryId;
+        UserId = userId;
         CreationDate = DateTime.Now;
     }
 
 
     #region User
-    public void AssignTicket(User user)
+    public void AssignTicket(int userId)
     {
-        if (user is null)
-        {
-            throw new Exception("user doesnt exists");
-        } 
-        if (!user.IsActive)
-        {
-            throw new Exception("cannot assign ticket to inactive user");
-        }
-        if (user == this.User)
-        {
-            throw new InvalidOperationException("invalid operation");
-        }
-        this.AssignUser = user;
-        AddAudit(Enums.Action.Update, $"Ticket Assigned to {user.Username}", user);
+        
+        this.AssignUserId = userId;
+        AddAudit(Enums.Action.Update, $"Ticket Assigned to userid: {userId}", userId);
     }
     #endregion
 
@@ -93,12 +82,12 @@ public class Tickets
 
 
     #region TicketAudit
-    public void AddAudit(Enums.Action action, string description, User user)
+    public void AddAudit(Enums.Action action, string description, int userId)
     {
         if (TicketAudit == null)
             TicketAudit = new List<TicketAudit>();
 
-        var ticketAudit = new TicketAudit(action, description, user);
+        var ticketAudit = new TicketAudit(action, description, userId);
         TicketAudit.Add(ticketAudit);
     }
     #endregion
@@ -109,7 +98,7 @@ public class Tickets
             throw new InvalidOperationException();
         this.ResponseBody = responseBody;
         AddStatusHistory(Status.Closed);
-        AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.User);
+        AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.UserId);
     }
     
     public void AddNote(string note)

@@ -3,6 +3,7 @@ using Ticket.Application.Models;
 using Ticket.Application.Services;
 using RedLockNet;
 using Ticket.Domain.Enums;
+using System.Text.Json;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -22,13 +23,13 @@ public class TicketController : Controller
 
     [HttpPost]
     [Route("add")]
-    public async Task<IActionResult> AddTicket([FromBody] TicketModel ticketModel)
+    public async Task<IActionResult> AddTicket([FromBody] TicketDTO ticketDTO)
     {
         using var _lock = await _lockFactory.CreateLockAsync("add-ticket-lock", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         if (_lock.IsAcquired)
         {
             _logger.LogInformation("locked");
-            _ticketService.AddTicket(ticketModel);
+            _ticketService.AddTicket(ticketDTO);
             return Ok();
         }
         return BadRequest("cant use locked object");
@@ -44,10 +45,29 @@ public class TicketController : Controller
 
     [HttpGet]
     [Route("tickets/{id?}")]
-    public IActionResult Tickets([FromRoute] int? ticketId)
+    public IActionResult GetTickets([FromRoute]int? id)
     {
-        return Ok();
+        if (id == null)
+        {
+            var tickets = _ticketService.GetAllTickets();
+            return Json(tickets);
+        }
+        var ticket = _ticketService.GetTicket(id.Value);
+        return Json(ticket);
     }
+
+    [HttpGet]
+    [Route("ticket")]
+    public IActionResult GetSpecififStateTickets([FromQuery]Status status)
+    {
+        if (status == null)
+        {
+            return BadRequest("invalid status");
+        }
+        var tickets = _ticketService.GetSpecififStateTickets(status);
+        return Json(tickets);
+    }
+
     [HttpPost]
     [Route("close-ticket")]
     public IActionResult CloseTicket(int ticketId,string responseBody)

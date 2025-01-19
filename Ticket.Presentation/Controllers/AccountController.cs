@@ -24,6 +24,7 @@ public class AccountController : Controller
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        await Console.Out.WriteLineAsync(HttpContext.User.Claims.ToList()[0].Value);
         return Ok();
     }
 
