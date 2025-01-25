@@ -9,7 +9,7 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
     private readonly TicketDbContext _context;
     private bool _disposed;
 
-    private CategoryFieldRepository _categoryFieldRepository; // is set this as static good?
+    private CategoryFieldRepository _categoryFieldRepository;
     private CategoryRepository _categoryRepository;
     private TeamRepository _teamRepository;
     private TicketRepository _ticketRepository;

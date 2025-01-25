@@ -2,8 +2,7 @@
 using Ticket.Application.Models;
 using Ticket.Application.Services;
 using RedLockNet;
-using Ticket.Domain.Enums;
-using System.Text.Json;
+
 
 namespace Ticket.Presentation.Controllers;
 
@@ -45,7 +44,7 @@ public class TicketController : Controller
 
     [HttpGet]
     [Route("tickets/{id?}")]
-    public IActionResult GetTickets([FromRoute]int? id)
+    public IActionResult GetTickets([FromRoute] int? id)
     {
         if (id == null)
         {
@@ -56,28 +55,24 @@ public class TicketController : Controller
         return Json(ticket);
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("ticket")]
-    public IActionResult GetSpecififStateTickets([FromQuery]Status status)
+    public IActionResult GetTicketWithFilter([FromQuery] TicketFilterDTO ticketFilterDTO)
     {
-        if (status == null)
-        {
-            return BadRequest("invalid status");
-        }
-        var tickets = _ticketService.GetSpecififStateTickets(status);
-        return Json(tickets);
+        var filteredTickets = _ticketService.GetTicketWithFilter(ticketFilterDTO);
+        return Ok(filteredTickets);
     }
 
     [HttpPost]
     [Route("close-ticket")]
-    public IActionResult CloseTicket(int ticketId,string responseBody)
+    public IActionResult CloseTicket(int ticketId, string responseBody)
     {
         _ticketService.CloseTicket(ticketId, responseBody);
         return Ok();
     }
 
     [HttpPut]
-    [Route("assign")]
+    [Route("assign-ticket")]
     public IActionResult AssignTicket(int ticketId, int userId)
     {
         _ticketService.AssignTicket(ticketId, userId);

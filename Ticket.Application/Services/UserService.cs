@@ -23,7 +23,7 @@ public class UserService
             if (UoW.UserRepository.GetByUsername(userModel.UserName) != null)
                 throw new InvalidOperationException("User Already Exists");
 
-            if (!PasswordChecker.IsSecure(userModel.Password))
+            if (!PasswordChecker.IsSecure(userModel.Password.ToSha256()))
                 throw new Exception("Password security isnt enough");
             
             if (!userModel.Email.Contains("@gmail.com"))
@@ -38,7 +38,7 @@ public class UserService
     }
     public IEnumerable<User> GetAllUsers()
     {
-        using var UoW = new UnitOfWork(_context);   
+        using var UoW = new UnitOfWork(_context);
         var users = UoW.UserRepository.GetAll().ToList();
         return users;
     }

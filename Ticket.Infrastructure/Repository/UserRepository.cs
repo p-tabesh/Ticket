@@ -20,7 +20,7 @@ public class UserRepository: IUserRepository
 
     public void Add(User user)
     {
-        throw new NotImplementedException();
+        _ticketDbContext.Users.Add(user);
     }
 
     public User GetById(int id)

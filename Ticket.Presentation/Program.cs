@@ -37,7 +37,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TicketDbContext>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlConnectionString"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
 
 //builder.Services.AddDbContextFactory<TicketDbContext>(
@@ -61,14 +61,16 @@ var multiplexer = new List<RedLockMultiplexer>
 
 var redlockFactory = RedLockFactory.Create(multiplexer);
 builder.Services.AddSingleton<IDistributedLockFactory>(redlockFactory);
+
 // Services
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TicketService>();
 builder.Services.AddScoped<UserService>();
+
 // UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-// Repositories
 
+// Repositories
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
@@ -90,11 +92,11 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<TicketDbContext>();
-    dbContext.Database.Migrate();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<TicketDbContext>();
+//    dbContext.Database.Migrate();
+//}
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -108,11 +110,7 @@ app.Urls.Add("http://0.0.0.0:5000");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(option =>
-    {
-        option.SwaggerEndpoint("/swagger/v1/swagger.json","API v1");
-        option.RoutePrefix = string.Empty;
-    });
+    app.UseSwaggerUI();
     app.UseMetricServer();
     app.UseHttpMetrics();
 }

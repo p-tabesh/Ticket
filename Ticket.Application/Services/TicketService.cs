@@ -76,14 +76,14 @@ public class TicketService
             return ticketData;
         }
     }
-    public IEnumerable<TicketViewDTO> GetSpecififStateTickets(Status status)
+    public IEnumerable<TicketViewDTO> GetTicketWithFilter(TicketFilterDTO ticketFilterDTO)
     {
         var ticketsData = new List<TicketViewDTO>();
         var mapper = new TicketMapper();
 
         using (var UoW = new UnitOfWork(_ticketDbContext))
         {
-            var tickets = UoW.TicketRepository.GetWithSpecificState(status);
+            var tickets = UoW.TicketRepository.GetFilteredTickets(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status,ticketFilterDTO.Priority);
             foreach (var ticket in tickets)
             {
                 var ticketDTO = mapper.MapToDTO(ticket);
