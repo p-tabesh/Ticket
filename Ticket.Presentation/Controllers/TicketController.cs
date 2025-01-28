@@ -56,7 +56,7 @@ public class TicketController : Controller
     }
 
     [HttpPost]
-    [Route("ticket")]
+    [Route("get-tickets")]
     public IActionResult GetTicketWithFilter([FromQuery] TicketFilterDTO ticketFilterDTO)
     {
         var filteredTickets = _ticketService.GetTicketWithFilter(ticketFilterDTO);

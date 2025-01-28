@@ -34,7 +34,7 @@ public class TicketRepository : ITicketRepository
     public IEnumerable<Tickets> GetFilteredTickets(DateTime? startDate, DateTime? endDate, int? categoryId, Status? status, Priority? priority)
     {
         IQueryable<Tickets> tickets = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category);
-        
+
         if (priority.HasValue)
         {
            tickets = tickets.Where(t => t.Priority == priority);
@@ -67,6 +67,7 @@ public class TicketRepository : ITicketRepository
         {
             tickets = tickets.Where(t => t.CategoryId == categoryId);
         }
+
         return tickets.ToList();
     }
 
