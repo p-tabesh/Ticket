@@ -28,9 +28,11 @@ public class CategoryRepository : ICategoryRepository
     
     public void Delete(Category category)
     {
-        throw new NotImplementedException();
+        // If Its Parent, childs will be deleted too
+        var categories = _context.Category.Where(c => c.ParentId == category.Id || c.Id == category.Id).ToList();
+        _context.Category.RemoveRange(categories);
     }
-
+    
     public void Update(Category category)
     {
         _context.Category.FirstOrDefault(c => c.Id == category.Id);

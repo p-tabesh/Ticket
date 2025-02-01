@@ -9,15 +9,13 @@ namespace Ticket.Application.Services;
 
 public class UserService
 {
-    private TicketDbContext _context;
-    public UserService(TicketDbContext context)
-        => _context = context;
-
+    private TicketDbContext _dbContext;
+    public UserService(TicketDbContext context) => _dbContext = context;
 
     public void AddUser(UserModel userModel)
     {
 
-        using (var UoW = new UnitOfWork(_context, false))
+        using (var UoW = new UnitOfWork(_dbContext))
         {
 
             if (UoW.UserRepository.GetByUsername(userModel.UserName) != null)
@@ -25,7 +23,7 @@ public class UserService
 
             if (!PasswordChecker.IsSecure(userModel.Password.ToSha256()))
                 throw new Exception("Password security isnt enough");
-            
+
             if (!userModel.Email.Contains("@gmail.com"))
                 throw new ArgumentException("email invalid");
 
@@ -38,13 +36,13 @@ public class UserService
     }
     public IEnumerable<User> GetAllUsers()
     {
-        using var UoW = new UnitOfWork(_context,true);
+        using var UoW = new UnitOfWork(_dbContext);
         var users = UoW.UserRepository.GetAll().ToList();
         return users;
     }
     public User GetUser(int id)
     {
-        using var UoW = new UnitOfWork(_context, true);
+        using var UoW = new UnitOfWork(_dbContext);
         var user = UoW.UserRepository.GetById(id);
         return user;
     }

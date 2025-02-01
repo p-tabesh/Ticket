@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Serialization;
 using Ticket.Application.Models;
 using Ticket.Domain.Exceptions;
 
@@ -34,7 +33,7 @@ namespace Ticket.Presentation.Middlewares
                     await context.Response.WriteAsync("category exception returned");
                     break;
                 default:
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(new ResponseBaseModel() { IsSuccess = false, StatusCode = 500, Message = exception.Message }));
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(new ResponseBaseModel() { IsSuccess = false, StatusCode = 500, Message = "Somthing went wrong" /*exception.Message + " " + exception.InnerException*/ }));
                     break;
             }
         }

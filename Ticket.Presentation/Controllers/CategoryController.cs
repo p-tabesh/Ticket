@@ -18,7 +18,23 @@ public class CategoryController : Controller
     public IActionResult AddCategory([FromBody] CategoryModel categoryModel)
     {
         _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.UserId);
-        return Json(new ResponseBaseModel { IsSuccess = true, Message = "success", StatusCode = 200 });
+        return Json(new ResponseBaseModel());
+    }
+
+    [HttpPost]
+    [Route("remove-category")]
+    public IActionResult RemoveCategory(int categoryId)
+    {
+        _categoryService.RemoveCategory(categoryId);
+        return Json(new ResponseBaseModel());
+    }
+
+    [HttpPost]
+    [Route("edit-category-title")]
+    public IActionResult EditCategoryTitle(int categoryId, string newTitle)
+    {
+        _categoryService.EditCategoryTitle(categoryId, newTitle);
+        return Json(new ResponseBaseModel());
     }
 
     [HttpPut]
@@ -26,7 +42,7 @@ public class CategoryController : Controller
     public IActionResult UpdateDefaultUserAssigne(int categoryId, int userId)
     {
         _categoryService.UpdateDefaultUserAssigne(categoryId, userId);
-        return Ok(new ResponseBaseModel { IsSuccess = true, Message = "success", StatusCode = 200 });
+        return Json(new ResponseBaseModel());
     }
 
     [HttpPost]
@@ -34,7 +50,7 @@ public class CategoryController : Controller
     public IActionResult AddFieldToCategory([FromBody] FieldModel fieldModel)
     {
         _categoryService.AddField(fieldModel);
-        return Ok(new ResponseBaseModel { IsSuccess = true, Message = "success", StatusCode = 200 });
+        return Json(new ResponseBaseModel());
     }
 
     [HttpGet]

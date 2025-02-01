@@ -2,6 +2,7 @@
 using Ticket.Application.Models;
 using Ticket.Infrastructure.UnitOfWork;
 using Ticket.Infrastructure.Context;
+using Ticket.Domain.Exceptions;
 
 namespace Ticket.Application.Services;
 
@@ -13,7 +14,7 @@ public class CategoryService
 
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
-        using var UoW = new UnitOfWork(_dbContext, false);
+        using var UoW = new UnitOfWork(_dbContext);
         if (title == null)
             throw new ArgumentNullException("title must have value.");
 
@@ -37,27 +38,48 @@ public class CategoryService
 
     public void RemoveCategory(int categoryId)
     {
-        using (var UoW = new UnitOfWork(_dbContext, false))
+        using (var UoW = new UnitOfWork(_dbContext))
         {
-            var category = UoW.CategoryRepository.GetById(categoryId);
-            UoW.CategoryRepository.Delete(category);
-            UoW.Commit();
+            //try
+            //{
+                var category = UoW.CategoryRepository.GetById(categoryId);
+
+                if (category == null)
+                    throw new CategoryException("category doesnt exists");
+
+                UoW.CategoryRepository.Delete(category);
+                UoW.Commit();
+            //}
+            //catch (Exception ex)
+            //{
+            //    UoW.Rollback();
+            //    throw new Exception(ex.Message, ex);
+            //}
         }
     }
 
     public void EditCategoryTitle(int categoryId, string title)
     {
-        using (var UoW = new UnitOfWork(_dbContext, false))
+        using (var UoW = new UnitOfWork(_dbContext))
         {
             var category = UoW.CategoryRepository.GetById(categoryId);
+
+            if (category == null)
+                throw new CategoryException("category doesnt exists");
+
+            if (string.IsNullOrEmpty(title))
+                throw new CategoryException("title must have value");
+
+
             category.EditTitle(title);
             UoW.CategoryRepository.Update(category);
             UoW.Commit();
         }
     }
+
     public void UpdateDefaultUserAssigne(int categoryId, int userId)
     {
-        using var UoW = new UnitOfWork(_dbContext, false);
+        using var UoW = new UnitOfWork(_dbContext);
         var category = UoW.CategoryRepository.GetById(categoryId) ?? throw new Exception("category doesnt exists");
         var user = UoW.UserRepository.GetById(userId) ?? throw new Exception("user doesnt exists");
 
@@ -71,7 +93,7 @@ public class CategoryService
 
     public void AddField(FieldModel fieldModel)
     {
-        using var UoW = new UnitOfWork(_dbContext, false);
+        using var UoW = new UnitOfWork(_dbContext);
         var field = new Field(fieldModel.Name, fieldModel.FieldType, fieldModel.IsRequired);
         var category = UoW.CategoryRepository.GetById(fieldModel.CategoryId);
         var categoryField = new CategoryField(category, field);
@@ -81,7 +103,7 @@ public class CategoryService
 
     public void RemoveField(int categoryId, int fieldId)
     {
-        using (var UoW  = new UnitOfWork(_dbContext,false))
+        using (var UoW = new UnitOfWork(_dbContext))
         {
             var field = UoW.CategoryFieldRepository.GetFields(categoryId).Where(f => f.FieldId == fieldId).FirstOrDefault();
 
@@ -95,7 +117,7 @@ public class CategoryService
 
     public void EditField(EditFieldModel model)
     {
-        using (var UoW = new UnitOfWork(_dbContext,false))
+        using (var UoW = new UnitOfWork(_dbContext))
         {
             var field = UoW.FieldRepository.GetById(model.Id);
             field.Edit(model.Name, model.type, model.IsRequired);
@@ -104,7 +126,7 @@ public class CategoryService
     }
     public CategoryFieldsModel GetCategoryFields(int categoryId)
     {
-        using (var UoW = new UnitOfWork(_dbContext, true))
+        using (var UoW = new UnitOfWork(_dbContext))
         {
             var category = UoW.CategoryRepository.GetById(categoryId);
             return new CategoryFieldsModel

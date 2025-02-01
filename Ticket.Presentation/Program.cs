@@ -76,6 +76,9 @@ builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<IFieldRepository, FieldRepository>();
+
+// Exception Middleware Handler
 builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
 // Authentication

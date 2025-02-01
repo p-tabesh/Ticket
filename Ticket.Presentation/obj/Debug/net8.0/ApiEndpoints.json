@@ -80,6 +80,22 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
+    "Method": "RemoveCategory",
+    "RelativePath": "category/remove-category",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "UpdateDefaultUserAssigne",
     "RelativePath": "category/update-defaultUserAssignee",
     "HttpMethod": "PUT",
@@ -145,8 +161,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ticketModel",
-        "Type": "Ticket.Application.Models.TicketModel",
+        "Name": "ticketDTO",
+        "Type": "Ticket.Application.Models.TicketDTO",
         "IsRequired": true
       }
     ],
@@ -175,8 +191,8 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.TicketController",
-    "Method": "ChangeTicketStatus",
-    "RelativePath": "ticket/change-ticket-status",
+    "Method": "AssignTicket",
+    "RelativePath": "ticket/assign-ticket",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -187,8 +203,8 @@
         "IsRequired": false
       },
       {
-        "Name": "newStatus",
-        "Type": "System.String",
+        "Name": "userId",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -217,20 +233,56 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.TicketController",
-    "Method": "Tickets",
+    "Method": "GetTicketWithFilter",
+    "RelativePath": "ticket/get-tickets",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Status",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "EndDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Priority",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "GetTickets",
     "RelativePath": "ticket/tickets/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ticketId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
         "Name": "id",
-        "Type": "",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],
