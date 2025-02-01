@@ -18,13 +18,13 @@ public class TicketService
     {
         var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages", Assembly.GetExecutingAssembly());
 
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext, false))
         {
-            var defaultUserAsignId = UoW.CategoryRepository.GetById(ticketDTO.CategoryId).DefaultUserAsignId;
+            var category = UoW.CategoryRepository.GetById(ticketDTO.CategoryId);
 
             var ticket = new TicketMapper().MapToEntity(ticketDTO);
 
-            ticket.AssignTicket(defaultUserAsignId);
+            ticket.AssignTicket(category.DefaultUserAsignId);
             ticket.AddStatusHistory(Status.Open);
             ticket.AddAudit(Domain.Enums.Action.Add, "added", ticketDTO.SubmitedUserId);
             UoW.TicketRepository.Add(ticket);
@@ -34,7 +34,7 @@ public class TicketService
 
     public void AssignTicket(int ticketId, int userId)
     {
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext, false))
         {
             
             var ticket = UoW.TicketRepository.GetById(ticketId);
@@ -47,7 +47,7 @@ public class TicketService
 
     public void CloseTicket(int ticketId, string responseBody)
     {
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext, false))
         {
             var ticket = UoW.TicketRepository.GetById(ticketId);
             ticket.CloseTicket(responseBody);
@@ -58,7 +58,7 @@ public class TicketService
 
     public void AddNote(int ticketId, string note)
     {
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext, false))
         {
             var ticket = UoW.TicketRepository.GetById(ticketId);
             ticket.AddNote(note);
@@ -69,7 +69,7 @@ public class TicketService
 
     public TicketViewDTO GetTicket(int ticketId)
     {
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext, true))
         {
             var ticket = UoW.TicketRepository.GetById(ticketId);
             var ticketData = new TicketMapper().MapToDTO(ticket);
@@ -81,7 +81,7 @@ public class TicketService
         var ticketsData = new List<TicketViewDTO>();
         var mapper = new TicketMapper();
 
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext, true))
         {
             var tickets = UoW.TicketRepository.GetFilteredTickets(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status,ticketFilterDTO.Priority);
             foreach (var ticket in tickets)
@@ -95,7 +95,7 @@ public class TicketService
 
     public IEnumerable<TicketViewDTO> GetAllTickets()
     {
-        using (var UoW = new UnitOfWork(_ticketDbContext))
+        using (var UoW = new UnitOfWork(_ticketDbContext,true))
         {
             var ticketsData = new List<TicketViewDTO>();
             var mapper = new TicketMapper();

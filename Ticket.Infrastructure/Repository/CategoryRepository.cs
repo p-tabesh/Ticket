@@ -22,7 +22,7 @@ public class CategoryRepository : ICategoryRepository
 
     public Category GetById(int id)
     {
-        var category = _context.Category.FirstOrDefault(c => c.Id == id);
+        var category = _context.Category.Include(f => f.Fields).Include(defUser => defUser.DefaultUserAsign).FirstOrDefault(c => c.Id == id);
         return category;
     }
     
@@ -31,19 +31,8 @@ public class CategoryRepository : ICategoryRepository
         throw new NotImplementedException();
     }
 
-    public User GetDefaultUser(int categoryId)
-    {
-        var defaultUser = _context.Category.FirstOrDefault(category => category.Id == categoryId).DefaultUserAsign;
-        return defaultUser;
-    }
-
     public void Update(Category category)
     {
         _context.Category.FirstOrDefault(c => c.Id == category.Id);
-    }
-
-    public void UpdateDefaultUser(int categoryId, int userId)
-    {
-        throw new NotImplementedException();
     }
 }

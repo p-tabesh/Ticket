@@ -17,7 +17,7 @@ public class UserService
     public void AddUser(UserModel userModel)
     {
 
-        using (var UoW = new UnitOfWork(_context))
+        using (var UoW = new UnitOfWork(_context, false))
         {
 
             if (UoW.UserRepository.GetByUsername(userModel.UserName) != null)
@@ -38,13 +38,13 @@ public class UserService
     }
     public IEnumerable<User> GetAllUsers()
     {
-        using var UoW = new UnitOfWork(_context);
+        using var UoW = new UnitOfWork(_context,true);
         var users = UoW.UserRepository.GetAll().ToList();
         return users;
     }
     public User GetUser(int id)
     {
-        using var UoW = new UnitOfWork(_context);
+        using var UoW = new UnitOfWork(_context, true);
         var user = UoW.UserRepository.GetById(id);
         return user;
     }

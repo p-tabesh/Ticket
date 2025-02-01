@@ -9,3 +9,12 @@ public class FieldModel
     public FieldType FieldType { get; set; }
     public bool IsRequired { get; set; }
 }
+
+public class EditFieldModel
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public FieldType? type { get; set; }
+    public bool? IsRequired { get; set; }
+}
+

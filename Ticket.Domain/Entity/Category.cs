@@ -58,4 +58,13 @@ public class Category
         var fields = this.Fields.ToList();
         return fields;
     }
+
+    public void EditTitle(string title)
+    {
+        if (string.IsNullOrEmpty(title))
+        {
+            throw new Exception("name is invalid");
+        }
+        Title = title;
+    }
 }

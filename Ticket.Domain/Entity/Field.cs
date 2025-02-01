@@ -19,4 +19,14 @@ public class Field
         Type = type;
         IsRequired = isRequired;
     }
+
+    public void Edit(string? name, FieldType? type, bool? isRequired)
+    {
+        if (!string.IsNullOrEmpty(name))
+            Name = name;
+        if (type.HasValue)
+            Type = type.Value;
+        if (isRequired.HasValue)
+            IsRequired = isRequired.Value;
+    }
 }

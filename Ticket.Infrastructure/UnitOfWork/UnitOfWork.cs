@@ -14,9 +14,12 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
     private TeamRepository _teamRepository;
     private TicketRepository _ticketRepository;
     private UserRepository _userRepository;
-    public UnitOfWork(TicketDbContext context)
+    private FieldRepository _fieldRepository;
+    private bool _readOnly;
+    public UnitOfWork(TicketDbContext context, bool readOnly)
     {
         _context = context;
+        _readOnly = readOnly;
     }
 
     public TicketRepository TicketRepository
@@ -29,6 +32,16 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
                 return _ticketRepository;
             }
             return _ticketRepository;
+        }
+    }
+
+    public FieldRepository FieldRepository
+    {
+        get
+        {
+            if (_fieldRepository == null)
+                _fieldRepository = new FieldRepository(_context);
+            return _fieldRepository;
         }
     }
     public UserRepository UserRepository
@@ -82,10 +95,14 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
     }
     public void Commit()
     {
+        if (!_readOnly)
+            throw new Exception("unitofwork is readonly");
         _context.SaveChanges();
     }
     public void Rollback()
     {
+        if (!_readOnly)
+            throw new Exception("unitofwork is readonly");
         _context.ChangeTracker.Clear();
     }
     public void Dispose(bool disposing)
