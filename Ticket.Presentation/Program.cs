@@ -54,6 +54,7 @@ builder.Services.AddDbContext<TicketDbContext>(
 //        {
 //            builder.Configuration.GetConnectionString("RedisConnectionString");
 //        });
+
 var multiplexer = new List<RedLockMultiplexer>
 {
     ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString"))
@@ -109,6 +110,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Urls.Add("http://0.0.0.0:5000");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

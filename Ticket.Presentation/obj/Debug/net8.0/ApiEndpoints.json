@@ -64,6 +64,27 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
+    "Method": "EditCategoryTitle",
+    "RelativePath": "category/edit-category-title",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "newTitle",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "GetCategoryFields",
     "RelativePath": "category/get-fields",
     "HttpMethod": "GET",
@@ -154,22 +175,6 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.TicketController",
-    "Method": "AddTicket",
-    "RelativePath": "ticket/add",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ticketDTO",
-        "Type": "Ticket.Application.Models.TicketDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
     "Method": "AddTicketNote",
     "RelativePath": "ticket/add-note",
     "HttpMethod": "POST",
@@ -185,6 +190,22 @@
         "Name": "note",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "AddTicket",
+    "RelativePath": "ticket/add-ticket",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketDTO",
+        "Type": "Ticket.Application.Models.TicketDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -233,6 +254,22 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "EditTicket",
+    "RelativePath": "ticket/edit-ticket",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketDTO",
+        "Type": "Ticket.Application.Models.TicketDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
     "Method": "GetTicketWithFilter",
     "RelativePath": "ticket/get-tickets",
     "HttpMethod": "POST",
@@ -267,6 +304,22 @@
       {
         "Name": "Priority",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "StartEdititing",
+    "RelativePath": "ticket/start-editing",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketId",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],

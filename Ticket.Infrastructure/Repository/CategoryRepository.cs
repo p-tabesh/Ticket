@@ -35,6 +35,6 @@ public class CategoryRepository : ICategoryRepository
     
     public void Update(Category category)
     {
-        _context.Category.FirstOrDefault(c => c.Id == category.Id);
+        _context.Category.Update(category);
     }
 }

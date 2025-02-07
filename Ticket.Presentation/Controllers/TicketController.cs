@@ -21,19 +21,43 @@ public class TicketController : Controller
     }
 
     [HttpPost]
-    [Route("add")]
+    [Route("add-ticket")]
     public async Task<IActionResult> AddTicket([FromBody] TicketDTO ticketDTO)
     {
-        using var _lock = await _lockFactory.CreateLockAsync("add-ticket-lock", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
-        if (_lock.IsAcquired)
-        {
-            _logger.LogInformation("locked");
-            _ticketService.AddTicket(ticketDTO);
-            return Ok();
-        }
-        return BadRequest("cant use locked object");
+        _logger.LogInformation("locked");
+        _ticketService.AddTicket(ticketDTO);
+        return Ok();
     }
 
+    [HttpPost]
+    [Route("start-editing")]
+    public async Task<IActionResult> StartEdititing(int ticketId)
+    {
+        var expiryTime = TimeSpan.FromSeconds(60);
+        var waitTime = TimeSpan.FromSeconds(1);
+        var retryTime = TimeSpan.FromSeconds(1);
+        var resource = $"ticket:{ticketId}";
+
+        await using (var _lock = await _lockFactory.CreateLockAsync(resource, expiryTime))
+        {
+            
+            if (_lock.IsAcquired)
+            {
+                //await Task.Delay(5000);
+                return Ok("ticket locked");
+            }
+            
+            return BadRequest("object is locked");
+        }
+
+    }
+
+    [HttpPost]
+    [Route("edit-ticket")]
+    public IActionResult EditTicket([FromBody] TicketDTO ticketDTO)
+    {
+        return Ok();
+    }
     [HttpPost]
     [Route("add-note")]
     public IActionResult AddTicketNote(int ticketId, string note)

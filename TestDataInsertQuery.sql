@@ -58,6 +58,7 @@ VALUES
 (4, 'Hardware Failure', 1, 3),
 (5, 'Login Issues', NULL, 4);
 SET IDENTITY_INSERT Category OFF;
+delete from Category
 
 SET IDENTITY_INSERT Field ON;
 INSERT INTO Field (id, [name], [Type], isrequired)

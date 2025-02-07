@@ -15,6 +15,7 @@ public class CategoryService
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
         using var UoW = new UnitOfWork(_dbContext);
+        
         if (title == null)
             throw new ArgumentNullException("title must have value.");
 
@@ -23,16 +24,8 @@ public class CategoryService
         if (user == null)
             throw new ArgumentException("user doesnt exists");
 
-        try
-        {
             var category = new Category(title, parentId, user);
             UoW.CategoryRepository.Add(category);
-        }
-        catch (Exception e)
-        {
-            UoW.Rollback();
-            throw new Exception(e.Message, e);
-        }
     }
 
 
@@ -40,21 +33,13 @@ public class CategoryService
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            //try
-            //{
-                var category = UoW.CategoryRepository.GetById(categoryId);
+            var category = UoW.CategoryRepository.GetById(categoryId);
 
-                if (category == null)
-                    throw new CategoryException("category doesnt exists");
+            if (category == null)
+                throw new CategoryException("category doesnt exists");
 
-                UoW.CategoryRepository.Delete(category);
-                UoW.Commit();
-            //}
-            //catch (Exception ex)
-            //{
-            //    UoW.Rollback();
-            //    throw new Exception(ex.Message, ex);
-            //}
+            UoW.CategoryRepository.Delete(category);
+            UoW.Commit();
         }
     }
 
@@ -105,12 +90,10 @@ public class CategoryService
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var field = UoW.CategoryFieldRepository.GetFields(categoryId).Where(f => f.FieldId == fieldId).FirstOrDefault();
 
-            if (field == null)
-                throw new Exception("field doesnt exists");
-
-            UoW.CategoryFieldRepository.Remove(field);
+            var category = UoW.CategoryRepository.GetById(categoryId);
+            category.RemoveField(fieldId);
+            UoW.CategoryRepository.Update(category);
             UoW.Commit();
         }
     }
