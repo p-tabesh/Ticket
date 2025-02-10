@@ -12,6 +12,7 @@ using StackExchange.Redis;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Ticket.Presentation.ServiceConfigurations;
 
 
 
@@ -72,12 +73,8 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Repositories
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryFieldRepository, CategoryFieldRepository>();
-builder.Services.AddScoped<ITicketRepository, TicketRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ITeamRepository, TeamRepository>();
-builder.Services.AddScoped<IFieldRepository, FieldRepository>();
+builder.Services.AddRepositories();
+
 
 // Exception Middleware Handler
 builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
