@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 using Ticket.Domain.Entity;
 
 namespace Ticket.Infrastructure.Configuration;
@@ -38,5 +37,9 @@ public class TicketEntityTypeConfiguration : IEntityTypeConfiguration<Tickets>
         builder.HasMany(ta => ta.TicketAudit)
             .WithOne(t => t.Ticket)
             .HasForeignKey(ta => ta.TicketId);
+
+        builder.Property(c => c.Status).HasComment("Open,\r\n    InProgress,\r\n    Finished,\r\n    Closed");
+
+        builder.Property(c => c.Priority).HasComment("Low,\r\n    Medium,\r\n    High,\r\n    Critical");
     }
 }

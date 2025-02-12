@@ -1,8 +1,8 @@
-﻿using Ticket.Domain.Entity;
-using Ticket.Application.Models;
-using Ticket.Infrastructure.UnitOfWork;
-using Ticket.Infrastructure.Context;
+﻿using Ticket.Application.Models;
+using Ticket.Domain.Entity;
 using Ticket.Domain.Exceptions;
+using Ticket.Infrastructure.Context;
+using Ticket.Infrastructure.UnitOfWork;
 
 namespace Ticket.Application.Services;
 
@@ -15,7 +15,7 @@ public class CategoryService
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
         using var UoW = new UnitOfWork(_dbContext);
-        
+
         if (title == null)
             throw new ArgumentNullException("title must have value.");
 
@@ -24,8 +24,8 @@ public class CategoryService
         if (user == null)
             throw new ArgumentException("user doesnt exists");
 
-            var category = new Category(title, parentId, user);
-            UoW.CategoryRepository.Add(category);
+        var category = new Category(title, parentId, user);
+        UoW.CategoryRepository.Add(category);
     }
 
 

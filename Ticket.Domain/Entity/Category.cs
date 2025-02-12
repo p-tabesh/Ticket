@@ -13,10 +13,7 @@ public class Category
     public int DefaultUserAsignId { get; private set; }
     public ICollection<Field>? Fields { get; private set; }
     public ICollection<Tickets>? Tickets { get; private set; }
-    public Category()
-    {
-        Fields = new List<Field>();
-    }
+    private Category() { }
 
     public Category(string title, int? parentId, User defaultUserAsign)
     {
@@ -55,17 +52,20 @@ public class Category
 
     public List<Field> GetFields()
     {
+        Fields ??= new List<Field>();
         var fields = this.Fields.ToList();
         return fields;
     }
 
     public void RemoveField(int fieldId)
     {
-        if(!Fields.Any(f => f.Id==fieldId))
+        Fields ??= new List<Field>();
+
+        if (!Fields.Any(f => f.Id == fieldId))
         {
             throw new Exception("Field doesnt exists");
         }
-        var field = Fields.FirstOrDefault(f => f.Id==fieldId);
+        var field = Fields.FirstOrDefault(f => f.Id == fieldId);
         Fields.Remove(field);
     }
     public void EditTitle(string title)

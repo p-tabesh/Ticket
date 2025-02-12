@@ -7,6 +7,6 @@ public class Team
     public ICollection<User>? Users { get; private set; }
     public Team()
     {
-        
+
     }
 }

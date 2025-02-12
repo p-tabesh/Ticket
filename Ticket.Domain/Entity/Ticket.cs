@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Ticket.Domain.Enums;
+﻿using Ticket.Domain.Enums;
 
 namespace Ticket.Domain.Entity;
 
@@ -63,7 +62,7 @@ public class Tickets
     #region User
     public void AssignTicket(int userId)
     {
-        
+
         this.AssignUserId = userId;
         AddAudit(Enums.Action.Update, $"Ticket Assigned to userid: {userId}", userId);
     }
@@ -100,10 +99,10 @@ public class Tickets
         AddStatusHistory(Status.Closed);
         AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.UserId);
     }
-    
+
     public void AddNote(string note)
     {
-        if (string.IsNullOrEmpty (note))
+        if (string.IsNullOrEmpty(note))
             throw new InvalidOperationException();
         if (TicketNote == null)
             TicketNote = new List<TicketNote>();

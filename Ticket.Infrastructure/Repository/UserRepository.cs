@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ticket.Infrastructure.Context;
-using Ticket.Domain.Entity;
+﻿using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
-using Microsoft.EntityFrameworkCore;
+using Ticket.Infrastructure.Context;
 
 namespace Ticket.Infrastructure.Repository;
 
-public class UserRepository: IUserRepository
+public class UserRepository : IUserRepository
 {
     private TicketDbContext _ticketDbContext;
     public UserRepository(TicketDbContext ticketDbContext)

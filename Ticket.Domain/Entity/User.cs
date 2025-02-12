@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Ticket.Domain.Entity;
+﻿namespace Ticket.Domain.Entity;
 
 public class User
 {

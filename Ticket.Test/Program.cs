@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Data;
-
-namespace Ticket.Test;
+﻿namespace Ticket.Test;
 
 class MainTest
 {

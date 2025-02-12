@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RedLockNet;
 using Ticket.Application.Models;
 using Ticket.Application.Services;
-using RedLockNet;
 
 
 namespace Ticket.Presentation.Controllers;
@@ -40,13 +40,13 @@ public class TicketController : Controller
 
         await using (var _lock = await _lockFactory.CreateLockAsync(resource, expiryTime))
         {
-            
+
             if (_lock.IsAcquired)
             {
                 //await Task.Delay(5000);
                 return Ok("ticket locked");
             }
-            
+
             return BadRequest("object is locked");
         }
 

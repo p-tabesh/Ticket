@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Ticket.Application.Utilities; 
+namespace Ticket.Application.Utilities;
 
 public class DbLogger : IDisposable, ILogger
 {

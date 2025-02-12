@@ -9,8 +9,8 @@ namespace Ticket.Presentation.Controllers;
 [ApiController]
 [Route("account")]
 public class AccountController : Controller
-{    
-    
+{
+
     [AllowAnonymous]
     [HttpPost]
     [Route("login")]

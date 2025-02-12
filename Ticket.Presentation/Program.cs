@@ -1,17 +1,15 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
-using Ticket.Application.Services;
-using Ticket.Domain.IRepository;
-using Ticket.Domain.IUnitOfWork;
-using Ticket.Infrastructure.Context;
-using Ticket.Infrastructure.Repository;
-using Ticket.Infrastructure.UnitOfWork;
-using Ticket.Presentation.Middlewares;
 using RedLockNet;
-using StackExchange.Redis;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using StackExchange.Redis;
+using Ticket.Application.Services;
+using Ticket.Domain.IUnitOfWork;
+using Ticket.Infrastructure.Context;
+using Ticket.Infrastructure.UnitOfWork;
+using Ticket.Presentation.Middlewares;
 using Ticket.Presentation.ServiceConfigurations;
 
 

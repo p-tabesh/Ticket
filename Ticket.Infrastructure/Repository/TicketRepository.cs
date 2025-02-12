@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using System.Linq;
-using System.Security.Cryptography;
 using Ticket.Domain.Entity;
 using Ticket.Domain.Enums;
 using Ticket.Domain.IRepository;
@@ -24,7 +21,7 @@ public class TicketRepository : ITicketRepository
     {
         _context.Tickets.Update(ticket);
     }
-    
+
     public Tickets GetById(int id)
     {
         var ticket = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).FirstOrDefault(t => t.Id == id);
@@ -37,7 +34,7 @@ public class TicketRepository : ITicketRepository
 
         if (priority.HasValue)
         {
-           tickets = tickets.Where(t => t.Priority == priority);
+            tickets = tickets.Where(t => t.Priority == priority);
         }
 
         if (status.HasValue)
@@ -71,7 +68,7 @@ public class TicketRepository : ITicketRepository
         return tickets.ToList();
     }
 
-    
+
     public IEnumerable<Tickets> GetAll()
     {
         var tickets = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).ToList();

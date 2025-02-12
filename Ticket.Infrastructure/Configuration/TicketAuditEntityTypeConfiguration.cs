@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ticket.Domain.Entity;
 
@@ -18,5 +17,7 @@ public class TicketAuditEntityTypeConfiguration : IEntityTypeConfiguration<Ticke
         builder.HasOne(u => u.User)
             .WithMany(ta => ta.TicketAudits)
             .HasForeignKey(u => u.UserId);
+
+        builder.Property(t => t.Action).HasComment("Add,\r\n    Edit,\r\n    Update,\r\n    Delete,\r\n    StatusChange");
     }
 }

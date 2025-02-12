@@ -1,6 +1,4 @@
-﻿using Ticket.Domain.Enums;
-
-namespace Ticket.Domain.Entity;
+﻿namespace Ticket.Domain.Entity;
 
 public class TicketAudit
 {

@@ -1,11 +1,10 @@
-﻿using Ticket.Application.Models;
-using Ticket.Domain.Entity;
-using Ticket.Domain.Enums;
-using Ticket.Infrastructure.UnitOfWork;
-using Ticket.Infrastructure.Context;
+﻿using System.Reflection;
 using System.Resources;
-using System.Reflection;
 using Ticket.Application.Mapper;
+using Ticket.Application.Models;
+using Ticket.Domain.Enums;
+using Ticket.Infrastructure.Context;
+using Ticket.Infrastructure.UnitOfWork;
 
 namespace Ticket.Application.Services;
 
@@ -36,7 +35,7 @@ public class TicketService
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            
+
             var ticket = UoW.TicketRepository.GetById(ticketId);
 
             ticket.AssignTicket(userId);
@@ -83,7 +82,7 @@ public class TicketService
 
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var tickets = UoW.TicketRepository.GetFilteredTickets(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status,ticketFilterDTO.Priority);
+            var tickets = UoW.TicketRepository.GetFilteredTickets(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status, ticketFilterDTO.Priority);
             foreach (var ticket in tickets)
             {
                 var ticketDTO = mapper.MapToDTO(ticket);

@@ -9,7 +9,7 @@ public class TicketViewDTO
     public string PhoneNumber { get; set; }
     public string SubmitedUser { get; set; }
     public string AssignedUser { get; set; }
-    public string Category {  get; set; }
+    public string Category { get; set; }
     public string Status { get; set; }
     public string Priority { get; set; }
     public DateTime CreationDate { get; set; }

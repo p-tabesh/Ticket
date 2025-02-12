@@ -1,6 +1,5 @@
-﻿using Ticket.Domain.Entity;
-using Ticket.Application.Models;
-using Ticket.Domain.Enums;
+﻿using Ticket.Application.Models;
+using Ticket.Domain.Entity;
 
 
 namespace Ticket.Application.Mapper;

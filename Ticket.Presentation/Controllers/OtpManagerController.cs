@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using Ticket.Application.Models;
@@ -25,7 +24,7 @@ namespace Ticket.Presentation.Controllers
             var otpInfo = new OtpGeneratorModel() { phoneNumber = phoneNumber };
             var SerializedOtpInfo = JsonSerializer.Serialize(otpInfo);
             var encodedOtpInfo = Encoding.UTF8.GetBytes(SerializedOtpInfo);
-            
+
 
             await _cache.SetAsync(phoneNumber, encodedOtpInfo, _options);
             return Ok();
@@ -41,7 +40,7 @@ namespace Ticket.Presentation.Controllers
                 return BadRequest("this phone must request otp first");
             }
             var otpInfo = JsonSerializer.Deserialize<OtpGeneratorModel>(content);
-            
+
             if (Otp == otpInfo.Otp && DateTime.Now < otpInfo.ExpireDate && phone == otpInfo.phoneNumber)
             {
                 _cache.Remove(phone);
