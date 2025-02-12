@@ -32,7 +32,7 @@ public class CategoryController : Controller
     [Route("edit-category-title")]
     public IActionResult EditCategoryTitle(int categoryId, string newTitle)
     {
-        _categoryService.EditCategoryTitle(categoryId, newTitle);
+        _categoryService.EditTitle(categoryId, newTitle);
         return Json(new ResponseBaseModel());
     }
 
@@ -46,9 +46,9 @@ public class CategoryController : Controller
 
     [HttpPost]
     [Route("add-field")]
-    public IActionResult AddFieldToCategory([FromBody] FieldModel fieldModel)
+    public IActionResult AddFieldToCategory(int categoryId, [FromBody] FieldModel fieldModel)
     {
-        _categoryService.AddField(fieldModel);
+        _categoryService.AddField(categoryId, fieldModel);
         return Json(new ResponseBaseModel());
     }
 
@@ -56,7 +56,7 @@ public class CategoryController : Controller
     [Route("get-fields")]
     public IActionResult GetCategoryFields(int categoryId)
     {
-        var fields = _categoryService.GetCategoryFields(categoryId);
-        return Ok(fields);
+        var categoryFields = _categoryService.GetCategoryFields(categoryId);
+        return Ok(categoryFields);
     }
 }

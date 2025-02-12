@@ -55,6 +55,11 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
         "Name": "fieldModel",
         "Type": "Ticket.Application.Models.FieldModel",
         "IsRequired": true

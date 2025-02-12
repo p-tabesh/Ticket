@@ -27,6 +27,8 @@ namespace Ticket.Presentation.Middlewares
 
         public async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
+            context.Response.StatusCode = 500;
+
             switch (exception)
             {
                 case CategoryException:

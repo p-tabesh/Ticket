@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zJws0hqiCJo=",
+  "dgSpecHash": "tyUDqLiTSpg=",
   "success": true,
   "projectFilePath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,7 @@
     "C:\\Users\\Pooya\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\Pooya\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\pipelines.sockets.unofficial\\1.0.7\\pipelines.sockets.unofficial.1.0.7.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\prometheus-net\\8.2.1\\prometheus-net.8.2.1.nupkg.sha512",
     "C:\\Users\\Pooya\\.nuget\\packages\\prometheus-net.aspnetcore\\8.2.1\\prometheus-net.aspnetcore.8.2.1.nupkg.sha512",

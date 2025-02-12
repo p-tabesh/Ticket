@@ -1,4 +1,5 @@
-﻿using Ticket.Application.Models;
+﻿using Ticket.Application.Mapper;
+using Ticket.Application.Models;
 using Ticket.Domain.Entity;
 using Ticket.Domain.Exceptions;
 using Ticket.Infrastructure.Context;
@@ -26,6 +27,7 @@ public class CategoryService
 
         var category = new Category(title, parentId, user);
         UoW.CategoryRepository.Add(category);
+        UoW.Commit();
     }
 
 
@@ -43,7 +45,7 @@ public class CategoryService
         }
     }
 
-    public void EditCategoryTitle(int categoryId, string title)
+    public void EditTitle(int categoryId, string title)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
@@ -76,14 +78,16 @@ public class CategoryService
         UoW.Commit();
     }
 
-    public void AddField(FieldModel fieldModel)
+    public void AddField(int categoryId, FieldModel fieldModel)
     {
-        using var UoW = new UnitOfWork(_dbContext);
-        var field = new Field(fieldModel.Name, fieldModel.FieldType, fieldModel.IsRequired);
-        var category = UoW.CategoryRepository.GetById(fieldModel.CategoryId);
-        var categoryField = new CategoryField(category, field);
-        UoW.CategoryFieldRepository.Add(categoryField);
-        UoW.Commit();
+        using (var UoW = new UnitOfWork(_dbContext))
+        {
+            var field = new Field(fieldModel.Name, fieldModel.FieldType, fieldModel.IsRequired);
+            var category = UoW.CategoryRepository.GetById(categoryId);
+            var categoryField = new CategoryField(category, field);
+            UoW.CategoryFieldRepository.Add(categoryField);
+            UoW.Commit();
+        }
     }
 
     public void RemoveField(int categoryId, int fieldId)
@@ -112,12 +116,8 @@ public class CategoryService
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var category = UoW.CategoryRepository.GetById(categoryId);
-            return new CategoryFieldsModel
-            {
-                CategoryId = category.Id,
-                CategoryTitle = category.Title,
-                Fields = category.GetFields()
-            };
+            var categoryFieldModel = CategoryFieldMapper.MapToDTO(category);
+            return categoryFieldModel;
         }
     }
 }

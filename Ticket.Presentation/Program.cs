@@ -5,6 +5,7 @@ using RedLockNet;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
+using System.Text.Json.Serialization;
 using Ticket.Application.Services;
 using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
@@ -25,7 +26,10 @@ builder.Services.AddCors(
     });
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(option =>
+{
+    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 
 // Swagger Configuration
