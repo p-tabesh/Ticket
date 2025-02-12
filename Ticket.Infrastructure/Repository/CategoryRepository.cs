@@ -15,6 +15,11 @@ public class CategoryRepository : ICategoryRepository
     {
         _context = context;
     }
+    public IEnumerable<Category> GetAll()
+    {
+        var categories = _context.Category.Include(c => c.Parent).Include(c => c.DefaultUserAsign).ToList();
+        return categories;
+    }
     public void Add(Category category)
     {
         _context.Category.Add(category);

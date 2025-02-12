@@ -1,4 +1,5 @@
-﻿using Ticket.Domain.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Ticket.Domain.Entity;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
 
@@ -21,7 +22,7 @@ public class UserRepository : IUserRepository
     {
         try
         {
-            var user = _ticketDbContext.Users.FirstOrDefault(c => c.Id == id);
+            var user = _ticketDbContext.Users.Include(t => t.Team).FirstOrDefault(c => c.Id == id);
             return user;
         }
         catch (Exception e)
@@ -37,7 +38,7 @@ public class UserRepository : IUserRepository
 
     public IEnumerable<User> GetAll()
     {
-        var users = _ticketDbContext.Users.ToList();
+        var users = _ticketDbContext.Users.Include(t => t.Team).ToList();
         return users;
     }
 }

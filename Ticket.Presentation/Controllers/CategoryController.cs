@@ -12,6 +12,16 @@ public class CategoryController : Controller
 
     public CategoryController(CategoryService categoryService) => _categoryService = categoryService;
 
+
+    [HttpGet]
+    [Route("categories")]
+    public IActionResult GetCategories(int? id)
+    {
+        var categories = _categoryService.GetCategories();
+        return Json(categories);
+    }
+
+
     [HttpPost]
     [Route("add-category")]
     public IActionResult AddCategory([FromBody] CategoryModel categoryModel)

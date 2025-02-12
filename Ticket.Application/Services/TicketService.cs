@@ -21,7 +21,7 @@ public class TicketService
         {
             var category = UoW.CategoryRepository.GetById(ticketDTO.CategoryId);
 
-            var ticket = new TicketMapper().MapToEntity(ticketDTO);
+            var ticket = TicketMapper.MapToEntity(ticketDTO);
 
             ticket.AssignTicket(category.DefaultUserAsignId);
             ticket.AddStatusHistory(Status.Open);
@@ -71,21 +71,21 @@ public class TicketService
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var ticket = UoW.TicketRepository.GetById(ticketId);
-            var ticketData = new TicketMapper().MapToDTO(ticket);
+            var ticketData = TicketMapper.MapToDTO(ticket);
             return ticketData;
         }
     }
     public IEnumerable<TicketViewDTO> GetTicketWithFilter(TicketFilterDTO ticketFilterDTO)
     {
         var ticketsData = new List<TicketViewDTO>();
-        var mapper = new TicketMapper();
+
 
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var tickets = UoW.TicketRepository.GetFilteredTickets(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status, ticketFilterDTO.Priority);
             foreach (var ticket in tickets)
             {
-                var ticketDTO = mapper.MapToDTO(ticket);
+                var ticketDTO = TicketMapper.MapToDTO(ticket);
                 ticketsData.Add(ticketDTO);
             }
         }
@@ -97,11 +97,11 @@ public class TicketService
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var ticketsData = new List<TicketViewDTO>();
-            var mapper = new TicketMapper();
+
             var tickets = UoW.TicketRepository.GetAll();
             foreach (var ticket in tickets)
             {
-                var ticketDTO = mapper.MapToDTO(ticket);
+                var ticketDTO = TicketMapper.MapToDTO(ticket);
                 ticketsData.Add(ticketDTO);
             }
             return ticketsData;

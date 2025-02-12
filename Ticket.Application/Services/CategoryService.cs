@@ -1,5 +1,6 @@
 ﻿using Ticket.Application.Mapper;
 using Ticket.Application.Models;
+using Ticket.Application.Models.CategoryModels;
 using Ticket.Domain.Entity;
 using Ticket.Domain.Exceptions;
 using Ticket.Infrastructure.Context;
@@ -13,6 +14,20 @@ public class CategoryService
 
     public CategoryService(TicketDbContext dbContext) => _dbContext = dbContext;
 
+    public IEnumerable<CategoryViewModel> GetCategories()
+    {
+        using (var UoW = new UnitOfWork(_dbContext))
+        {
+            var categoryModels = new List<CategoryViewModel>();
+            var categories = UoW.CategoryRepository.GetAll();
+            foreach (var category in categories)
+            {
+                var model = CategoryViewMapper.MapToDTO(category);
+                categoryModels.Add(model);
+            }
+            return categoryModels;
+        }
+    }
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
         using var UoW = new UnitOfWork(_dbContext);

@@ -1,4 +1,5 @@
 ﻿using Ticket.Application.Extentions;
+using Ticket.Application.Mapper;
 using Ticket.Application.Models;
 using Ticket.Application.Utilities;
 using Ticket.Domain.Entity;
@@ -34,11 +35,19 @@ public class UserService
             UoW.Commit();
         }
     }
-    public IEnumerable<User> GetAllUsers()
+    public IEnumerable<UserViewModel> GetAllUsers()
     {
-        using var UoW = new UnitOfWork(_dbContext);
-        var users = UoW.UserRepository.GetAll().ToList();
-        return users;
+        using (var UoW = new UnitOfWork(_dbContext))
+        {
+            var userModels = new List<UserViewModel>();
+            var users = UoW.UserRepository.GetAll().ToList();
+            foreach (var user in users)
+            {
+                var model = UserMapper.MapToDto(user);
+                userModels.Add(model);
+            }
+            return userModels;
+        }
     }
     public User GetUser(int id)
     {

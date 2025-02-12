@@ -67,9 +67,7 @@ var redlockFactory = RedLockFactory.Create(multiplexer);
 builder.Services.AddSingleton<IDistributedLockFactory>(redlockFactory);
 
 // Services
-builder.Services.AddScoped<CategoryService>();
-builder.Services.AddScoped<TicketService>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddServices();
 
 // UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

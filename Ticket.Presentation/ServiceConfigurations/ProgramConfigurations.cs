@@ -1,4 +1,5 @@
-﻿using Ticket.Domain.IRepository;
+﻿using Ticket.Application.Services;
+using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Repository;
 
 namespace Ticket.Presentation.ServiceConfigurations;
@@ -13,5 +14,12 @@ public static class ServiceConfigurations
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ITeamRepository, TeamRepository>();
         services.AddScoped<IFieldRepository, FieldRepository>();
+    }
+    public static void AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<CategoryService>();
+        services.AddScoped<TicketService>();
+        services.AddScoped<UserService>();
+        services.AddScoped<TeamService>();
     }
 }

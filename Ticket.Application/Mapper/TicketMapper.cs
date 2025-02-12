@@ -4,11 +4,10 @@ using Ticket.Domain.Entity;
 
 namespace Ticket.Application.Mapper;
 
-public class TicketMapper
+public static class TicketMapper
 {
 
-
-    public TicketViewDTO MapToDTO(Tickets ticket)
+    public static TicketViewDTO MapToDTO(Tickets ticket)
     {
         var model = new TicketViewDTO()
         {
@@ -27,7 +26,7 @@ public class TicketMapper
         return model;
     }
 
-    public Tickets MapToEntity(TicketDTO ticketModel)
+    public static Tickets MapToEntity(TicketDTO ticketModel)
     {
         var ticket = new Tickets(
             ticketModel.Subject,
