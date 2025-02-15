@@ -9,6 +9,7 @@ public static class CategoryViewMapper
     {
         var categoryViewModel = new CategoryViewModel()
         {
+            CategoryId = category.Id,
             CategoryName = category.Title,
             CategoryParentName = category.Parent?.Title,
             DefaultUserAssigneName = category.DefaultUserAsign.Username
