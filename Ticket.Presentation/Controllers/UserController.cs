@@ -26,7 +26,7 @@ namespace Ticket.Presentation.Controllers
 
         [HttpGet]
         [Route("users/{id?}")]
-        public IActionResult GetUser([FromRoute] int? id)
+        public IActionResult GetUser(int? id)
         {
             if (id != null)
             {

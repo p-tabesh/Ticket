@@ -99,12 +99,12 @@ var app = builder.Build();
 //    dbContext.Database.Migrate();
 //}
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
-app.UseAuthorization();
+//app.UseAuthorization();
 app.MapControllers();
 app.Urls.Add("http://0.0.0.0:5000");
 

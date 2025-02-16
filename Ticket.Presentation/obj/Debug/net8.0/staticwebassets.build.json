@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "ALjqjCJqYNGUeleo/KEJRRIN5BPCJiZh1shbiQ2J6+Y=",
+  "Hash": "cYJU3CfMYLhfS8c7xpLp8rzc3MJRb4SnAcbg04p4tI4=",
   "Source": "Ticket.Presentation",
   "BasePath": "_content/Ticket.Presentation",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }
