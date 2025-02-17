@@ -14,11 +14,23 @@ public class CategoryService
 
     public CategoryService(TicketDbContext dbContext) => _dbContext = dbContext;
 
-    public IEnumerable<CategoryViewModel> GetCategories()
+    public IEnumerable<CategoryViewModel> GetCategories(int? id)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var categoryModels = new List<CategoryViewModel>();
+
+            if (id.HasValue)
+            {
+                var category = UoW.CategoryRepository.GetById(id.Value);
+                if (category != null)
+                {
+                    var model = CategoryViewMapper.MapToDTO(category);
+                    categoryModels.Add(model);
+                }
+                return categoryModels;
+            }
+
             var categories = UoW.CategoryRepository.GetAll();
             foreach (var category in categories)
             {
@@ -71,9 +83,10 @@ public class CategoryService
 
             if (string.IsNullOrEmpty(title))
                 throw new CategoryException("title must have value");
+             
 
 
-            category.EditTitle(title);
+            category.EditTitle(title, category.Id);
             UoW.CategoryRepository.Update(category);
             UoW.Commit();
         }
@@ -93,14 +106,26 @@ public class CategoryService
         UoW.Commit();
     }
 
-    public void AddField(int categoryId, FieldModel fieldModel)
+    public void AddField(int categoryId, int fieldId)
     {
+        
+
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var field = new Field(fieldModel.Name, fieldModel.FieldType, fieldModel.IsRequired);
+            var categoryField = UoW.CategoryFieldRepository.GetByCategoryIdAndFieldId(categoryId, fieldId);
+
+            if (categoryField != null)
+                throw new Exception("this field already exists for this category");
+
             var category = UoW.CategoryRepository.GetById(categoryId);
-            var categoryField = new CategoryField(category, field);
-            UoW.CategoryFieldRepository.Add(categoryField);
+            //if (category == null)
+            //    throw new Exception("category doesnt exists");
+
+            var field = UoW.FieldRepository.GetById(fieldId);
+            //if (field == null)
+            //    throw new Exception("field doesnt exists");
+            var newCategoryField = new CategoryField(category, field);
+            UoW.CategoryFieldRepository.Add(newCategoryField);
             UoW.Commit();
         }
     }

@@ -15,6 +15,12 @@ public class Field
     {
         if (String.IsNullOrEmpty(name))
             throw new ArgumentNullException("name");
+
+        var fields = new List<Field>();
+
+        if (fields.Any(f => f.Name.Trim() == name.Trim()))
+            throw new Exception("another field with this name already exists");
+
         Name = name;
         Type = type;
         IsRequired = isRequired;

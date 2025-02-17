@@ -28,14 +28,16 @@ namespace Ticket.Presentation.Middlewares
         public async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.StatusCode = 500;
-
+            var responseMessage = new ResponseBaseModel() { IsSuccess = false, StatusCode = 500 };
             switch (exception)
             {
                 case CategoryException:
-                    await context.Response.WriteAsync("category exception returned");
+                    responseMessage.Message = exception.Message;
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
                     break;
                 default:
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(new ResponseBaseModel() { IsSuccess = false, StatusCode = 500, Message = "Somthing went wrong" /*exception.Message + " " + exception.InnerException*/ }));
+                    responseMessage.Message = exception.Message;
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
                     break;
             }
         }

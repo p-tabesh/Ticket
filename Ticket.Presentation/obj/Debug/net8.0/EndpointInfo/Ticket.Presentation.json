@@ -121,7 +121,7 @@
       }
     },
     "/category/edit-category-title": {
-      "post": {
+      "put": {
         "tags": [
           "Category"
         ],
@@ -184,31 +184,21 @@
         "tags": [
           "Category"
         ],
-        "parameters": [
-          {
-            "name": "categoryId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FieldModel"
+                "$ref": "#/components/schemas/AddFieldModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/FieldModel"
+                "$ref": "#/components/schemas/AddFieldModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FieldModel"
+                "$ref": "#/components/schemas/AddFieldModel"
               }
             }
           }
@@ -650,6 +640,20 @@
   },
   "components": {
     "schemas": {
+      "AddFieldModel": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fieldId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "CategoryModel": {
         "type": "object",
         "properties": {
@@ -668,32 +672,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "FieldModel": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "fieldType": {
-            "$ref": "#/components/schemas/FieldType"
-          },
-          "isRequired": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "FieldType": {
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "Priority": {
         "enum": [

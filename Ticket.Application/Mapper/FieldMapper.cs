@@ -9,6 +9,7 @@ public static class FieldMapper
     {
         var fieldModel = new FieldModel()
         {
+            Id = field.Id,
             FieldType = field.Type,
             IsRequired = field.IsRequired,
             Name = field.Name,

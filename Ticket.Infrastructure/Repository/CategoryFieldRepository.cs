@@ -23,9 +23,37 @@ public class CategoryFieldRepository : ICategoryFieldRepository
         _context.CategoryField.Remove(categoryField);
     }
 
-    public IEnumerable<CategoryField> GetFields(int categoryId)
+    public IEnumerable<CategoryField> GetAll(int categoryId)
     {
-        var categoryFields = _context.CategoryField.Include(field => field.Category).Where(f => f.CategoryId == categoryId).ToList();
+        var categoryFields = _context.CategoryField.Include(category => category.Category).Where(f => f.CategoryId == categoryId).ToList();
         return categoryFields;
+    }
+
+    public IEnumerable<CategoryField> GetByCategoryId(int categoryId)
+    {
+        var categoryFields = _context.CategoryField.Include(category => category.Category)
+            .Where(f => f.CategoryId == categoryId)
+            .ToList();
+
+        return categoryFields;
+    }
+
+    public IEnumerable<CategoryField> GetByFieldId(int fieldId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CategoryField GetByCategoryIdAndFieldId(int categoryId, int fieldId)
+    {
+        var categoryFields = _context.CategoryField.Include(category => category.Category)
+            .FirstOrDefault(f => f.FieldId == fieldId && f.CategoryId == categoryId);
+            
+        return categoryFields;
+    }
+
+    public IEnumerable<CategoryField> GetAll()
+    {
+        var categoryField = _context.CategoryField.Include(category => category.Category).ToList();
+        return categoryField;
     }
 }

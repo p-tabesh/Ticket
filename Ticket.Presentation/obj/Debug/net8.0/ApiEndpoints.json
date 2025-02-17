@@ -55,13 +55,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "categoryId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "fieldModel",
-        "Type": "Ticket.Application.Models.FieldModel",
+        "Name": "addFieldModel",
+        "Type": "Ticket.Application.Models.CategoryModels.AddFieldModel",
         "IsRequired": true
       }
     ],
@@ -87,7 +82,7 @@
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "EditCategoryTitle",
     "RelativePath": "category/edit-category-title",
-    "HttpMethod": "POST",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [

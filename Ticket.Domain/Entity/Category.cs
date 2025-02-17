@@ -1,4 +1,5 @@
 ﻿using Ticket.Domain.Enums;
+using Ticket.Domain.Exceptions;
 
 namespace Ticket.Domain.Entity;
 
@@ -20,10 +21,12 @@ public class Category
         if (string.IsNullOrEmpty(title))
             throw new Exception("Title cannot be empty");
 
-        if (new List<Category>().Any(c => c.Title == title))
-        {
+        var categories = new List<Category>();
+        if (categories.Any(c => c.Title == title))
             throw new ArgumentException("category already exists");
-        }
+
+        if (categories.All(c => c.Id == parentId))
+            throw new Exception("Parent category doesnt exists");
 
         Title = title;
         ParentId = parentId;
@@ -68,12 +71,19 @@ public class Category
         var field = Fields.FirstOrDefault(f => f.Id == fieldId);
         Fields.Remove(field);
     }
-    public void EditTitle(string title)
+    public void EditTitle(string title, int categoryId)
     {
         if (string.IsNullOrEmpty(title))
-        {
             throw new Exception("name is invalid");
-        }
+
+        var categories = new List<Category>();
+
+        if (categories.Any(c => c.Id == categoryId))
+            throw new CategoryException("category doesnt exists");
+
+        if (categories.All(c => c.Title.Trim() == title.Trim()))
+            throw new CategoryException("Another category with this name already exists");
+        
         Title = title;
     }
 }

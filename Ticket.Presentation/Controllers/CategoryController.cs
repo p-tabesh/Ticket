@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Models;
+using Ticket.Application.Models.CategoryModels;
 using Ticket.Application.Services;
 
 namespace Ticket.Presentation.Controllers;
@@ -15,9 +16,9 @@ public class CategoryController : Controller
 
     [HttpGet]
     [Route("categories")]
-    public IActionResult GetCategories(int? id)
+    public IActionResult GetCategories([FromQuery] int? id)
     {
-        var categories = _categoryService.GetCategories();
+        var categories = _categoryService.GetCategories(id);
         return Json(categories);
     }
 
@@ -38,7 +39,7 @@ public class CategoryController : Controller
         return Json(new ResponseBaseModel());
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("edit-category-title")]
     public IActionResult EditCategoryTitle(int categoryId, string newTitle)
     {
@@ -56,9 +57,9 @@ public class CategoryController : Controller
 
     [HttpPost]
     [Route("add-field")]
-    public IActionResult AddFieldToCategory(int categoryId, [FromBody] FieldModel fieldModel)
+    public IActionResult AddFieldToCategory([FromBody] AddFieldModel addFieldModel)
     {
-        _categoryService.AddField(categoryId, fieldModel);
+        _categoryService.AddField(addFieldModel.categoryId, addFieldModel.fieldId);
         return Json(new ResponseBaseModel());
     }
 
