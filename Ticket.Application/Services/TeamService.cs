@@ -11,16 +11,28 @@ public class TeamService
     public TeamService(TicketDbContext dbContext) => _dbContext = dbContext;
 
 
-    public IEnumerable<TeamViewModel> GetTeams()
+    public IEnumerable<TeamViewModel> GetTeams(int? id)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var teamModels = new List<TeamViewModel>();
+
+            if(id.HasValue)
+            {
+                var team = UoW.TeamRepository.GetById(id.Value);
+                if (team == null)
+                    throw new Exception("team doesnt exists");
+
+                var teamModel = TeamViewMapper.MapToDto(team);
+                teamModels.Add(teamModel);
+                return teamModels;
+            }
+
             var teams = UoW.TeamRepository.GetAll();
             foreach (var team in teams)
             {
-                var model = TeamViewMapper.MapToDto(team);
-                teamModels.Add(model);
+                var teamModel = TeamViewMapper.MapToDto(team);
+                teamModels.Add(teamModel);
             }
             return teamModels;
         }

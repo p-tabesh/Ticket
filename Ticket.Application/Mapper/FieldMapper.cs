@@ -10,7 +10,7 @@ public static class FieldMapper
         var fieldModel = new FieldModel()
         {
             Id = field.Id,
-            FieldType = field.Type,
+            FieldType = field.Type.ToString(),
             IsRequired = field.IsRequired,
             Name = field.Name,
         };

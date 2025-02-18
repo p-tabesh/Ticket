@@ -108,22 +108,20 @@ public class CategoryService
 
     public void AddField(int categoryId, int fieldId)
     {
-        
-
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var categoryField = UoW.CategoryFieldRepository.GetByCategoryIdAndFieldId(categoryId, fieldId);
-
             if (categoryField != null)
                 throw new Exception("this field already exists for this category");
 
             var category = UoW.CategoryRepository.GetById(categoryId);
-            //if (category == null)
-            //    throw new Exception("category doesnt exists");
+            if (category == null)
+                throw new Exception("category doesnt exists");
 
             var field = UoW.FieldRepository.GetById(fieldId);
-            //if (field == null)
-            //    throw new Exception("field doesnt exists");
+            if (field == null)
+                throw new Exception("field doesnt exists");
+
             var newCategoryField = new CategoryField(category, field);
             UoW.CategoryFieldRepository.Add(newCategoryField);
             UoW.Commit();
@@ -156,6 +154,9 @@ public class CategoryService
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var category = UoW.CategoryRepository.GetById(categoryId);
+            if (category == null)
+                throw new Exception("category doesnt exists");
+
             var categoryFieldModel = CategoryFieldMapper.MapToDTO(category);
             return categoryFieldModel;
         }

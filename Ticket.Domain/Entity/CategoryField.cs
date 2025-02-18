@@ -13,11 +13,6 @@ public class CategoryField
         if (category == null || field == null)
             throw new Exception("category or field doesnt exists");
 
-        var categoryFields = new List<CategoryField>();
-        var categoryField = categoryFields.FirstOrDefault(cf => cf.FieldId == field.Id && cf.CategoryId == category.Id);
-        if (categoryField != null)
-            throw new Exception("already exists");
-
         Category = category;
         Field = field;
     }
