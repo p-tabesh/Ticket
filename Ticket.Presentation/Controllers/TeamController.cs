@@ -13,26 +13,29 @@ public class TeamController : Controller
 {
     private TeamService _teamService;
     public TeamController(TeamService teamService) => _teamService = teamService;
-    
+
     [HttpGet]
     [Route("teams")]
-    public IActionResult GetTeams([FromRoute] int? id)
+    public IActionResult GetTeams([FromQuery] int? id)
     {
+
         var teams = _teamService.GetTeams(id);
         return Json(teams);
     }
 
     [HttpPost]
     [Route("add")]
-    public IActionResult AddTeam()
+    public IActionResult AddTeam([FromBody] string title)
     {
+        _teamService.Add(title);
         return Ok();
     }
 
     [HttpPost]
     [Route("remove")]
-    public IActionResult RemoveTeam()
+    public IActionResult RemoveTeam(int id)
     {
+        _teamService.Remove(id);
         return Ok();
     }
 
@@ -40,8 +43,7 @@ public class TeamController : Controller
     [Route("get-users")]
     public IActionResult GetTeamUsers()
     {
-        return Ok();
+        var teams = _teamService.GetTeams();
+        return Json(teams);
     }
-
-
 }

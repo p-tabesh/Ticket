@@ -17,22 +17,22 @@ public class TeamRepository : ITeamRepository
     }
     public void Add(Team team)
     {
-        throw new NotImplementedException();
+        _context.Team.Add(team);
     }
 
-    public void Delete(int id)
+    public void Remove(Team team)
     {
-        throw new NotImplementedException();
+        _context.Team.Remove(team);
     }
 
     public Team GetById(int id)
     {
-        var team = _context.Team.FirstOrDefault(t => t.Id == id);
+        var team = _context.Team.Include(t => t.Users).FirstOrDefault(t => t.Id == id);
         return team;
     }
 
     public void Update(Team team)
     {
-        throw new NotImplementedException();
+        _context.Team.Update(team);
     }
 }

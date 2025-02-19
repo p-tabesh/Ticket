@@ -191,6 +191,48 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.TeamController",
+    "Method": "AddTeam",
+    "RelativePath": "team/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "title",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TeamController",
+    "Method": "GetTeamUsers",
+    "RelativePath": "team/get-users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TeamController",
+    "Method": "RemoveTeam",
+    "RelativePath": "team/remove",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TeamController",
     "Method": "GetTeams",
     "RelativePath": "team/teams",
     "HttpMethod": "GET",

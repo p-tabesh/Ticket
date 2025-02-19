@@ -9,6 +9,7 @@ public static class UserMapper
     {
         var userViewModel = new UserViewModel()
         {
+            Id = user.Id,
             UserName = user.Username,
             Email = user.Email,
             IsActive = user.IsActive,

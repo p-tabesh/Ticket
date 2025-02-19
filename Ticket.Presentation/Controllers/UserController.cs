@@ -25,8 +25,8 @@ namespace Ticket.Presentation.Controllers
         }
 
         [HttpGet]
-        [Route("users/{id?}")]
-        public IActionResult GetUser(int? id)
+        [Route("users")]
+        public IActionResult GetUser([FromQuery] int? id)
         {
             if (id != null)
             {
@@ -41,8 +41,9 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("change-username")]
-        public IActionResult ChangeUsername()
+        public IActionResult ChangeUsername(int userId, string newUsername)
         {
+            _userService.ChangeUsername(userId, newUsername);
             return Ok();
         }
 
@@ -52,5 +53,30 @@ namespace Ticket.Presentation.Controllers
         {
             return Ok();
         }
+
+        [HttpPost]
+        [Route("active")]
+        public IActionResult ActiveUser(int userId)
+        {
+            _userService.ActiveUser(userId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("deActive")]
+        public IActionResult DeActiveUser(int userId)
+        {
+            _userService.DeActiveUser(userId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("change-team")]
+        public IActionResult ChangeTeam(int newTeamId, int userId)
+        {
+            _userService.ChangeTeam(newTeamId, userId);
+            return Ok();
+        }
+
     }
 }

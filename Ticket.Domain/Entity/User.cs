@@ -27,4 +27,48 @@ public class User
         IsActive = true;
         CreationDate = DateTime.Now;
     }
+
+
+    public void ChangePassword(string newPassword)
+    {
+        if (string.IsNullOrEmpty(newPassword))
+            throw new Exception("password invalid");
+
+        Password = newPassword;
+    }
+
+    public void ChangeUsername(string newUsername)
+    {
+        if (string.IsNullOrEmpty(newUsername))
+            throw new Exception("username invalid");
+
+        // and check if username doesnt exists 
+
+        Username = newUsername;
+    }
+
+    public void DeActive()
+    {
+        if (IsActive == false)
+            throw new Exception("user already inActive");
+
+        IsActive = false;
+    }
+
+    public void Active()
+    {
+        if (IsActive == true)
+            throw new Exception("user already active");
+
+        IsActive = true;
+    }
+
+    public void ChangeTeam(int teamId)
+    {
+        var teams = new List<Team>();
+        if (!teams.Any(t => t.Id == teamId))
+            throw new Exception("team doesnt exists");
+
+        TeamId = teamId;
+    }
 }

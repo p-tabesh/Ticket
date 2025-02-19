@@ -41,4 +41,14 @@ public class UserRepository : IUserRepository
         var users = _ticketDbContext.Users.Include(t => t.Team).ToList();
         return users;
     }
+
+    public void Remove(User user)
+    {
+        _ticketDbContext.Users.Remove(user);
+    }
+
+    public void Update(User user)
+    {
+        _ticketDbContext.Users.Update(user);
+    }
 }

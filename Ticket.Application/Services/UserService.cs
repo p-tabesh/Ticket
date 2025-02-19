@@ -55,4 +55,55 @@ public class UserService
         var user = UoW.UserRepository.GetById(id);
         return user;
     }
+
+    public void ChangeUsername(int id, string newUsername)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+
+        var users = UoW.UserRepository.GetAll();
+        if (users.Any(u => u.Username == newUsername))
+            throw new Exception("another user with this username exists");
+
+        var user = UoW.UserRepository.GetById(id);
+
+        if (user == null)
+            throw new Exception("user doesnt exists");
+
+        user.ChangeUsername(newUsername);
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
+    }
+
+    public void ChangePassword(string newPassword)
+    {
+        
+    }
+
+    public void ActiveUser(int userId)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var user = UoW.UserRepository.GetById(userId);
+        user.Active();
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
+    }
+
+    public void DeActiveUser(int userId)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var user = UoW.UserRepository.GetById(userId);
+        user.DeActive();
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
+    }
+
+    public void ChangeTeam(int newTeamId, int userId)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var user = UoW.UserRepository.GetById(userId);
+        var team = UoW.TeamRepository.GetById(newTeamId);
+        user.ChangeTeam(team.Id);
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
+    }
 }

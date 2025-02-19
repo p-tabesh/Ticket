@@ -1,5 +1,6 @@
 ﻿using Ticket.Application.Mapper;
 using Ticket.Application.Models;
+using Ticket.Domain.Entity;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.UnitOfWork;
 
@@ -11,13 +12,13 @@ public class TeamService
     public TeamService(TicketDbContext dbContext) => _dbContext = dbContext;
 
 
-    public IEnumerable<TeamViewModel> GetTeams(int? id)
+    public IEnumerable<TeamViewModel> GetTeams(int? id = null)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var teamModels = new List<TeamViewModel>();
 
-            if(id.HasValue)
+            if (id.HasValue)
             {
                 var team = UoW.TeamRepository.GetById(id.Value);
                 if (team == null)
@@ -36,5 +37,38 @@ public class TeamService
             }
             return teamModels;
         }
+    }
+
+    public void Add(string title)
+    {
+        if (string.IsNullOrEmpty(title))
+            throw new Exception("title invalid");
+
+        using (var UoW = new UnitOfWork(_dbContext))
+        {
+            var allTeams = UoW.TeamRepository.GetAll();
+
+            if (allTeams.Any(t => title.Trim() == t.Title))
+                throw new Exception("another team with this name already exists");
+
+            var team = new Team(title);
+            UoW.TeamRepository.Add(team);
+            UoW.Commit();
+        }
+
+    }
+
+    public void Remove(int id)
+    {
+        using (var UoW = new UnitOfWork(_dbContext))
+        {
+            var team = UoW.TeamRepository.GetById(id);
+            if (team == null)
+                throw new Exception("team doesnt exists");
+
+            UoW.TeamRepository.Remove(team);
+            UoW.Commit();
+        }
+
     }
 }
