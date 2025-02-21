@@ -15,28 +15,26 @@ namespace Ticket.Presentation.Controllers
         public UserController(UserService userService) => _userService = userService;
 
 
-        [Authorize(CookieAuthenticationDefaults.AuthenticationScheme)]
+        //[Authorize(CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("add-user")]
         public IActionResult AddUser([FromBody] UserModel userModel)
         {
             _userService.AddUser(userModel);
-            return Ok("User Added Success");
+            return Ok();
         }
 
         [HttpGet]
         [Route("users")]
         public IActionResult GetUser([FromQuery] int? id)
         {
-            if (id != null)
-            {
-                var user = _userService.GetUser(id.Value);
-                if (user != null)
-                    return Ok(user);
-                return Ok("user not found");
-            }
-            var users = _userService.GetAllUsers();
-            return Ok(users);
+            IEnumerable<UserViewModel> users;
+
+            if (!id.HasValue)
+                users = _userService.GetUsers();
+            else
+                users = _userService.GetUsers(id.Value);
+            return Json(users);
         }
 
         [HttpPost]
@@ -49,8 +47,9 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("change-password")]
-        public IActionResult ChangePassword()
+        public IActionResult ChangePassword(int userId, string newPassword)
         {
+            _userService.ChangePassword(userId, newPassword);
             return Ok();
         }
 

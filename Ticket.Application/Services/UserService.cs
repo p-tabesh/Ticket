@@ -22,25 +22,37 @@ public class UserService
             if (UoW.UserRepository.GetByUsername(userModel.UserName) != null)
                 throw new InvalidOperationException("User Already Exists");
 
-            if (!PasswordChecker.IsSecure(userModel.Password.ToSha256()))
+            if (!PasswordChecker.IsSecure(userModel.Password))
                 throw new Exception("Password security isnt enough");
 
             if (!userModel.Email.Contains("@gmail.com"))
                 throw new ArgumentException("email invalid");
 
             var team = UoW.TeamRepository.GetById(userModel.TeamId);
-            var user = new User(userModel.UserName, userModel.Password.ToSha256(), userModel.Email, team);
+            if (team == null)
+                throw new Exception("team doesnt exists");
+
+            var user = new User(userModel.UserName, userModel.Password.ToSha256(), userModel.Email, userModel.TeamId);
 
             UoW.UserRepository.Add(user);
             UoW.Commit();
         }
     }
-    public IEnumerable<UserViewModel> GetAllUsers()
+    public IEnumerable<UserViewModel> GetUsers(int? id = null)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var userModels = new List<UserViewModel>();
-            var users = UoW.UserRepository.GetAll().ToList();
+
+            if (id.HasValue)
+            {
+                var user = UoW.UserRepository.GetById(id.Value);
+                var model = UserMapper.MapToDto(user);
+                userModels.Add(model);
+                return userModels;
+            }
+            var users = UoW.UserRepository.GetAll();
+            
             foreach (var user in users)
             {
                 var model = UserMapper.MapToDto(user);
@@ -49,19 +61,14 @@ public class UserService
             return userModels;
         }
     }
-    public User GetUser(int id)
-    {
-        using var UoW = new UnitOfWork(_dbContext);
-        var user = UoW.UserRepository.GetById(id);
-        return user;
-    }
+
 
     public void ChangeUsername(int id, string newUsername)
     {
         using var UoW = new UnitOfWork(_dbContext);
 
         var users = UoW.UserRepository.GetAll();
-        if (users.Any(u => u.Username == newUsername))
+        if (users.Any(u => u.Username.ToLower() == newUsername.ToLower()))
             throw new Exception("another user with this username exists");
 
         var user = UoW.UserRepository.GetById(id);
@@ -74,9 +81,23 @@ public class UserService
         UoW.Commit();
     }
 
-    public void ChangePassword(string newPassword)
+    public void ChangePassword(int userId, string newPassword)
     {
-        
+        using var UoW = new UnitOfWork(_dbContext);
+        var user = UoW.UserRepository.GetById(userId);
+
+        if (user == null)
+            throw new Exception("user doesnt exists");
+
+        if (user.Password == newPassword.ToSha256())
+            throw new Exception("passsword already this");
+
+        if (!PasswordChecker.IsSecure(newPassword))
+            throw new Exception("password security rate is not enough");
+
+        user.ChangePassword(newPassword.ToSha256());
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
     }
 
     public void ActiveUser(int userId)
@@ -107,3 +128,5 @@ public class UserService
         UoW.Commit();
     }
 }
+
+

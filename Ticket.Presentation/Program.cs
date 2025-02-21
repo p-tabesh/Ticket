@@ -100,7 +100,6 @@ var app = builder.Build();
 //}
 
 //app.UseAuthentication();
-//app.UseAuthorization();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();

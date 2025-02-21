@@ -18,12 +18,12 @@ public class User
     public ICollection<Category> Categories { get; private set; }
 
     private User() { }
-    public User(string username, string password, string email, Team team)
+    public User(string username, string password, string email, int teamId)
     {
-        Username = username;
+        Username = username.ToLower();
         Password = password;
         Email = email;
-        Team = team;
+        TeamId = teamId;
         IsActive = true;
         CreationDate = DateTime.Now;
     }
@@ -44,7 +44,7 @@ public class User
 
         // and check if username doesnt exists 
 
-        Username = newUsername;
+        Username = newUsername.ToLower();
     }
 
     public void DeActive()

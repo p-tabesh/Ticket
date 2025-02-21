@@ -18,26 +18,22 @@ public class CategoryService
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var categoryModels = new List<CategoryViewModel>();
+            List<Category> categoryList = new();
 
             if (id.HasValue)
             {
                 var category = UoW.CategoryRepository.GetById(id.Value);
-                if (category != null)
-                {
-                    var model = CategoryViewMapper.MapToDTO(category);
-                    categoryModels.Add(model);
-                }
-                return categoryModels;
+                categoryList.Add(category);
+            }
+            else
+            {
+                var categories = UoW.CategoryRepository.GetAll();
+                categoryList.AddRange(categories);
             }
 
-            var categories = UoW.CategoryRepository.GetAll();
-            foreach (var category in categories)
-            {
-                var model = CategoryViewMapper.MapToDTO(category);
-                categoryModels.Add(model);
-            }
-            return categoryModels;
+            var models = CategoryViewMapper.MapToDTO(categoryList);
+
+            return models;
         }
     }
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
@@ -83,7 +79,7 @@ public class CategoryService
 
             if (string.IsNullOrEmpty(title))
                 throw new CategoryException("title must have value");
-             
+
 
 
             category.EditTitle(title, category.Id);

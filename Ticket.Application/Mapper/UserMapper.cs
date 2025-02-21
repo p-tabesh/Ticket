@@ -7,6 +7,7 @@ public static class UserMapper
 {
     public static UserViewModel MapToDto(User user)
     {
+
         var userViewModel = new UserViewModel()
         {
             Id = user.Id,

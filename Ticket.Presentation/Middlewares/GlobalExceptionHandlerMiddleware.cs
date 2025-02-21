@@ -17,6 +17,12 @@ namespace Ticket.Presentation.Middlewares
             try
             {
                 await next(context);
+                if (context.Response.Headers["content-length"] == 0 || context.Response.Headers.Count == 0)
+                {
+                    var responseModel = new ResponseBaseModel() { Message = "success" };
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseModel));
+                }
+
             }
             catch (Exception e)
             {
