@@ -9,7 +9,7 @@ public class TicketDTO
     public string Body { get; set; }
     public string NationalCode { get; set; }
     public string PhoneNumber { get; set; }
-    public int SubmitedUserId { get; } = 1;
+    public int SubmitedUserId { get; } = 2;
     public int CategoryId { get; set; }
     public Priority Priority { get; set; }
 }
