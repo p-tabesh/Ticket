@@ -32,7 +32,7 @@ public class UserRepository : IUserRepository
     }
     public User GetByUsername(string username)
     {
-        var user = _ticketDbContext.Users.FirstOrDefault(user => user.Username == username);
+        var user = _ticketDbContext.Users.FirstOrDefault(user => user.Username.ToLower() == username);
         return user;
     }
 

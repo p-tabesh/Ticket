@@ -17,6 +17,7 @@ public static class ServiceConfigurations
     }
     public static void AddServices(this IServiceCollection services)
     {
+        services.AddScoped<AccountService>();
         services.AddScoped<CategoryService>();
         services.AddScoped<TicketService>();
         services.AddScoped<UserService>();

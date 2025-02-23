@@ -1,12 +1,14 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+//using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Prometheus;
 using RedLockNet;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
+using System.Text;
 using System.Text.Json.Serialization;
-using Ticket.Application.Services;
 using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.UnitOfWork;
@@ -80,8 +82,8 @@ builder.Services.AddRepositories();
 builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
 // Authentication
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(option => option.Cookie.SameSite = SameSiteMode.Strict);
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(option => option.Cookie.SameSite = SameSiteMode.Strict);
 
 // Need Authorize for all controllers
 //builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); 
@@ -91,6 +93,42 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenAnyIP(5000); // Ensure this matches your Docker port mapping
 });
 
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        RequireSignedTokens = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+    options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine("Token failed validation: " + context.Exception.Message);
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine("Token validated successfully");
+            return Task.CompletedTask;
+        }
+    };
+});
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 //using (var scope = app.Services.CreateScope())
@@ -99,11 +137,12 @@ var app = builder.Build();
 //    dbContext.Database.Migrate();
 //}
 
-//app.UseAuthentication();
+
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
-//app.UseAuthorization();
+app.UseAuthorization();
+app.UseAuthentication();
 app.MapControllers();
 app.Urls.Add("http://0.0.0.0:5000");
 
@@ -115,5 +154,7 @@ if (app.Environment.IsDevelopment())
     app.UseMetricServer();
     app.UseHttpMetrics();
 }
+
+
 
 app.Run();

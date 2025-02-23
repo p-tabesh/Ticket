@@ -467,3 +467,5 @@ C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Ticket.Presen
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\staticwebassets\msbuild.Ticket.Presentation.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll

@@ -71,4 +71,11 @@ public class User
 
         TeamId = teamId;
     }
+
+    public bool IsCorrectPassword(string password)
+    {
+        if(this.Password == password)
+            return true;
+        return false;
+    }
 }
