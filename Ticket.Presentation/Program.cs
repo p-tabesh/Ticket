@@ -1,4 +1,3 @@
-//using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -54,11 +53,15 @@ builder.Services.AddDbContext<TicketDbContext>(
 
 
 // Redis Connection
-//builder.Services.AddStackExchangeRedisCache(
-//        option =>
-//        {
-//            builder.Configuration.GetConnectionString("RedisConnectionString");
-//        });
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString")));
+
+builder.Services.AddStackExchangeRedisCache(
+        option =>
+        {
+            option.Configuration = builder.Configuration.GetConnectionString("RedisConnectionString");
+            option.InstanceName = "TicketAppCache";
+        });
+
 
 var multiplexer = new List<RedLockMultiplexer>
 {
@@ -67,6 +70,8 @@ var multiplexer = new List<RedLockMultiplexer>
 
 var redlockFactory = RedLockFactory.Create(multiplexer);
 builder.Services.AddSingleton<IDistributedLockFactory>(redlockFactory);
+
+
 
 // Services
 builder.Services.AddServices();
@@ -81,12 +86,6 @@ builder.Services.AddRepositories();
 // Exception Middleware Handler
 builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
-// Authentication
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//    .AddCookie(option => option.Cookie.SameSite = SameSiteMode.Strict);
-
-// Need Authorize for all controllers
-//builder.Services.AddControllers(c => c.Filters.Add(new AuthorizeFilter())); 
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
@@ -127,7 +126,10 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("admin"));
+});
 
 var app = builder.Build();
 
@@ -139,10 +141,11 @@ var app = builder.Build();
 
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Urls.Add("http://0.0.0.0:5000");
 

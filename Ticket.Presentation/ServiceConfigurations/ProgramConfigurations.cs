@@ -1,6 +1,11 @@
-﻿using Ticket.Application.Services;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using RedLockNet;
+using StackExchange.Redis;
+using Ticket.Application.Services;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Repository;
+using Ticket.Presentation.Middlewares;
 
 namespace Ticket.Presentation.ServiceConfigurations;
 
@@ -22,5 +27,7 @@ public static class ServiceConfigurations
         services.AddScoped<TicketService>();
         services.AddScoped<UserService>();
         services.AddScoped<TeamService>();
+        services.AddTransient<JwtMiddleware>();
+        services.AddSingleton<IDistributedCache, RedisCache>();
     }
 }

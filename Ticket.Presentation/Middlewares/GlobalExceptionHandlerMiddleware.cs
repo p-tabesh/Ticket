@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 using Ticket.Application.Models;
 using Ticket.Domain.Exceptions;
 
@@ -17,7 +18,9 @@ namespace Ticket.Presentation.Middlewares
             try
             {
                 await next(context);
-                if (context.Response.Headers["content-length"] == 0 || context.Response.Headers.Count == 0)
+
+                // Temp for swagger 
+                if ((context.Response.Headers["content-length"] == 0 || context.Response.Headers.Count == 0) && context.Response.StatusCode != 403)
                 {
                     var responseModel = new ResponseBaseModel() { Message = "success" };
                     await context.Response.WriteAsync(JsonSerializer.Serialize(responseModel));

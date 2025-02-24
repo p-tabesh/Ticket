@@ -6,6 +6,9 @@ using System.Security.Claims;
 using Ticket.Application.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Ticket.Application.Models;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -16,10 +19,12 @@ public class AccountController : Controller
 
     private readonly IConfiguration _configuration;
     private readonly AccountService _accountService;
-    public AccountController(IConfiguration configuration, AccountService accountService)
+    private readonly IDistributedCache _redisCache;
+    public AccountController(IConfiguration configuration, AccountService accountService, IDistributedCache redisDistributedCache)
     {
         _configuration = configuration;
         _accountService = accountService;
+        _redisCache = redisDistributedCache;
     }
 
     [AllowAnonymous]
@@ -46,7 +51,7 @@ public class AccountController : Controller
     {
         if (_accountService.CheckUserIdentity(loginModel.Username, loginModel.Password))
         {
-            var tokenString = _accountService.GenerateToken(loginModel.Username);
+            var tokenString = _accountService.GenerateToken(loginModel.Username,loginModel.Rule);
             return Ok(tokenString);
         }
         return BadRequest("password incorrect");       
@@ -63,11 +68,21 @@ public class AccountController : Controller
     }
 
     [Authorize]
+    [Authorize(Policy = "Admin")]
     [HttpGet]
     [Route("logout")]
     public IActionResult Logout()
     {
-        var context = HttpContext;
-        return Ok("logged out");
+        try
+        {
+            string authorization = HttpContext.Request.Headers["Authorization"];
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(authorization[7..]);
+            _accountService.Logout(token);
+            return Ok("[not really] logged out");
+        }
+        catch (Exception)
+        {
+            throw new Exception("token invalid");
+        }
     }
 }
