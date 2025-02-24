@@ -52,7 +52,7 @@ builder.Services.AddDbContext<TicketDbContext>(
 
 
 
-// Redis Connection
+// Redis cache connection
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString")));
 
 builder.Services.AddStackExchangeRedisCache(
@@ -62,13 +62,15 @@ builder.Services.AddStackExchangeRedisCache(
             option.InstanceName = "TicketAppCache";
         });
 
-
-var multiplexer = new List<RedLockMultiplexer>
+// Redis lock connection
+var connectionMultiplexer = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString"));
+var multiplexers = new List<RedLockMultiplexer>
 {
-    ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString"))
+    connectionMultiplexer
 };
 
-var redlockFactory = RedLockFactory.Create(multiplexer);
+var redlockFactory = RedLockFactory.Create(multiplexers);
+
 builder.Services.AddSingleton<IDistributedLockFactory>(redlockFactory);
 
 

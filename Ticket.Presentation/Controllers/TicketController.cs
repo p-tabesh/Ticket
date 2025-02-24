@@ -36,20 +36,15 @@ public class TicketController : Controller
         var expiryTime = TimeSpan.FromSeconds(60);
         var waitTime = TimeSpan.FromSeconds(1);
         var retryTime = TimeSpan.FromSeconds(1);
-        var resource = $"ticket:{ticketId}";
+        var resource = $"ticket-{ticketId}";
 
-        await using (var _lock = await _lockFactory.CreateLockAsync(resource, expiryTime))
+        await using var _lock = await _lockFactory.CreateLockAsync(resource, expiryTime);
+        if (_lock.IsAcquired)
         {
-
-            if (_lock.IsAcquired)
-            {
-                //await Task.Delay(5000);
-                return Ok("ticket locked");
-            }
-
-            return BadRequest("object is locked");
+            //await Task.Delay(5000);
+            return Ok("ticket locked");
         }
-
+        return BadRequest("object locked");
     }
 
     [HttpPost]
