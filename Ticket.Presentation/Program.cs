@@ -165,13 +165,13 @@ app.MapControllers();
 app.Urls.Add("http://0.0.0.0:5000");
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "DockerEnv")
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseMetricServer();
-    app.UseHttpMetrics();
-}
+//if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "DockerEnv")
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseMetricServer();
+app.UseHttpMetrics();
+//}
 
 
 

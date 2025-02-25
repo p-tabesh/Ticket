@@ -29,7 +29,7 @@ scrape_configs:
     #   - targets: ["127.0.0.1:8000"]
 
     static_configs:
-      - targets: ["localhost:5000"]
+      - targets: ["host.docker.internal:5000"]
   
   - job_name: 'docker'
     static_configs: 
