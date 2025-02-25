@@ -38,11 +38,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // SqlServer Configuration
-builder.Services.AddDbContext<TicketDbContext>(
+if (builder.Environment.EnvironmentName == "DockerEnv")
+{
+    builder.Services.AddDbContext<TicketDbContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlConnectionString"));
+    });
+} 
+else
+{
+    builder.Services.AddDbContext<TicketDbContext>(
     options =>
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
+}
 
 //builder.Services.AddDbContextFactory<TicketDbContext>(
 //    options =>
@@ -134,12 +145,14 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider.GetRequiredService<TicketDbContext>();
-//    dbContext.Database.Migrate();
-//}
+if (app.Environment.EnvironmentName == "DockerEnv")
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<TicketDbContext>();
+        dbContext.Database.Migrate();
+    }
+}
 
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
@@ -152,7 +165,7 @@ app.MapControllers();
 app.Urls.Add("http://0.0.0.0:5000");
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "DockerEnv")
 {
     app.UseSwagger();
     app.UseSwaggerUI();

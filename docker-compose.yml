@@ -4,23 +4,36 @@ services:
     image: ticketimage:1.1
     ports:
       - "5000:5000"
+    build: 
+      context: .
     
       # - "5001:443"
     environment:
       # - DockerConnectionStrings__SqlConnectionString=Server=sql_server2022;Database=SalesDb;MultipleActiveResultSets=true
       # - DockerConnectionStrings__RedisConnectionString=localhost:6379,abortConnect=false
-        - ASPNETCORE_ENVIRONMENT=Development
-        - DockerConnectionStrings__SqlConnectionString=Server=sqlserver,1433;Database=TicketDb;User=sa;Password=SA#@Complex#@Password__.123;TrustServerCertificate=True
+        - ASPNETCORE_ENVIRONMENT=DockerEnv
+        # - DockerConnectionStrings__SqlConnectionString=Server=sqlserver,1433;Database=TicketDb;User=sa;Password=SA#@Complex#@Password__.123;TrustServerCertificate=True
     depends_on:
-      # - redis
+      - redis
       - sqlserver
 
-  # redis:
-  #   image: "redis:6.2"
-  #   container_name: redis
-  #   ports:
-  #     - "6379:6379"
-  #   command: ["redis-server"]
+  redis:
+    image: "redis:6.2"
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server"]
+
+  redis-exporter:
+    container_name: redis_exporter
+    image: oliver006/redis_exporter
+    ports:
+      - "9121:9121"
+    links:
+      - redis
+      - prometheus
+    environment:
+      REDIS_ADDR: "redis:6379"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -36,3 +49,11 @@ services:
       interval: 10s
       timeout: 10s
       retries: 3
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
