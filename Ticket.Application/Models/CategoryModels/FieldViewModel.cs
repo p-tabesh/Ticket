@@ -1,6 +1,6 @@
 ﻿namespace Ticket.Application.Models;
 
-public class FieldModel
+public class FieldViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }

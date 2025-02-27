@@ -2,7 +2,7 @@
 
 namespace Ticket.Application.Models;
 
-public class TicketFilterDTO
+public class TicketFilterDataModel
 {
     public Status? Status { get; set; }
     public DateTime? StartDate { get; set; } = null;

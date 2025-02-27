@@ -43,12 +43,12 @@ public class TicketService
         }
     }
 
-    public void CloseTicket(int ticketId, string responseBody)
+    public void CloseTicket(int ticketId, string responseBody, int userId)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var ticket = UoW.TicketRepository.GetById(ticketId);
-            ticket.CloseTicket(responseBody);
+            ticket.CloseTicket(responseBody, userId);
             UoW.TicketRepository.Update(ticket);
             UoW.Commit();
         }

@@ -2,13 +2,14 @@
 using RedLockNet;
 using Ticket.Application.Models;
 using Ticket.Application.Services;
+using Ticket.Presentation.Extentions;
 
 
 namespace Ticket.Presentation.Controllers;
 
 [ApiController]
 [Route("ticket")]
-public class TicketController : Controller
+public class TicketController : BaseController
 {
     private readonly TicketService _ticketService;
     private readonly ILogger<TicketController> _logger;
@@ -22,7 +23,7 @@ public class TicketController : Controller
 
     [HttpPost]
     [Route("add")]
-    public IActionResult AddTicket([FromBody] TicketDTO ticketDTO)
+    public IActionResult AddTicket([FromBody] AddTicketModel ticketDTO)
     {
         _ticketService.AddTicket(ticketDTO);
         return Ok();
@@ -48,7 +49,7 @@ public class TicketController : Controller
 
     [HttpPost]
     [Route("edit-ticket")]
-    public IActionResult EditTicket([FromBody] TicketDTO ticketDTO)
+    public IActionResult EditTicket([FromBody] AddTicketModel ticketDTO)
     {
         return Ok();
     }
@@ -67,15 +68,15 @@ public class TicketController : Controller
         if (id == null)
         {
             var tickets = _ticketService.GetAllTickets();
-            return Json(tickets);
+            return Ok(tickets);
         }
         var ticket = _ticketService.GetTicket(id.Value);
-        return Json(ticket);
+        return Ok(ticket);
     }
 
     [HttpPost]
     [Route("get-tickets")]
-    public IActionResult GetTicketWithFilter([FromQuery] TicketFilterDTO ticketFilterDTO)
+    public IActionResult GetTicketWithFilter([FromQuery] TicketFilterDataModel ticketFilterDTO)
     {
         var filteredTickets = _ticketService.GetTicketWithFilter(ticketFilterDTO);
         return Ok(filteredTickets);
@@ -85,7 +86,7 @@ public class TicketController : Controller
     [Route("close-ticket")]
     public IActionResult CloseTicket(int ticketId, string responseBody)
     {
-        _ticketService.CloseTicket(ticketId, responseBody);
+        _ticketService.CloseTicket(ticketId, responseBody, UserId);
         return Ok();
     }
 

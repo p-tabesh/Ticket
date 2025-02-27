@@ -1,6 +1,6 @@
 ﻿namespace Ticket.Application.Models;
 
-public class TicketViewDTO
+public class TicketViewModel
 {
     public int Id { get; set; }
     public string Subject { get; set; }

@@ -105,6 +105,12 @@ C:\Users\Pooya\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Presentation.d
 C:\Users\Pooya\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Application.pdb
 C:\Users\Pooya\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Infrastructure.pdb
 C:\Users\Pooya\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Presentation.pdb
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.csproj.AssemblyReference.cache
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.AssemblyInfoInputs.cache
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.AssemblyInfo.cs
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.csproj.CoreCompileInputs.cache
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.sourcelink.json
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Presentation.deps.json
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Presentation.runtimeconfig.json
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\appsettings.Development.json
@@ -184,12 +190,6 @@ C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Application
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Domain.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Infrastructure.pdb
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Presentation.pdb
-C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.csproj.AssemblyReference.cache
-C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.AssemblyInfoInputs.cache
-C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.AssemblyInfo.cs
-C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.csproj.CoreCompileInputs.cache
-C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.sourcelink.json
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.csproj.CopyComplete
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.dll
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\refint\Ticket.Test.dll

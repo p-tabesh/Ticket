@@ -35,7 +35,7 @@ public class AccountService
         {
             new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
             new Claim(ClaimTypes.Role,userRole),
-            new Claim(JwtRegisteredClaimNames.NameId, userId.ToString())
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString())
         };
 
         var token = new JwtSecurityToken(issuer: _configuration["Jwt:Issuer"],

@@ -87,12 +87,12 @@ public class Tickets
     }
     #endregion
 
-    public void CloseTicket(string responseBody)
+    public void CloseTicket(string responseBody, int userId)
     {
         if (string.IsNullOrEmpty(responseBody))
             throw new InvalidOperationException();
         this.ResponseBody = responseBody;
-        AddStatusHistory(Status.Closed);
+        AddStatusHistory(Status.Closed, userId);
         AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.SubmitUserId);
     }
 

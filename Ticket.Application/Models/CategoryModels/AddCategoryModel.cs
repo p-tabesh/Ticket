@@ -1,6 +1,6 @@
 ﻿namespace Ticket.Application.Models;
 
-public class CategoryModel
+public class AddCategoryModel
 {
     public string Title { get; set; }
     public int? ParentCategory { get; set; }
