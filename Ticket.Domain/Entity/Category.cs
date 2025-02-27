@@ -76,13 +76,13 @@ public class Category
         if (string.IsNullOrEmpty(title))
             throw new Exception("name is invalid");
 
-        var categories = new List<Category>();
+        //var categories = new List<Category>();
 
-        if (categories.Any(c => c.Id == categoryId))
-            throw new CategoryException("category doesnt exists");
+        //if (categories.All(c => c.Id == categoryId))
+        //    throw new CategoryException("category doesnt exists");
 
-        if (categories.All(c => c.Title.Trim() == title.Trim()))
-            throw new CategoryException("Another category with this name already exists");
+        //if (categories.Any(c => c.Title.Trim() == title.Trim()))
+        //    throw new CategoryException("Another category with this name already exists");
         
         Title = title;
     }

@@ -13,7 +13,7 @@ public class JwtMiddleware : IMiddleware
     }
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        if (!IsAuthorizedEndpoint(context.GetEndpoint()))
+        if (IsUnAuthorizeEndpoint(context.GetEndpoint()) || context.Request.Path.ToString().Contains("swagger")) 
         {
             await next(context);
             return;
@@ -33,9 +33,9 @@ public class JwtMiddleware : IMiddleware
     }
 
 
-    private bool IsAuthorizedEndpoint(Endpoint endpoint)
+    private bool IsUnAuthorizeEndpoint(Endpoint endpoint)
     {
-        var authorizeAttribute = endpoint?.Metadata.GetMetadata<AuthorizeAttribute>();
+        var authorizeAttribute = endpoint?.Metadata.GetMetadata<AllowAnonymousAttribute>();
         if (authorizeAttribute == null)
         {
             return false;

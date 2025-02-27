@@ -4,12 +4,13 @@ using Ticket.Application.Services;
 using Ticket.Application.Models;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Caching.Distributed;
+using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers;
 
 [ApiController]
 [Route("account")]
-public class AccountController : Controller
+public class AccountController : BaseController
 {
 
     private readonly AccountService _accountService;
@@ -18,7 +19,7 @@ public class AccountController : Controller
         _accountService = accountService;
     }
 
-
+    [AllowAnonymous]
     [HttpPost]
     [Route("login")]
     public IActionResult Login([FromBody] LoginModel loginModel)
@@ -29,7 +30,6 @@ public class AccountController : Controller
     }
 
 
-    [Authorize]
     [Authorize(Policy = "Admin")]
     [HttpGet]
     [Route("logout")]
@@ -37,10 +37,9 @@ public class AccountController : Controller
     {
         try
         {
-            string authorization = HttpContext.Request.Headers["Authorization"];
-            var token = new JwtSecurityTokenHandler().ReadJwtToken(authorization[7..]);
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(Authorization);
             _accountService.Logout(token);
-            return Ok("[not really] logged out");
+            return Ok("logged out");
         }
         catch (Exception)
         {

@@ -23,16 +23,17 @@ builder.Services.AddCors(
         option.AddPolicy("AllowAll", builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
     });
 
+builder.Services.AddSwaggerConfigurations();
+
+
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(option =>
 {
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
-
-// Swagger Configuration
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 
 // SqlServer Configuration
 if (builder.Environment.EnvironmentName == "DockerEnv")
@@ -42,7 +43,7 @@ if (builder.Environment.EnvironmentName == "DockerEnv")
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlConnectionString"));
     });
-} 
+}
 else
 {
     builder.Services.AddDbContext<TicketDbContext>(
@@ -51,13 +52,6 @@ else
         options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
     });
 }
-
-//builder.Services.AddDbContextFactory<TicketDbContext>(
-//    options =>
-//    {
-//        options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
-//    });
-
 
 
 // Redis cache connection
@@ -108,47 +102,6 @@ builder.Services.AddAuthorizations();
 
 
 
-//builder.Services.AddAuthentication(option =>
-//{
-//    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//}).AddJwtBearer(options =>
-//{
-
-//    options.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = false,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//        ValidAudience = builder.Configuration["Jwt:Audience"],
-//        RequireSignedTokens = true,
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-//    };
-//    options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
-//    options.Events = new JwtBearerEvents
-//    {
-//        OnAuthenticationFailed = context =>
-//        {
-//            Console.WriteLine("Token failed validation: " + context.Exception.Message);
-//            return Task.CompletedTask;
-//        },
-//        OnTokenValidated = context =>
-//        {
-//            Console.WriteLine("Token validated successfully");
-//            return Task.CompletedTask;
-//        }
-//    };
-//});
-
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.AddPolicy("Admin", policy => policy.RequireRole("admin"));
-//});
-
-
-
 
 var app = builder.Build();
 if (app.Environment.EnvironmentName == "DockerEnv")
@@ -167,7 +120,9 @@ app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+
+app.MapControllers()
+    .RequireAuthorization();
 app.Urls.Add("http://0.0.0.0:5000");
 
 // Configure the HTTP request pipeline.

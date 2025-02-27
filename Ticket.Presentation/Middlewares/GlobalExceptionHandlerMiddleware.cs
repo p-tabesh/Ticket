@@ -36,8 +36,9 @@ namespace Ticket.Presentation.Middlewares
 
         public async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.StatusCode = 500;
-            var responseMessage = new ResponseBaseModel() { IsSuccess = false, StatusCode = 500 };
+            //context.Response.StatusCode = 500;
+            context.Response.ContentType = "application/json";
+            var responseMessage = new ResponseBaseModel() { IsSuccess = false, Message = exception.Message };
             switch (exception)
             {
                 case CategoryException:
@@ -50,5 +51,7 @@ namespace Ticket.Presentation.Middlewares
                     break;
             }
         }
+
     }
 }
+

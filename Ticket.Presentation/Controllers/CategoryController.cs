@@ -2,12 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Models;
 using Ticket.Application.Models.CategoryModels;
 using Ticket.Application.Services;
+using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers;
 
 [ApiController]
 [Route("category")]
-public class CategoryController : Controller
+public class CategoryController : BaseController
 {
     private CategoryService _categoryService;
 
@@ -19,32 +20,32 @@ public class CategoryController : Controller
     public IActionResult GetCategories([FromQuery] int? id)
     {
         var categories = _categoryService.GetCategories(id);
-        return Json(categories);
+        return Ok(categories);
     }
 
 
     [HttpPost]
-    [Route("add-category")]
+    [Route("add")]
     public IActionResult AddCategory([FromBody] AddCategoryModel categoryModel)
     {
-        _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.UserId);
-        return Json(new ResponseBaseModel());
+        _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.DefaultAssigneUserId);
+        return Ok();
     }
 
     [HttpPost]
-    [Route("remove-category")]
+    [Route("remove")]
     public IActionResult RemoveCategory(int categoryId)
     {
         _categoryService.RemoveCategory(categoryId);
-        return Json(new ResponseBaseModel());
+        return Ok();
     }
 
     [HttpPut]
-    [Route("edit-category-title")]
+    [Route("edit-title")]
     public IActionResult EditCategoryTitle(int categoryId, string newTitle)
     {
         _categoryService.EditTitle(categoryId, newTitle);
-        return Json(new ResponseBaseModel());
+        return Ok();
     }
 
     [HttpPut]
@@ -52,7 +53,7 @@ public class CategoryController : Controller
     public IActionResult UpdateDefaultUserAssigne(int categoryId, int userId)
     {
         _categoryService.UpdateDefaultUserAssigne(categoryId, userId);
-        return Json(new ResponseBaseModel());
+        return Ok();
     }
 
     [HttpPost]
@@ -60,7 +61,15 @@ public class CategoryController : Controller
     public IActionResult AddFieldToCategory([FromBody] AddFieldModel addFieldModel)
     {
         _categoryService.AddField(addFieldModel.categoryId, addFieldModel.fieldId);
-        return Json(new ResponseBaseModel());
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("remove-field")]
+    public IActionResult RemoveFieldFromCategory(int categoryId, int fieldId)
+    {
+        _categoryService.RemoveField(categoryId, fieldId);
+        return Ok();
     }
 
     [HttpGet]
