@@ -25,11 +25,7 @@ public class JwtMiddleware : IMiddleware
             return;
         }
 
-        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-        await context.Response.WriteAsync("token invalid");
-        return;
-
-
+        throw new UnauthorizedAccessException();
     }
 
 
@@ -57,7 +53,7 @@ public class JwtMiddleware : IMiddleware
         }
         catch (Exception)
         {
-            throw new Exception("token invalid");
+            throw new UnauthorizedAccessException();
         }
     }
 }

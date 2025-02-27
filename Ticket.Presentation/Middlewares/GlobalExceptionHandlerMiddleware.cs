@@ -38,11 +38,16 @@ namespace Ticket.Presentation.Middlewares
         {
             //context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
-            var responseMessage = new ResponseBaseModel() { IsSuccess = false, Message = exception.Message };
+            var responseMessage = new ResponseBaseModel() { IsSuccess = false };
             switch (exception)
             {
                 case CategoryException:
                     responseMessage.Message = exception.Message;
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
+                    break;
+                case UnauthorizedAccessException:
+                    responseMessage.Message = "UnAuthorization";
+                    context.Response.StatusCode = 401;
                     await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
                     break;
                 default:
