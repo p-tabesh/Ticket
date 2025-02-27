@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Models;
 using Ticket.Application.Services;
 using Ticket.Presentation.Extentions;
@@ -13,8 +14,7 @@ namespace Ticket.Presentation.Controllers
 
         public UserController(UserService userService) => _userService = userService;
 
-
-        //[Authorize(CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "Admin")]
         [HttpPost]
         [Route("add-user")]
         public IActionResult AddUser([FromBody] UserModel userModel)

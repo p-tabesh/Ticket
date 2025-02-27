@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ticket.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8508ade4cba67fb40c0dc369890690b236fde72f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e27e1c4e13cdf49b21eb019ce98aef192a9eaa28")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ticket.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ticket.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
