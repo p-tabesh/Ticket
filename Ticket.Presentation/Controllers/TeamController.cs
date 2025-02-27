@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 using Ticket.Application.Services;
+using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers;
 
@@ -9,7 +9,7 @@ namespace Ticket.Presentation.Controllers;
 
 [ApiController]
 [Route("team")]
-public class TeamController : Controller
+public class TeamController : BaseController
 {
     private TeamService _teamService;
     public TeamController(TeamService teamService) => _teamService = teamService;
@@ -20,7 +20,7 @@ public class TeamController : Controller
     {
 
         var teams = _teamService.GetTeams(id);
-        return Json(teams);
+        return Ok(teams);
     }
 
     [HttpPost]
@@ -44,6 +44,6 @@ public class TeamController : Controller
     public IActionResult GetTeamUsers()
     {
         var teams = _teamService.GetTeams();
-        return Json(teams);
+        return Ok(teams);
     }
 }

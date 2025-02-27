@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Services;
 using Ticket.Application.Models;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Caching.Distributed;
 using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers;
@@ -12,9 +11,9 @@ namespace Ticket.Presentation.Controllers;
 [Route("account")]
 public class AccountController : BaseController
 {
-
     private readonly AccountService _accountService;
-    public AccountController(IConfiguration configuration, AccountService accountService, IDistributedCache redisDistributedCache)
+
+    public AccountController(AccountService accountService)
     {
         _accountService = accountService;
     }
@@ -29,8 +28,6 @@ public class AccountController : BaseController
         return Ok(tokenString);
     }
 
-
-    [Authorize(Policy = "Admin")]
     [HttpGet]
     [Route("logout")]
     public IActionResult Logout()

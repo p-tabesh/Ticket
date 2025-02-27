@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Models;
 using Ticket.Application.Services;
+using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers
 {
     [ApiController]
     [Route("user")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly UserService _userService;
 
@@ -34,22 +33,22 @@ namespace Ticket.Presentation.Controllers
                 users = _userService.GetUsers();
             else
                 users = _userService.GetUsers(id.Value);
-            return Json(users);
+            return Ok(users);
         }
 
         [HttpPost]
         [Route("change-username")]
-        public IActionResult ChangeUsername(int userId, string newUsername)
+        public IActionResult ChangeUsername(string newUsername)
         {
-            _userService.ChangeUsername(userId, newUsername);
+            _userService.ChangeUsername(UserId, newUsername);
             return Ok();
         }
 
         [HttpPost]
         [Route("change-password")]
-        public IActionResult ChangePassword(int userId, string newPassword)
+        public IActionResult ChangePassword(string newPassword)
         {
-            _userService.ChangePassword(userId, newPassword);
+            _userService.ChangePassword(UserId, newPassword);
             return Ok();
         }
 
@@ -76,6 +75,5 @@ namespace Ticket.Presentation.Controllers
             _userService.ChangeTeam(newTeamId, userId);
             return Ok();
         }
-
     }
 }
