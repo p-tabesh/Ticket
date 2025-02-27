@@ -1,12 +1,9 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Prometheus;
 using RedLockNet;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
-using System.Text;
 using System.Text.Json.Serialization;
 using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
@@ -105,44 +102,53 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenAnyIP(5000); // Ensure this matches your Docker port mapping
 });
 
-builder.Services.AddAuthentication(option =>
-{
-    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
 
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        RequireSignedTokens = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    };
-    options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
-    options.Events = new JwtBearerEvents
-    {
-        OnAuthenticationFailed = context =>
-        {
-            Console.WriteLine("Token failed validation: " + context.Exception.Message);
-            return Task.CompletedTask;
-        },
-        OnTokenValidated = context =>
-        {
-            Console.WriteLine("Token validated successfully");
-            return Task.CompletedTask;
-        }
-    };
-});
+builder.Services.AddAuthentications(builder.Configuration);
+builder.Services.AddAuthorizations();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Admin", policy => policy.RequireRole("admin"));
-});
+
+
+//builder.Services.AddAuthentication(option =>
+//{
+//    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(options =>
+//{
+
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = false,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//        ValidAudience = builder.Configuration["Jwt:Audience"],
+//        RequireSignedTokens = true,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+//    };
+//    options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+//    options.Events = new JwtBearerEvents
+//    {
+//        OnAuthenticationFailed = context =>
+//        {
+//            Console.WriteLine("Token failed validation: " + context.Exception.Message);
+//            return Task.CompletedTask;
+//        },
+//        OnTokenValidated = context =>
+//        {
+//            Console.WriteLine("Token validated successfully");
+//            return Task.CompletedTask;
+//        }
+//    };
+//});
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("Admin", policy => policy.RequireRole("admin"));
+//});
+
+
+
 
 var app = builder.Build();
 if (app.Environment.EnvironmentName == "DockerEnv")

@@ -21,8 +21,8 @@ namespace Ticket.Infrastructure.Configuration
 
             // user who submited ticket
             builder.HasMany(t => t.Tickets)
-                .WithOne(t => t.User)
-                .HasForeignKey(u => u.UserId);
+                .WithOne(t => t.SubmitUser)
+                .HasForeignKey(u => u.SubmitUserId);
 
             // user who ticket assigned
             builder.HasMany(t => t.AssignedTickets)

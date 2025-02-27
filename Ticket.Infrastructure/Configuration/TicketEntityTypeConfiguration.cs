@@ -11,9 +11,9 @@ public class TicketEntityTypeConfiguration : IEntityTypeConfiguration<Tickets>
         builder.HasKey(t => t.Id);
 
         // User who submited ticket
-        builder.HasOne(u => u.User)
+        builder.HasOne(u => u.SubmitUser)
             .WithMany(t => t.Tickets)
-            .HasForeignKey(u => u.UserId)
+            .HasForeignKey(u => u.SubmitUserId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(c => c.Category)

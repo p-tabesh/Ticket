@@ -21,10 +21,9 @@ public class TicketController : Controller
     }
 
     [HttpPost]
-    [Route("add-ticket")]
-    public async Task<IActionResult> AddTicket([FromBody] TicketDTO ticketDTO)
+    [Route("add")]
+    public IActionResult AddTicket([FromBody] TicketDTO ticketDTO)
     {
-        _logger.LogInformation("locked");
         _ticketService.AddTicket(ticketDTO);
         return Ok();
     }

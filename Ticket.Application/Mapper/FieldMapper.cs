@@ -5,9 +5,9 @@ namespace Ticket.Application.Mapper;
 
 public static class FieldMapper
 {
-    public static FieldModel MapToDto(Field field)
+    public static FieldViewModel MapToDto(Field field)
     {
-        var fieldModel = new FieldModel()
+        var fieldModel = new FieldViewModel()
         {
             Id = field.Id,
             FieldType = field.Type.ToString(),

@@ -25,7 +25,7 @@ public class Category
         if (categories.Any(c => c.Title == title))
             throw new ArgumentException("category already exists");
 
-        if (categories.All(c => c.Id == parentId))
+        if (parentId.HasValue && categories.All(c => c.Id == parentId))
             throw new Exception("Parent category doesnt exists");
 
         Title = title;

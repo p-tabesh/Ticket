@@ -21,8 +21,8 @@ public class Tickets
     public int CategoryId { get; private set; }
 
     // User
-    public User User { get; private set; }
-    public int UserId { get; private set; }
+    public User SubmitUser { get; private set; }
+    public int SubmitUserId { get; private set; }
     // AssignUser
     public User AssignUser { get; private set; }
     public int AssignUserId { get; private set; }
@@ -32,21 +32,15 @@ public class Tickets
     public ICollection<TicketStatusHistory> TicketStatusHistory { get; private set; }
     public ICollection<TicketNote> TicketNote { get; private set; }
 
-    /// <summary>
-    /// this constructor for ef core
-    /// </summary>
-    private Tickets()
-    {
-        //TicketAudit = new List<TicketAudit>();
-        //TicketStatusHistory = new List<TicketStatusHistory>();
-    }
+
+    private Tickets() { }
     public Tickets(string subject,
                     string body,
                     Priority priority,
                     string nationalCode,
                     string phoneNumber,
                     int categoryId,
-                    int userId)
+                    int submitUserId)
     {
         Subject = subject;
         Body = body;
@@ -54,7 +48,7 @@ public class Tickets
         NationalCode = nationalCode;
         PhoneNumber = phoneNumber;
         CategoryId = categoryId;
-        UserId = userId;
+        SubmitUserId = submitUserId;
         CreationDate = DateTime.Now;
     }
 
@@ -69,13 +63,15 @@ public class Tickets
     #endregion
 
     #region TicketStatusHistory
-    public void AddStatusHistory(Status status)
+    public void AddStatusHistory(Status status, int userId)
     {
         if (TicketStatusHistory == null)
             TicketStatusHistory = new List<TicketStatusHistory>();
 
         var ticketStatusHistory = new TicketStatusHistory(status);
         TicketStatusHistory.Add(ticketStatusHistory);
+
+        AddAudit(Enums.Action.Update, $"Ticket status change to {status}",userId);
     }
     #endregion  
 
@@ -97,7 +93,7 @@ public class Tickets
             throw new InvalidOperationException();
         this.ResponseBody = responseBody;
         AddStatusHistory(Status.Closed);
-        AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.UserId);
+        AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.SubmitUserId);
     }
 
     public void AddNote(string note)

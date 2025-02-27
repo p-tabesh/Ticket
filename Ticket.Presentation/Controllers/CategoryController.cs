@@ -25,7 +25,7 @@ public class CategoryController : Controller
 
     [HttpPost]
     [Route("add-category")]
-    public IActionResult AddCategory([FromBody] CategoryModel categoryModel)
+    public IActionResult AddCategory([FromBody] AddCategoryModel categoryModel)
     {
         _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.UserId);
         return Json(new ResponseBaseModel());

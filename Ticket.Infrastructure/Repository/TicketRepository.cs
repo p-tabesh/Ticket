@@ -24,13 +24,13 @@ public class TicketRepository : ITicketRepository
 
     public Tickets GetById(int id)
     {
-        var ticket = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).FirstOrDefault(t => t.Id == id);
+        var ticket = _context.Tickets.Include(u => u.SubmitUser).Include(u => u.AssignUser).Include(c => c.Category).FirstOrDefault(t => t.Id == id);
         return ticket;
     }
 
     public IEnumerable<Tickets> GetFilteredTickets(DateTime? startDate, DateTime? endDate, int? categoryId, Status? status, Priority? priority)
     {
-        IQueryable<Tickets> tickets = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category);
+        IQueryable<Tickets> tickets = _context.Tickets.Include(u => u.SubmitUser).Include(u => u.AssignUser).Include(c => c.Category);
 
         if (priority.HasValue)
         {
@@ -71,7 +71,7 @@ public class TicketRepository : ITicketRepository
 
     public IEnumerable<Tickets> GetAll()
     {
-        var tickets = _context.Tickets.Include(u => u.User).Include(u => u.AssignUser).Include(c => c.Category).ToList();
+        var tickets = _context.Tickets.Include(u => u.SubmitUser).Include(u => u.AssignUser).Include(c => c.Category).ToList();
         return tickets;
     }
 }

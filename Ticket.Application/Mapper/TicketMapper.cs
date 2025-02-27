@@ -7,9 +7,9 @@ namespace Ticket.Application.Mapper;
 public static class TicketMapper
 {
 
-    public static TicketViewDTO MapToDTO(Tickets ticket)
+    public static TicketViewModel MapToDTO(Tickets ticket)
     {
-        var model = new TicketViewDTO()
+        var model = new TicketViewModel()
         {
             Id = ticket.Id,
             Body = ticket.Body,
@@ -17,7 +17,7 @@ public static class TicketMapper
             Priority = ticket.Priority.ToString(),
             Status = ticket.Status.ToString(),
             Subject = ticket.Subject,
-            SubmitedUser = ticket.User.Username,
+            SubmitedUser = ticket.SubmitUser.Username,
             Category = ticket.Category.Title,
             AssignedUser = ticket.AssignUser.Username,
             NationalCode = ticket.NationalCode,
@@ -26,7 +26,7 @@ public static class TicketMapper
         return model;
     }
 
-    public static Tickets MapToEntity(TicketDTO ticketModel)
+    public static Tickets MapToEntity(AddTicketModel ticketModel)
     {
         var ticket = new Tickets(
             ticketModel.Subject,
@@ -35,7 +35,7 @@ public static class TicketMapper
             ticketModel.NationalCode,
             ticketModel.PhoneNumber,
             ticketModel.CategoryId,
-            ticketModel.SubmitedUserId);
+            2);
         return ticket;
     }
 }

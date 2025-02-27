@@ -145,7 +145,7 @@ public class CategoryService
             UoW.FieldRepository.Update(field);
         }
     }
-    public CategoryFieldsModel GetCategoryFields(int categoryId)
+    public CategoryFieldsViewModel GetCategoryFields(int categoryId)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {

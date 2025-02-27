@@ -5,16 +5,16 @@ namespace Ticket.Application.Mapper;
 
 public static class CategoryFieldMapper
 {
-    public static CategoryFieldsModel MapToDTO(Category category)
+    public static CategoryFieldsViewModel MapToDTO(Category category)
     {
-        var fields = new List<FieldModel>();
+        var fields = new List<FieldViewModel>();
         foreach (var field in category.Fields)
         {
             var model = FieldMapper.MapToDto(field);
             fields.Add(model);
         }
 
-        var fieldModel = new CategoryFieldsModel
+        var fieldModel = new CategoryFieldsViewModel
         {
             CategoryId = category.Id,
             CategoryTitle = category.Title,

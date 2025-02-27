@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using System.Resources;
+﻿//using System.Reflection;
+//using System.Resources;
 using Ticket.Application.Mapper;
 using Ticket.Application.Models;
 using Ticket.Domain.Enums;
@@ -13,9 +13,9 @@ public class TicketService
     private TicketDbContext _dbContext;
     public TicketService(TicketDbContext dbContext)
         => _dbContext = dbContext;
-    public void AddTicket(TicketDTO ticketDTO)
+    public void AddTicket(AddTicketModel ticketDTO)
     {
-        var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages", Assembly.GetExecutingAssembly());
+        //var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages", Assembly.GetExecutingAssembly());
 
         using (var UoW = new UnitOfWork(_dbContext))
         {
@@ -24,8 +24,7 @@ public class TicketService
             var ticket = TicketMapper.MapToEntity(ticketDTO);
 
             ticket.AssignTicket(category.DefaultUserAsignId);
-            ticket.AddStatusHistory(Status.Open);
-            ticket.AddAudit(Domain.Enums.Action.Add, "added", ticketDTO.SubmitedUserId);
+            ticket.AddStatusHistory(Status.Open,ticketDTO.SubmitedUserId);
             UoW.TicketRepository.Add(ticket);
             UoW.Commit();
         }
@@ -66,7 +65,7 @@ public class TicketService
         }
     }
 
-    public TicketViewDTO GetTicket(int ticketId)
+    public TicketViewModel GetTicket(int ticketId)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
@@ -75,9 +74,9 @@ public class TicketService
             return ticketData;
         }
     }
-    public IEnumerable<TicketViewDTO> GetTicketWithFilter(TicketFilterDTO ticketFilterDTO)
+    public IEnumerable<TicketViewModel> GetTicketWithFilter(TicketFilterDataModel ticketFilterDTO)
     {
-        var ticketsData = new List<TicketViewDTO>();
+        var ticketsData = new List<TicketViewModel>();
 
 
         using (var UoW = new UnitOfWork(_dbContext))
@@ -92,11 +91,11 @@ public class TicketService
         return ticketsData;
     }
 
-    public IEnumerable<TicketViewDTO> GetAllTickets()
+    public IEnumerable<TicketViewModel> GetAllTickets()
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var ticketsData = new List<TicketViewDTO>();
+            var ticketsData = new List<TicketViewModel>();
 
             var tickets = UoW.TicketRepository.GetAll();
             foreach (var ticket in tickets)
