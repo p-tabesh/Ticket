@@ -4,6 +4,316 @@
     "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj": {}
   },
   "projects": {
+    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj",
+        "projectName": "Ticket.Application",
+        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj",
+        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              },
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.113/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj",
+        "projectName": "Ticket.Domain",
+        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj",
+        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.113/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
+        "projectName": "Ticket.Infrastructure",
+        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.113/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+        "projectName": "Ticket.Presentation",
+        "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+        "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
+              },
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              },
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNet.Cors": {
+              "target": "Package",
+              "version": "[5.3.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.6.0, )"
+            },
+            "RedLock.net": {
+              "target": "Package",
+              "version": "[2.3.2, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.6.0, )"
+            },
+            "prometheus-net": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            },
+            "prometheus-net.AspNetCore": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.113/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -27,7 +337,20 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
+              },
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+              },
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+              },
+              "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {
+                "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
