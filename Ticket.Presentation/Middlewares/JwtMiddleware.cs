@@ -13,19 +13,19 @@ public class JwtMiddleware : IMiddleware
     }
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        if (IsUnAuthorizeEndpoint(context.GetEndpoint()) || context.Request.Path.ToString().Contains("swagger")) 
-        {
-            await next(context);
-            return;
-        }
-        
-        if (TokenIsValid(context.Request.Headers["Authorization"]))
+        if (IsUnAuthorizeEndpoint(context.GetEndpoint()) || Convert.ToString(context.Request.Path).Contains("swagger"))
         {
             await next(context);
             return;
         }
 
-        throw new UnauthorizedAccessException();
+        if (!TokenIsValid(context.Request.Headers["Authorization"]))
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        await next(context);
+        return;
     }
 
 

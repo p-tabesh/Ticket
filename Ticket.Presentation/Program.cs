@@ -114,9 +114,9 @@ if (app.Environment.EnvironmentName == "DockerEnv")
 }
 
 
+app.UseCors("AllowAll");
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
-app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

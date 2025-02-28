@@ -18,13 +18,7 @@ namespace Ticket.Presentation.Middlewares
             try
             {
                 await next(context);
-
-                // Temp for swagger 
-                if ((context.Response.Headers["content-length"] == 0 || context.Response.Headers.Count == 0) && context.Response.StatusCode != 403)
-                {
-                    var responseModel = new ResponseBaseModel() { Message = "success" };
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseModel));
-                }
+                return;
 
             }
             catch (Exception e)
@@ -48,6 +42,11 @@ namespace Ticket.Presentation.Middlewares
                 case UnauthorizedAccessException:
                     responseMessage.Message = "UnAuthorization";
                     context.Response.StatusCode = 401;
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
+                    break;
+                case Exception:
+                    responseMessage.Message = exception.Message;
+                    context.Response.StatusCode = 500;
                     await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
                     break;
                 default:

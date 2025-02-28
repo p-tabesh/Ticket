@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using Ticket.Application.Models;
+﻿using System.Security.Claims;
 
 namespace Ticket.Presentation.Extentions;
 

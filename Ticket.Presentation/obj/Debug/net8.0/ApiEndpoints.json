@@ -8,14 +8,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "username",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "loginModel",
+        "Type": "Ticket.Application.Models.LoginModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -33,14 +28,14 @@
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "AddCategory",
-    "RelativePath": "category/add-category",
+    "RelativePath": "category/add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "categoryModel",
-        "Type": "Ticket.Application.Models.CategoryModel",
+        "Type": "Ticket.Application.Models.AddCategoryModel",
         "IsRequired": true
       }
     ],
@@ -81,7 +76,7 @@
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "EditCategoryTitle",
-    "RelativePath": "category/edit-category-title",
+    "RelativePath": "category/edit-title",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -118,13 +113,34 @@
   {
     "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
     "Method": "RemoveCategory",
-    "RelativePath": "category/remove-category",
+    "RelativePath": "category/remove",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.CategoryController",
+    "Method": "RemoveFieldFromCategory",
+    "RelativePath": "category/remove-field",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "fieldId",
         "Type": "System.Int32",
         "IsRequired": false
       }
@@ -249,6 +265,22 @@
   },
   {
     "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "AddTicket",
+    "RelativePath": "ticket/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticketDTO",
+        "Type": "Ticket.Application.Models.AddTicketModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
     "Method": "AddTicketNote",
     "RelativePath": "ticket/add-note",
     "HttpMethod": "POST",
@@ -264,22 +296,6 @@
         "Name": "note",
         "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
-    "Method": "AddTicket",
-    "RelativePath": "ticket/add-ticket",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ticketDTO",
-        "Type": "Ticket.Application.Models.TicketDTO",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -336,7 +352,7 @@
     "Parameters": [
       {
         "Name": "ticketDTO",
-        "Type": "Ticket.Application.Models.TicketDTO",
+        "Type": "Ticket.Application.Models.AddTicketModel",
         "IsRequired": true
       }
     ],
@@ -456,11 +472,6 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
         "Name": "newPassword",
         "Type": "System.String",
         "IsRequired": false
@@ -497,11 +508,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
       {
         "Name": "newUsername",
         "Type": "System.String",

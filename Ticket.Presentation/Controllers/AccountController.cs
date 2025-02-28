@@ -25,7 +25,7 @@ public class AccountController : BaseController
     {
         var user = _accountService.GetUser(loginModel.Username, loginModel.Password);
         var tokenString = _accountService.GenerateToken(user.Id, loginModel.Rule);
-        return Ok(tokenString);
+        return Ok(new { Token = tokenString});
     }
 
     [HttpGet]
@@ -34,7 +34,7 @@ public class AccountController : BaseController
     {
         try
         {
-            var token = new JwtSecurityTokenHandler().ReadJwtToken(Authorization);
+            var token = new JwtSecurityTokenHandler().ReadJwtToken(AuthorizationValue);
             _accountService.Logout(token);
             return Ok("logged out");
         }

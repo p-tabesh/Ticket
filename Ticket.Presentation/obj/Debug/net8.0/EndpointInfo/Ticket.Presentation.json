@@ -10,22 +10,25 @@
         "tags": [
           "Account"
         ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "schema": {
-              "type": "string"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -67,7 +70,7 @@
         }
       }
     },
-    "/category/add-category": {
+    "/category/add": {
       "post": {
         "tags": [
           "Category"
@@ -76,17 +79,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryModel"
+                "$ref": "#/components/schemas/AddCategoryModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryModel"
+                "$ref": "#/components/schemas/AddCategoryModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoryModel"
+                "$ref": "#/components/schemas/AddCategoryModel"
               }
             }
           }
@@ -98,7 +101,7 @@
         }
       }
     },
-    "/category/remove-category": {
+    "/category/remove": {
       "post": {
         "tags": [
           "Category"
@@ -120,7 +123,7 @@
         }
       }
     },
-    "/category/edit-category-title": {
+    "/category/edit-title": {
       "put": {
         "tags": [
           "Category"
@@ -203,6 +206,36 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/category/remove-field": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fieldId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -369,7 +402,7 @@
         }
       }
     },
-    "/ticket/add-ticket": {
+    "/ticket/add": {
       "post": {
         "tags": [
           "Ticket"
@@ -378,17 +411,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketDTO"
+                "$ref": "#/components/schemas/AddTicketModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketDTO"
+                "$ref": "#/components/schemas/AddTicketModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketDTO"
+                "$ref": "#/components/schemas/AddTicketModel"
               }
             }
           }
@@ -431,17 +464,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketDTO"
+                "$ref": "#/components/schemas/AddTicketModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketDTO"
+                "$ref": "#/components/schemas/AddTicketModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TicketDTO"
+                "$ref": "#/components/schemas/AddTicketModel"
               }
             }
           }
@@ -684,14 +717,6 @@
         ],
         "parameters": [
           {
-            "name": "userId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
             "name": "newUsername",
             "in": "query",
             "schema": {
@@ -712,14 +737,6 @@
           "User"
         ],
         "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
           {
             "name": "newPassword",
             "in": "query",
@@ -812,6 +829,25 @@
   },
   "components": {
     "schemas": {
+      "AddCategoryModel": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentCategory": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "defaultAssigneUserId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "AddFieldModel": {
         "type": "object",
         "properties": {
@@ -826,21 +862,53 @@
         },
         "additionalProperties": false
       },
-      "CategoryModel": {
+      "AddTicketModel": {
         "type": "object",
         "properties": {
-          "title": {
+          "subject": {
             "type": "string",
             "nullable": true
           },
-          "parentCategory": {
-            "type": "integer",
-            "format": "int32",
+          "body": {
+            "type": "string",
             "nullable": true
           },
-          "userId": {
+          "nationalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "submitedUserId": {
             "type": "integer",
             "format": "int32"
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/Priority"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginModel": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "rule": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -865,40 +933,6 @@
         "type": "integer",
         "format": "int32"
       },
-      "TicketDTO": {
-        "type": "object",
-        "properties": {
-          "subject": {
-            "type": "string",
-            "nullable": true
-          },
-          "body": {
-            "type": "string",
-            "nullable": true
-          },
-          "nationalCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "submitedUserId": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "priority": {
-            "$ref": "#/components/schemas/Priority"
-          }
-        },
-        "additionalProperties": false
-      },
       "UserModel": {
         "type": "object",
         "properties": {
@@ -921,6 +955,18 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Jwt Bearer Token",
+        "scheme": "bearer"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

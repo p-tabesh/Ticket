@@ -1698,12 +1698,18 @@
           "Ticket.Infrastructure": "1.0.0"
         },
         "runtime": {
-          "Ticket.Application.dll": {}
+          "Ticket.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Ticket.Domain/1.0.0": {
         "runtime": {
-          "Ticket.Domain.dll": {}
+          "Ticket.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Ticket.Infrastructure/1.0.0": {
@@ -1713,7 +1719,10 @@
           "Ticket.Domain": "1.0.0"
         },
         "runtime": {
-          "Ticket.Infrastructure.dll": {}
+          "Ticket.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Ticket.Presentation/1.0.0": {
@@ -1732,7 +1741,10 @@
           "prometheus-net.AspNetCore": "8.2.1"
         },
         "runtime": {
-          "Ticket.Presentation.dll": {}
+          "Ticket.Presentation.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

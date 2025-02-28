@@ -13,7 +13,7 @@ public class BaseController : ControllerBase
             return Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         }
     }
-    public string Authorization
+    public string AuthorizationValue
     {
         get
         {
