@@ -1,26 +1,29 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Ticket.Application.Services;
 using Ticket.Infrastructure.Context;
 
 namespace Ticket.Test;
 
-public class UnitTest1
+
+public class TicketApiInterationTest : IClassFixture<TestingWebAppFactory<Program>>
 {
-    private TicketDbContext _dbContext;
+    private readonly HttpClient _httpClient;
 
-    public UnitTest1(TicketDbContext dbContext)
+    public TicketApiInterationTest(TestingWebAppFactory<Program> factory)
     {
-        _dbContext = dbContext;
+        _httpClient = factory.CreateClient();
     }
-    [Fact]
-    public void Test()
-    {
 
-        var service = new TeamService(_dbContext);
-        service.Add("salam");
-        _dbContext.SaveChanges();
-        var savedData = _dbContext.Category.First(); 
-        Assert.NotNull(savedData);
-        Assert.Equal("salam",savedData.Title);
+    [Fact]
+    public async void Test()
+    {
+        var requestUrl = "/ticket/tickets";
+        
+
+        var response = await _httpClient.GetAsync(requestUrl);
+
+        var content = await response.Content.ReadAsStringAsync();
+        Assert.Contains("UnAuthorized",content);
     }
 }

@@ -1,14 +1,49 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Ticket.Application.Extentions;
 using Ticket.Infrastructure.Context;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing ;
 using Ticket.Test;
+using Microsoft.Extensions.DependencyInjection;
 
 
-var admin = "admin@".ToSha256();
-Console.WriteLine(admin);
 
-var options = new DbContextOptionsBuilder<TicketDbContext>().UseInMemoryDatabase("TicketTestingDb").Options;
-var dbContext = new TicketDbContext(options); 
 
-var test = new UnitTest1(dbContext);
-test.Test();
+
+
+public class TestingWebAppFactory<TStartup>: WebApplicationFactory<Program> where TStartup : class
+{
+
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureServices(service =>
+        {
+            var descriptor = service.FirstOrDefault(d => d.ServiceType == typeof(TicketDbContext));
+            if (descriptor != null)
+                service.Remove(descriptor);
+
+
+
+
+            service.AddDbContext<TicketDbContext>(option =>
+            {
+                option.UseInMemoryDatabase("InMemoryTicketTest");
+            });
+
+
+
+            var serviceProvider = service.BuildServiceProvider();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var scopedServices = scope.ServiceProvider;
+                var db = scopedServices.GetRequiredService<TicketDbContext>();
+                db.Database.EnsureCreated();
+            }
+            
+        });
+        
+    }
+}
+
+

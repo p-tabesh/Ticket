@@ -134,6 +134,5 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 //}
 
-
-
 app.Run();
+public partial class Program { }
