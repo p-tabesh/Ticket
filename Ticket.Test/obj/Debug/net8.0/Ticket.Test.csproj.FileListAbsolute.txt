@@ -352,3 +352,5 @@ C:\Users\Pooya\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.pdb
 C:\Users\Pooya\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\Ticket.Test.genruntimeconfig.cache
 C:\Users\Pooya\Desktop\Ticket\Ticket.Test\obj\Debug\net8.0\ref\Ticket.Test.dll
 C:\Users\Pooya\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Test.exe
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Ticket.Test.exe
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Test\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll

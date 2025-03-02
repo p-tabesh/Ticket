@@ -1,4 +1,5 @@
-﻿using Ticket.Application.Extentions;
+﻿using Microsoft.AspNetCore.Http;
+using Ticket.Application.Extentions;
 using Ticket.Application.Mapper;
 using Ticket.Application.Models;
 using Ticket.Application.Utilities;
@@ -11,11 +12,13 @@ namespace Ticket.Application.Services;
 public class UserService
 {
     private TicketDbContext _dbContext;
-    public UserService(TicketDbContext context) => _dbContext = context;
+    public UserService(TicketDbContext context)
+    {
+         _dbContext = context;
+    }
 
     public void AddUser(UserModel userModel)
     {
-
         using (var UoW = new UnitOfWork(_dbContext))
         {
 
@@ -51,13 +54,14 @@ public class UserService
                 userModels.Add(model);
                 return userModels;
             }
-            var users = UoW.UserRepository.GetAll();
+            var users = UoW.UserRepository.GetAll().ToList();
             
             foreach (var user in users)
             {
                 var model = UserMapper.MapToDto(user);
                 userModels.Add(model);
             }
+            
             return userModels;
         }
     }

@@ -475,3 +475,4 @@ C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Microsoft.Ext
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll

@@ -37,6 +37,12 @@ public class TicketService
 
             var ticket = UoW.TicketRepository.GetById(ticketId);
 
+            if (ticket.AssignUserId == userId)
+                throw new Exception("User already has this ticket");
+
+            if (ticket.SubmitUserId == userId)
+                throw new Exception("Cannot assign ticket to submiter");
+
             ticket.AssignTicket(userId);
             UoW.TicketRepository.Update(ticket);
             UoW.Commit();
