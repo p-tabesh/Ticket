@@ -10,13 +10,13 @@ using System.Text.Json.Nodes;
 namespace Ticket.Test;
 
 
-public class TicketApiInterationTest : IClassFixture<TestingWebAppFactory<Program>>
+public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
 {
     private readonly HttpClient _httpClient;
     private string token;
     private string _mediaType = "application/json";
 
-    public TicketApiInterationTest(TestingWebAppFactory<Program> factory)
+    public TeamApiTests(TestingWebAppFactory<Program> factory)
     {
         _httpClient = factory.CreateClient();
     }
