@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 
 
-public class TestingWebAppFactory<TStartup>: WebApplicationFactory<Program> where TStartup : class
+public class TestingWebAppFactory<TStartup>: WebApplicationFactory<Program> where TStartup : Program
 {
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -28,7 +28,7 @@ public class TestingWebAppFactory<TStartup>: WebApplicationFactory<Program> wher
 
             service.AddDbContext<TicketDbContext>(option =>
             {
-                option.UseInMemoryDatabase("InMemoryTicketTest");
+                option.UseSqlite("Filename=TicketingTestDatabase.db");
             });
 
 
