@@ -24,19 +24,22 @@ public class AccountService
         _redisDistributedCache = redisDistributedCache;
     }
 
-    public string GenerateToken(int userId, string userRole)
+    public string GenerateToken(int userId, bool isAdmin)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         securityKey.KeyId = Guid.NewGuid().ToString();
-
+        var rule = isAdmin == false ? null : "admin";
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-        var claims = new[]
+        var claims = new List<Claim>()
         {
-            new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.Role,userRole),
+            new Claim(JwtRegisteredClaimNames.NameId, Convert.ToString(userId)),
             new Claim(JwtRegisteredClaimNames.NameId, Convert.ToString(userId))
         };
+        if (isAdmin)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, rule));
+        }
 
         var token = new JwtSecurityToken(issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],

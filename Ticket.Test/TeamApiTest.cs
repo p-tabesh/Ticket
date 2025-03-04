@@ -1,7 +1,7 @@
 using System.Net;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using Ticket.Test.Utilities;
 
 namespace Ticket.Test;
 
@@ -9,50 +9,17 @@ namespace Ticket.Test;
 public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
 {
     private readonly HttpClient _httpClient;
-    
-    private string _token;
-
-    public string Token
-    {
-        get
-        {
-            if (_token == null)
-            {
-                _token =  GetAuthenticationTokenAsync().Result;
-                return _token;
-            }
-            return _token;
-        }
-    }
-
     private string _mediaType = "application/json";
 
     public TeamApiTests(TestingWebAppFactory<Program> factory)
     {
         _httpClient = factory.CreateClient();
-        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Token}");
-    }
-
-    
-    private async Task<string> GetAuthenticationTokenAsync()
-    {
-        var requestUrl = "/account/login";
-        var content = new
-        {
-            Username = "admin",
-            Password = "admin@",
-            Rule = "admin"
-        };
-        var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
-        var response = await _httpClient.PostAsync(requestUrl,requestContent);
-        var responseContent = await response.Content.ReadFromJsonAsync<Dictionary<string,string>>();
-        var token = responseContent["token"];
-        
-        return token;
+        var token = new Authenticator(_httpClient).Token;
+        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
     }
 
     [Theory]
-    [InlineData("salam",HttpStatusCode.OK)]
+    [InlineData("tesstttttttt",HttpStatusCode.OK)]
     public async void AddTeamApiTest(string teamName, HttpStatusCode expectedResult)
     {
         //var token = await GetAuthenticationTokenAsync();
@@ -65,5 +32,21 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
         var response = await _httpClient.PostAsync(requestUrl, requestContent);
         Assert.Equal(expectedResult, response.StatusCode);
     }
+
+    [Theory]
+    [InlineData(1,HttpStatusCode.OK)]
+    public async void RemoveTeamTest(int teamId, HttpStatusCode expectedResult)
+    {
+        var requestUrl = "/team/remove";
+        var content = new
+        {
+            Id = 2
+        };
+        var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
+        var response = await _httpClient.PostAsync(requestUrl, requestContent);
+        Assert.Equal(expectedResult, response.StatusCode);    
+    }
+
+
 }
 

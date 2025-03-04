@@ -58,11 +58,11 @@ public class TeamService
 
     }
 
-    public void Remove(int id)
+    public void Remove(RemoveTeamModel removeTeamModel)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var team = UoW.TeamRepository.GetById(id);
+            var team = UoW.TeamRepository.GetById(removeTeamModel.Id);
             if (team == null)
                 throw new Exception("team doesnt exists");
 

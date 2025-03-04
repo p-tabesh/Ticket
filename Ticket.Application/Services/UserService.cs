@@ -35,7 +35,7 @@ public class UserService
             if (team == null)
                 throw new Exception("team doesnt exists");
 
-            var user = new User(userModel.UserName, userModel.Password.ToSha256(), userModel.Email, userModel.TeamId);
+            var user = new User(userModel.UserName, userModel.Password.ToSha256(), userModel.Email, userModel.TeamId, userModel.IsAdmin);
 
             UoW.UserRepository.Add(user);
             UoW.Commit();
@@ -94,7 +94,7 @@ public class UserService
             throw new Exception("user doesnt exists");
 
         if (user.Password == newPassword.ToSha256())
-            throw new Exception("passsword already this");
+            throw new Exception("Cannot choose current password");
 
         if (!PasswordChecker.IsSecure(newPassword))
             throw new Exception("password security rate is not enough");
@@ -128,6 +128,24 @@ public class UserService
         var user = UoW.UserRepository.GetById(userId);
         var team = UoW.TeamRepository.GetById(newTeamId);
         user.ChangeTeam(team.Id);
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
+    }
+
+    public void PromoteUser(PromoteUserModel model)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var user = UoW.UserRepository.GetById(model.UserId);
+        user.Promote();
+        UoW.UserRepository.Update(user);
+        UoW.Commit();
+    }
+
+    public void Demote(DemoteUserModel model)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var user = UoW.UserRepository.GetById(model.UserId);
+        user.Demote();
         UoW.UserRepository.Update(user);
         UoW.Commit();
     }

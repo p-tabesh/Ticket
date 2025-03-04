@@ -14,6 +14,7 @@ public static class UserMapper
             UserName = user.Username,
             Email = user.Email,
             IsActive = user.IsActive,
+            IsAdmin = user.IsAdmin,
             Team = user.Team.Title
         };
         return userViewModel;

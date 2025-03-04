@@ -8,9 +8,3 @@ public class TeamViewModel
 
     public List<UserViewModel> Users { get; set; }
 }
-
-
-public class AddTeamModel
-{
-    public string Name { get; set; }
-}

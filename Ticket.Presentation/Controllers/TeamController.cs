@@ -37,9 +37,9 @@ public class TeamController : BaseController
     [HttpPost]
     [Route("remove")]
     [Authorize(Policy = "Admin")]
-    public IActionResult RemoveTeam(int id)
+    public IActionResult RemoveTeam([FromBody] RemoveTeamModel removeTeamModel)
     {
-        _teamService.Remove(id);
+        _teamService.Remove(removeTeamModel);
         return Ok();
     }
 

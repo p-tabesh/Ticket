@@ -24,7 +24,7 @@ public class AccountController : BaseController
     public IActionResult Login([FromBody] LoginModel loginModel)
     {
         var user = _accountService.GetUser(loginModel.Username, loginModel.Password);
-        var tokenString = _accountService.GenerateToken(user.Id, loginModel.Rule);
+        var tokenString = _accountService.GenerateToken(user.Id, user.IsAdmin);
         return Ok(new { Token = tokenString});
     }
 

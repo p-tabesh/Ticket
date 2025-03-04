@@ -79,5 +79,23 @@ namespace Ticket.Presentation.Controllers
             _userService.ChangeTeam(newTeamId, userId);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("demote")]
+        [Authorize(Policy = "Admin")]
+        public IActionResult DemoteUser([FromBody] DemoteUserModel model)
+        {
+            _userService.Demote(model);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("promote")]
+        [Authorize(Policy = "Admin")]
+        public IActionResult PromoteUser([FromBody] PromoteUserModel model)
+        {
+            _userService.PromoteUser(model);
+            return Ok();
+        }
     }
 }

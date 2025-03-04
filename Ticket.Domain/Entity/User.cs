@@ -7,6 +7,7 @@ public class User
     public string Password { get; private set; }
     public string Email { get; private set; }
     public bool IsActive { get; private set; }
+    public bool IsAdmin { get; private set; } 
     public DateTime CreationDate { get; private set; }
     public Team Team { get; private set; }
     public int TeamId { get; private set; }
@@ -18,7 +19,7 @@ public class User
     public ICollection<Category> Categories { get; private set; }
 
     private User() { }
-    public User(string username, string password, string email, int teamId)
+    public User(string username, string password, string email, int teamId, bool isAdmin)
     {
         Username = username.ToLower();
         Password = password;
@@ -26,6 +27,7 @@ public class User
         TeamId = teamId;
         IsActive = true;
         CreationDate = DateTime.Now;
+        IsAdmin = isAdmin;
     }
 
 
@@ -77,5 +79,18 @@ public class User
         if(this.Password == password)
             return true;
         return false;
+    }
+    public void Promote()
+    {
+        if (IsAdmin == true)
+            throw new Exception("User already is admin");
+        IsAdmin = true;
+    }
+
+    public void Demote()
+    {
+        if (IsAdmin == false)
+            throw new Exception("User already is not admin");
+        IsAdmin = false;
     }
 }

@@ -1,6 +1,4 @@
-﻿//using System.Reflection;
-//using System.Resources;
-using Ticket.Application.Mapper;
+﻿using Ticket.Application.Mapper;
 using Ticket.Application.Models;
 using Ticket.Domain.Enums;
 using Ticket.Infrastructure.Context;
@@ -30,20 +28,20 @@ public class TicketService
         }
     }
 
-    public void AssignTicket(int ticketId, int userId)
+    public void AssignTicket(AssignTicketModel model)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
 
-            var ticket = UoW.TicketRepository.GetById(ticketId);
+            var ticket = UoW.TicketRepository.GetById(model.TicketId);
 
-            if (ticket.AssignUserId == userId)
+            if (ticket.AssignUserId == model.UserId)
                 throw new Exception("User already has this ticket");
 
-            if (ticket.SubmitUserId == userId)
+            if (ticket.SubmitUserId == model.UserId)
                 throw new Exception("Cannot assign ticket to submiter");
 
-            ticket.AssignTicket(userId);
+            ticket.AssignTicket(model.UserId);
             UoW.TicketRepository.Update(ticket);
             UoW.Commit();
         }

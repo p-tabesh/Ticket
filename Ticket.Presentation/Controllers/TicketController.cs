@@ -92,9 +92,9 @@ public class TicketController : BaseController
 
     [HttpPut]
     [Route("assign-ticket")]
-    public IActionResult AssignTicket(int ticketId, int userId)
+    public IActionResult AssignTicket([FromBody] AssignTicketModel model)
     {
-        _ticketService.AssignTicket(ticketId, userId);
+        _ticketService.AssignTicket(model);
         return Ok();
     }
 }
