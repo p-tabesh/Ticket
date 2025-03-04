@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Models;
 using Ticket.Application.Models.CategoryModels;
@@ -26,6 +27,7 @@ public class CategoryController : BaseController
 
     [HttpPost]
     [Route("add")]
+    [Authorize(Policy = "Admin")]
     public IActionResult AddCategory([FromBody] AddCategoryModel categoryModel)
     {
         _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.DefaultAssigneUserId);
@@ -34,6 +36,7 @@ public class CategoryController : BaseController
 
     [HttpPost]
     [Route("remove")]
+    [Authorize(Policy = "Admin")]
     public IActionResult RemoveCategory(int categoryId)
     {
         _categoryService.RemoveCategory(categoryId);
@@ -42,6 +45,7 @@ public class CategoryController : BaseController
 
     [HttpPut]
     [Route("edit-title")]
+    [Authorize(Policy = "Admin")]
     public IActionResult EditCategoryTitle(int categoryId, string newTitle)
     {
         _categoryService.EditTitle(categoryId, newTitle);
@@ -50,6 +54,7 @@ public class CategoryController : BaseController
 
     [HttpPut]
     [Route("update-defaultUserAssignee")]
+    [Authorize(Policy = "Admin")]
     public IActionResult UpdateDefaultUserAssigne(int categoryId, int userId)
     {
         _categoryService.UpdateDefaultUserAssigne(categoryId, userId);
@@ -58,6 +63,7 @@ public class CategoryController : BaseController
 
     [HttpPost]
     [Route("add-field")]
+    [Authorize(Policy = "Admin")]
     public IActionResult AddFieldToCategory([FromBody] AddFieldModel addFieldModel)
     {
         _categoryService.AddField(addFieldModel.categoryId, addFieldModel.fieldId);
@@ -66,6 +72,7 @@ public class CategoryController : BaseController
 
     [HttpPost]
     [Route("remove-field")]
+    [Authorize(Policy = "Admin")]
     public IActionResult RemoveFieldFromCategory(int categoryId, int fieldId)
     {
         _categoryService.RemoveField(categoryId, fieldId);

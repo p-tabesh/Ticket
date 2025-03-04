@@ -17,6 +17,7 @@ namespace Ticket.Presentation.Controllers
         [Authorize(Policy = "Admin")]
         [HttpPost]
         [Route("add-user")]
+        [Authorize(Policy = "Admin")]
         public IActionResult AddUser([FromBody] UserModel userModel)
         {
             _userService.AddUser(userModel);
@@ -54,6 +55,7 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("active")]
+        [Authorize(Policy = "Admin")]
         public IActionResult ActiveUser(int userId)
         {
             _userService.ActiveUser(userId);
@@ -62,6 +64,7 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("deActive")]
+        [Authorize(Policy = "Admin")]
         public IActionResult DeActiveUser(int userId)
         {
             _userService.DeActiveUser(userId);
@@ -70,6 +73,7 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("change-team")]
+        [Authorize(Policy = "Admin")]
         public IActionResult ChangeTeam(int newTeamId, int userId)
         {
             _userService.ChangeTeam(newTeamId, userId);

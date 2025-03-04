@@ -39,19 +39,19 @@ public class TeamService
         }
     }
 
-    public void Add(string title)
+    public void Add(AddTeamModel addTeamModel)
     {
-        if (string.IsNullOrEmpty(title))
+        if (string.IsNullOrEmpty(addTeamModel.Name))
             throw new Exception("title invalid");
 
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var allTeams = UoW.TeamRepository.GetAll();
 
-            if (allTeams.Any(t => title.Trim() == t.Title))
+            if (allTeams.Any(t => addTeamModel.Name.Trim() == t.Title))
                 throw new Exception("another team with this name already exists");
 
-            var team = new Team(title);
+            var team = new Team(addTeamModel.Name);
             UoW.TeamRepository.Add(team);
             UoW.Commit();
         }

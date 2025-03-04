@@ -1,11 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 using System.Net;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Ticket.Test;
 
@@ -13,12 +9,28 @@ namespace Ticket.Test;
 public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
 {
     private readonly HttpClient _httpClient;
-    private string token;
+    
+    private string _token;
+
+    public string Token
+    {
+        get
+        {
+            if (_token == null)
+            {
+                _token =  GetAuthenticationTokenAsync().Result;
+                return _token;
+            }
+            return _token;
+        }
+    }
+
     private string _mediaType = "application/json";
 
     public TeamApiTests(TestingWebAppFactory<Program> factory)
     {
         _httpClient = factory.CreateClient();
+        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {Token}");
     }
 
     
@@ -43,8 +55,8 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     [InlineData("salam",HttpStatusCode.OK)]
     public async void AddTeamApiTest(string teamName, HttpStatusCode expectedResult)
     {
-        var token = await GetAuthenticationTokenAsync();
-        _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        //var token = await GetAuthenticationTokenAsync();
+        //_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         var content = new {
             Name = teamName,
         };
@@ -52,6 +64,6 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
         var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
         var response = await _httpClient.PostAsync(requestUrl, requestContent);
         Assert.Equal(expectedResult, response.StatusCode);
-    }    
+    }
 }
 

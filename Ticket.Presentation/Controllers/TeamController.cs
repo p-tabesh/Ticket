@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Ticket.Application.Models;
 using Ticket.Application.Services;
 using Ticket.Presentation.Extentions;
 
@@ -25,14 +27,16 @@ public class TeamController : BaseController
 
     [HttpPost]
     [Route("add")]
-    public IActionResult AddTeam([FromBody] string title)
+    [Authorize(Policy = "Admin")]
+    public IActionResult AddTeam([FromBody] AddTeamModel addTeamModel)
     {
-        _teamService.Add(title);
+        _teamService.Add(addTeamModel);
         return Ok();
     }
 
     [HttpPost]
     [Route("remove")]
+    [Authorize(Policy = "Admin")]
     public IActionResult RemoveTeam(int id)
     {
         _teamService.Remove(id);
