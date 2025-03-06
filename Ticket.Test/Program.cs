@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Ticket.Application.Extentions;
 using Ticket.Infrastructure.Context;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing ;
-using Ticket.Test;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.Sqlite;
 
 
 
@@ -14,35 +12,30 @@ using Microsoft.Extensions.DependencyInjection;
 
 public class TestingWebAppFactory<TStartup>: WebApplicationFactory<Program> where TStartup : Program
 {
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureServices(service =>
         {
-            var descriptor = service.FirstOrDefault(d => d.ServiceType == typeof(TicketDbContext));
+            var descriptor = service.FirstOrDefault(d => d.ServiceType == typeof(DbContextOptions<TicketDbContext>));
             if (descriptor != null)
                 service.Remove(descriptor);
 
-
-
-
-            service.AddDbContext<TicketDbContext>(option =>
+            var connection = new SqliteConnection("FileName=TicketingTest.db");
+            connection.Open();
+            service.AddDbContext<TicketDbContext>(options =>
             {
-                option.UseSqlite("Filename=TicketingTestDatabase.db");
+                options.UseSqlite(connection);
             });
 
-
-
             var serviceProvider = service.BuildServiceProvider();
+            
             using (var scope = serviceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<TicketDbContext>();
                 db.Database.EnsureCreated();
             }
-            
         });
-        
     }
 }
 

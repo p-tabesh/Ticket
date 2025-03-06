@@ -32,8 +32,7 @@ public class Authenticator
         var content = new
         {
             Username = "admin",
-            Password = "admin@",
-            Rule = "admin"
+            Password = "admin@111",
         };
         var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(requestUrl, requestContent);

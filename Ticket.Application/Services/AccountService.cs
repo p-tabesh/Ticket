@@ -55,7 +55,7 @@ public class AccountService
     {
         using var UoW = new UnitOfWork(_dbContext);
         var user = UoW.UserRepository.GetByUsername(username.ToLower());
-
+        var t = password.ToSha256();
         if (user == null || !user.IsCorrectPassword(password.ToSha256()))
             throw new Exception("invalid username or password");
 

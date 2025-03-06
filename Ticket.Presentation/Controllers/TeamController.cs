@@ -45,9 +45,9 @@ public class TeamController : BaseController
 
     [HttpGet]
     [Route("get-users")]
-    public IActionResult GetTeamUsers()
+    public IActionResult GetTeamUsers([FromQuery] int teamId)
     {
-        var teams = _teamService.GetTeams();
+        var teams = _teamService.GetTeams(teamId);
         return Ok(teams);
     }
 }
