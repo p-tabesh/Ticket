@@ -1,3 +1,4 @@
+using Coravel;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
 using RedLockNet;
@@ -5,6 +6,7 @@ using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
 using System.Text.Json.Serialization;
+using Ticket.Application.Jobs;
 using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.UnitOfWork;
@@ -34,6 +36,8 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 
 builder.Services.AddEndpointsApiExplorer();
 
+
+builder.Services.AddJobs();
 
 // SqlServer Configuration
 if (builder.Environment.EnvironmentName == "DockerEnv")
@@ -113,14 +117,18 @@ if (app.Environment.EnvironmentName == "DockerEnv")
     }
 }
 
-
+app.Services.UseScheduler(schedule =>
+{
+    schedule.Schedule<SetCloseForFinishTicketsJob>()
+    .DailyAt(00,00)
+    .PreventOverlapping(nameof(SetCloseForFinishTicketsJob));
+});
 app.UseCors("AllowAll");
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers()
     .RequireAuthorization();
 app.Urls.Add("http://0.0.0.0:5000");

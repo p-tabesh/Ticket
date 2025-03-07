@@ -52,9 +52,10 @@ public class TicketService
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
+            if (string.IsNullOrEmpty(model.ResponseBody))
+                throw new Exception("Enter valid response");
+
             var ticket = UoW.TicketRepository.GetById(model.TicketId);
-            if (ticket.AssignUserId != userId)
-                throw new Exception("Cannot close another user tickets");
 
             ticket.FinishTicket(model.ResponseBody, userId);
             UoW.TicketRepository.Update(ticket);

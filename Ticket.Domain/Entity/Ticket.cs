@@ -87,6 +87,7 @@ public class Tickets
     }
     #endregion
 
+    #region TicketChanges
     public void FinishTicket(string responseBody, int userId)
     {
         if (string.IsNullOrEmpty(responseBody))
@@ -103,6 +104,15 @@ public class Tickets
         AddStatusHistory(Status.Closed, 1);
         AddAudit(Enums.Action.StatusChange, "Ticket Closed", 1);
     }
+    
+
+    public void ChangeStatus(Status newStatus)
+    {
+        if (Status == newStatus)
+            throw new Exception($"ticket already {newStatus}");
+        Status = newStatus;
+    }
+    #endregion
     public void AddNote(string note, int userId)
     {
         if (string.IsNullOrEmpty(note))
@@ -111,12 +121,5 @@ public class Tickets
             TicketNote = new List<TicketNote>();
         var ticketNote = new TicketNote(note, userId);
         TicketNote.Add(ticketNote);
-    }
-
-    public void ChangeStatus(Status newStatus)
-    {
-        if (Status == newStatus)
-            throw new Exception($"ticket already {newStatus}");
-        Status = newStatus;
     }
 }
