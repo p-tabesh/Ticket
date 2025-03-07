@@ -24,7 +24,13 @@ public class TicketRepository : ITicketRepository
 
     public Tickets GetById(int id)
     {
-        var ticket = _context.Tickets.Include(u => u.SubmitUser).Include(u => u.AssignUser).Include(c => c.Category).FirstOrDefault(t => t.Id == id);
+        var ticket = _context.Tickets
+            .Include(u => u.SubmitUser)
+            .Include(u => u.AssignUser)
+            .Include(c => c.Category)
+            .Include(n => n.TicketNote).ThenInclude(u => u.User)
+            .Include(a => a.TicketAudit).ThenInclude(u => u.User)
+            .FirstOrDefault(t => t.Id == id);
         return ticket;
     }
 
@@ -71,7 +77,13 @@ public class TicketRepository : ITicketRepository
 
     public IEnumerable<Tickets> GetAll()
     {
-        var tickets = _context.Tickets.Include(u => u.SubmitUser).Include(u => u.AssignUser).Include(c => c.Category).ToList();
+        var tickets = _context.Tickets
+            .Include(u => u.SubmitUser)
+            .Include(u => u.AssignUser)
+            .Include(c => c.Category)
+            .Include(n => n.TicketNote).ThenInclude(u => u.User)
+            .Include(a => a.TicketAudit).ThenInclude(u => u.User)
+            .ToList();
         return tickets;
     }
 }

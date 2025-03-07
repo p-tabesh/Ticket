@@ -41,7 +41,7 @@ namespace Ticket.Presentation.Controllers
         [Route("change-username")]
         public IActionResult ChangeUsername(string newUsername)
         {
-            _userService.ChangeUsername(UserId, newUsername);
+            _userService.ChangeUsername(RequestUserId, newUsername);
             return Ok();
         }
 
@@ -49,7 +49,7 @@ namespace Ticket.Presentation.Controllers
         [Route("change-password")]
         public IActionResult ChangePassword(string newPassword)
         {
-            _userService.ChangePassword(UserId, newPassword);
+            _userService.ChangePassword(RequestUserId, newPassword);
             return Ok();
         }
 

@@ -46,6 +46,26 @@
           }
         }
       },
+      "Coravel/6.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Memory": "3.1.0",
+          "Microsoft.Extensions.Configuration.Binder": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection": "6.0.1",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.0"
+        },
+        "compile": {
+          "lib/net6.0/Coravel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Coravel.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "coverlet.collector/6.0.0": {
         "type": "package",
         "build": {
@@ -3591,6 +3611,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Coravel": "6.0.2",
           "Ticket.Domain": "1.0.0",
           "Ticket.Infrastructure": "1.0.0"
         },
@@ -3630,6 +3651,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Coravel": "6.0.2",
           "Microsoft.AspNet.Cors": "5.3.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.13",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "9.0.2",
@@ -3696,6 +3718,21 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Coravel/6.0.2": {
+      "sha512": "/XZiRId4Ilar/OqjGKdxkZWfW97ekeT0wgiWNjGdqf8pPxiK508//Zkc0xrKMDOqchFT7B/oqAoQ+Vrx1txpPQ==",
+      "type": "package",
+      "path": "coravel/6.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "coravel.6.0.2.nupkg.sha512",
+        "coravel.nuspec",
+        "lib/net6.0/Coravel.dll",
+        "lib/net6.0/Coravel.xml",
+        "logo.png",
+        "readme.md"
       ]
     },
     "coverlet.collector/6.0.0": {
@@ -10372,19 +10409,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\p.tabesh\\.nuget\\packages\\": {}
+    "C:\\Users\\Pooya\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
+      "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
       "projectName": "Ticket.Test",
-      "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
-      "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\obj\\",
+      "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
+      "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Test\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10398,17 +10440,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
             },
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
             },
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
             },
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj"
             }
           }
         }
@@ -10417,7 +10459,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -10472,7 +10520,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.113/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

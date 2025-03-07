@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RedLockNet;
 using Ticket.Application.Models;
+using Ticket.Application.Models.TicketModels;
 using Ticket.Application.Services;
 using Ticket.Presentation.Extentions;
 
@@ -25,7 +26,7 @@ public class TicketController : BaseController
     [Route("add")]
     public IActionResult AddTicket([FromBody] AddTicketModel ticketDTO)
     {
-        _ticketService.AddTicket(ticketDTO);
+        _ticketService.AddTicket(ticketDTO, RequestUserId);
         return Ok();
     }
 
@@ -55,9 +56,9 @@ public class TicketController : BaseController
     }
     [HttpPost]
     [Route("add-note")]
-    public IActionResult AddTicketNote(int ticketId, string note)
+    public IActionResult AddTicketNote(AddTicketNoteModel model)
     {
-        _ticketService.AddNote(ticketId, note);
+        _ticketService.AddNote(model, RequestUserId);
         return Ok();
     }
 
@@ -84,9 +85,9 @@ public class TicketController : BaseController
 
     [HttpPost]
     [Route("close-ticket")]
-    public IActionResult CloseTicket(int ticketId, string responseBody)
+    public IActionResult CloseTicket(CloseTicketModel model)
     {
-        _ticketService.CloseTicket(ticketId, responseBody, UserId);
+        _ticketService.FinishTicket(model, RequestUserId);
         return Ok();
     }
 
@@ -94,7 +95,15 @@ public class TicketController : BaseController
     [Route("assign-ticket")]
     public IActionResult AssignTicket([FromBody] AssignTicketModel model)
     {
-        _ticketService.AssignTicket(model);
+        _ticketService.AssignTicket(model, RequestUserId);
         return Ok();
+    }
+
+    [HttpPut]
+    [Route("update-status")]
+    public IActionResult UpdateStatus([FromBody] UpdateTicketStatusModel model)
+    {
+        _ticketService.UpdateTicketStatus(model, RequestUserId);
+        return base.Ok();
     }
 }

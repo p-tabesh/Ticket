@@ -46,6 +46,26 @@
           }
         }
       },
+      "Coravel/6.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Memory": "3.1.0",
+          "Microsoft.Extensions.Configuration.Binder": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection": "6.0.1",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.0"
+        },
+        "compile": {
+          "lib/net6.0/Coravel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Coravel.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -625,6 +645,22 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "Microsoft.Extensions.Configuration.Binder/6.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Extensions.DependencyInjection/8.0.1": {
         "type": "package",
         "dependencies": {
@@ -674,6 +710,41 @@
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Abstractions/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "3.1.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.Hosting.Abstractions/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Http/3.1.0": {
@@ -1717,6 +1788,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Coravel": "6.0.2",
           "Ticket.Domain": "1.0.0",
           "Ticket.Infrastructure": "1.0.0"
         },
@@ -1795,6 +1867,21 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Coravel/6.0.2": {
+      "sha512": "/XZiRId4Ilar/OqjGKdxkZWfW97ekeT0wgiWNjGdqf8pPxiK508//Zkc0xrKMDOqchFT7B/oqAoQ+Vrx1txpPQ==",
+      "type": "package",
+      "path": "coravel/6.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "coravel.6.0.2.nupkg.sha512",
+        "coravel.nuspec",
+        "lib/net6.0/Coravel.dll",
+        "lib/net6.0/Coravel.xml",
+        "logo.png",
+        "readme.md"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -2861,6 +2948,25 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Microsoft.Extensions.Configuration.Binder/6.0.0": {
+      "sha512": "b3ErKzND8LIC7o08QAVlKfaEIYEvLJbtmVbFZVBRXeu9YkKfSSzLZfR1SUfQPBIy9mKLhEtJgGYImkcMNaKE0A==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.binder/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net461/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "microsoft.extensions.configuration.binder.6.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.binder.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Extensions.DependencyInjection/8.0.1": {
       "sha512": "BmANAnR5Xd4Oqw7yQ75xOAYODybZQRzdeNucg7kS5wWKd2PNnMdYtJ2Vciy0QLylRmv42DGl5+AFL9izA6F1Rw==",
       "type": "package",
@@ -2951,6 +3057,38 @@
         "microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
         "microsoft.extensions.dependencymodel.nuspec",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.FileProviders.Abstractions/3.1.0": {
+      "sha512": "G3iBMOnn3tETEUvkE9J3a23wQpRkiXZp73zR0XNlicjLFhkeWW1FCaC2bTjrgHhPi2KO6x0BXnHvVuJPIlygBQ==",
+      "type": "package",
+      "path": "microsoft.extensions.fileproviders.abstractions/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.xml",
+        "microsoft.extensions.fileproviders.abstractions.3.1.0.nupkg.sha512",
+        "microsoft.extensions.fileproviders.abstractions.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "Microsoft.Extensions.Hosting.Abstractions/3.1.0": {
+      "sha512": "LiOP1ceFaPBxaE28SOjtORzOVCJk33TT5VQ/Cg5EoatZh1dxpPAgAV/0ruzWKQE7WAHU3F1H9Z6rFgsQwIb9uQ==",
+      "type": "package",
+      "path": "microsoft.extensions.hosting.abstractions/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Hosting.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Hosting.Abstractions.xml",
+        "microsoft.extensions.hosting.abstractions.3.1.0.nupkg.sha512",
+        "microsoft.extensions.hosting.abstractions.nuspec",
+        "packageIcon.png"
       ]
     },
     "Microsoft.Extensions.Http/3.1.0": {
@@ -4610,6 +4748,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Coravel >= 6.0.2",
       "Microsoft.AspNet.Cors >= 5.3.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.10",
@@ -4626,19 +4765,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\p.tabesh\\.nuget\\packages\\": {}
+    "C:\\Users\\Pooya\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
       "projectName": "Ticket.Presentation",
-      "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
-      "packagesPath": "C:\\Users\\p.tabesh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
+      "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\Ticket.Presentation.csproj",
+      "packagesPath": "C:\\Users\\Pooya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Presentation\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\p.tabesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pooya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4652,14 +4796,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Application\\Ticket.Application.csproj"
             },
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Domain\\Ticket.Domain.csproj"
             },
-            "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
+            "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Pooya\\Desktop\\Ticket\\Ticket.Infrastructure\\Ticket.Infrastructure.csproj"
             }
           }
         }
@@ -4668,12 +4812,22 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Coravel": {
+            "target": "Package",
+            "version": "[6.0.2, )"
+          },
           "Microsoft.AspNet.Cors": {
             "target": "Package",
             "version": "[5.3.0, )"
@@ -4736,7 +4890,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.113/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

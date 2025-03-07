@@ -1,5 +1,6 @@
 ﻿using Ticket.Application.Mapper;
 using Ticket.Application.Models;
+using Ticket.Application.Models.TicketModels;
 using Ticket.Domain.Enums;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.UnitOfWork;
@@ -11,24 +12,24 @@ public class TicketService
     private TicketDbContext _dbContext;
     public TicketService(TicketDbContext dbContext)
         => _dbContext = dbContext;
-    public void AddTicket(AddTicketModel ticketDTO)
+    public void AddTicket(AddTicketModel ticketDTO, int submiter)
     {
         //var resourceManager = new ResourceManager("Ticket.Application.Resources.CategoryExceptionMessages", Assembly.GetExecutingAssembly());
 
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var category = UoW.CategoryRepository.GetById(ticketDTO.CategoryId);
-
+            ticketDTO.SubmitedUserId = submiter;
             var ticket = TicketMapper.MapToEntity(ticketDTO);
 
-            ticket.AssignTicket(category.DefaultUserAsignId);
-            ticket.AddStatusHistory(Status.Open,ticketDTO.SubmitedUserId);
+            ticket.AssignTicket(category.DefaultUserAsign, submiter);
+            ticket.AddStatusHistory(Status.Open, ticketDTO.SubmitedUserId);
             UoW.TicketRepository.Add(ticket);
             UoW.Commit();
         }
     }
 
-    public void AssignTicket(AssignTicketModel model)
+    public void AssignTicket(AssignTicketModel model, int assignerUserId)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
@@ -40,30 +41,33 @@ public class TicketService
 
             if (ticket.SubmitUserId == model.UserId)
                 throw new Exception("Cannot assign ticket to submiter");
-
-            ticket.AssignTicket(model.UserId);
+            var user = UoW.UserRepository.GetById(model.UserId);
+            ticket.AssignTicket(user, assignerUserId);
             UoW.TicketRepository.Update(ticket);
             UoW.Commit();
         }
     }
 
-    public void CloseTicket(int ticketId, string responseBody, int userId)
+    public void FinishTicket(CloseTicketModel model, int userId)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var ticket = UoW.TicketRepository.GetById(ticketId);
-            ticket.CloseTicket(responseBody, userId);
+            var ticket = UoW.TicketRepository.GetById(model.TicketId);
+            if (ticket.AssignUserId != userId)
+                throw new Exception("Cannot close another user tickets");
+
+            ticket.FinishTicket(model.ResponseBody, userId);
             UoW.TicketRepository.Update(ticket);
             UoW.Commit();
         }
     }
 
-    public void AddNote(int ticketId, string note)
+    public void AddNote(AddTicketNoteModel model, int userId)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var ticket = UoW.TicketRepository.GetById(ticketId);
-            ticket.AddNote(note);
+            var ticket = UoW.TicketRepository.GetById(model.TicketId);
+            ticket.AddNote(model.Note,userId);
             UoW.TicketRepository.Update(ticket);
             UoW.Commit();
         }
@@ -109,6 +113,28 @@ public class TicketService
             }
             return ticketsData;
         }
+    }
+
+    public void UpdateTicketStatus(UpdateTicketStatusModel model,int userId)
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var ticket = UoW.TicketRepository.GetById(model.TicketId);
+        ticket.ChangeStatus(model.Status);
+        ticket.AddStatusHistory(model.Status, userId);
+        UoW.TicketRepository.Update(ticket);
+        UoW.Commit();
+    }
+
+    public async Task SetCloseForFinishedTickets()
+    {
+        using var UoW = new UnitOfWork(_dbContext);
+        var tickets = UoW.TicketRepository.GetAll().Where(s => s.Status == Status.Finished);
+        foreach (var ticket in tickets)
+        {
+            ticket.CloseTicket();
+            UoW.TicketRepository.Update(ticket);
+        }
+        UoW.Commit();
     }
 }
 

@@ -54,11 +54,11 @@ public class Tickets
 
 
     #region User
-    public void AssignTicket(int userId)
+    public void AssignTicket(User assignedUser, int assignerUserId)
     {
 
-        this.AssignUserId = userId;
-        AddAudit(Enums.Action.Update, $"Ticket Assigned to userid: {userId}", userId);
+        this.AssignUser = assignedUser;
+        AddAudit(Enums.Action.Update, $"Ticket Assigned to user: {assignedUser.Username}", assignerUserId);
     }
     #endregion
 
@@ -87,22 +87,36 @@ public class Tickets
     }
     #endregion
 
-    public void CloseTicket(string responseBody, int userId)
+    public void FinishTicket(string responseBody, int userId)
     {
         if (string.IsNullOrEmpty(responseBody))
             throw new InvalidOperationException();
         this.ResponseBody = responseBody;
-        AddStatusHistory(Status.Closed, userId);
-        AddAudit(Enums.Action.Update, $"ticket closed with: {responseBody}", this.SubmitUserId);
+        this.Status = Status.Finished;
+        AddStatusHistory(Status.Finished, userId);
+        AddAudit(Enums.Action.Update, $"Ticket finished", this.SubmitUserId);
     }
 
-    public void AddNote(string note)
+    public void CloseTicket()
+    {
+        Status = Status.Closed;
+        AddStatusHistory(Status.Closed, 1);
+        AddAudit(Enums.Action.StatusChange, "Ticket Closed", 1);
+    }
+    public void AddNote(string note, int userId)
     {
         if (string.IsNullOrEmpty(note))
             throw new InvalidOperationException();
         if (TicketNote == null)
             TicketNote = new List<TicketNote>();
-        var ticketNote = new TicketNote(note);
+        var ticketNote = new TicketNote(note, userId);
         TicketNote.Add(ticketNote);
+    }
+
+    public void ChangeStatus(Status newStatus)
+    {
+        if (Status == newStatus)
+            throw new Exception($"ticket already {newStatus}");
+        Status = newStatus;
     }
 }

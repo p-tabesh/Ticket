@@ -294,14 +294,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ticketId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "note",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "model",
+        "Type": "Ticket.Application.Models.TicketModels.AddTicketNoteModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -331,14 +326,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ticketId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "responseBody",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "model",
+        "Type": "Ticket.Application.Models.CloseTicketModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -428,6 +418,22 @@
         "Name": "id",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
+    "Method": "UpdateStatus",
+    "RelativePath": "ticket/update-status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Ticket.Application.Models.TicketModels.UpdateTicketStatusModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

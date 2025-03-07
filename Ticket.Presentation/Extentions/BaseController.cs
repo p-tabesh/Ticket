@@ -6,7 +6,7 @@ namespace Ticket.Presentation.Extentions;
 
 public class BaseController : ControllerBase
 {
-    public int UserId
+    public int RequestUserId
     {
         get
         {
@@ -27,7 +27,6 @@ public class BaseController : ControllerBase
         if (value == null)
         {
             return new OkObjectResult(new ResponseBaseModel());
-
         }
         return base.Ok(value);
     }

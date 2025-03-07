@@ -21,6 +21,6 @@ public class TicketAudit
         Action = action;
         Description = description;
         UserId = userId;
-        CreationDate = DateTime.Now;
+        CreationDate = DateTime.UtcNow;
     }
 }
