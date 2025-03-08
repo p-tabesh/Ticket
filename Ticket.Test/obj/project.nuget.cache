@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5qgcUqvEREWGw+QK3lA6iEEjkXqjEzvdShdvX7QT/20Zb4fuWCNG+wv/1m1VwV6DPe9G2n4BHrqT6vnIEniTaA==",
+  "dgSpecHash": "CZEkkTmdV0J6slMJHsYMO1bzvNT7A4pMmObuF8f+31z5hYQ8sSNJBa7m9LElTtQoy3PJ4nJMb5CYjEzUncIFjw==",
   "success": true,
   "projectFilePath": "C:\\Users\\p.tabesh\\Desktop\\Ticket\\Ticket.Test\\Ticket.Test.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\p.tabesh\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\p.tabesh\\.nuget\\packages\\coravel\\6.0.2\\coravel.6.0.2.nupkg.sha512",
     "C:\\Users\\p.tabesh\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
+    "C:\\Users\\p.tabesh\\.nuget\\packages\\fluentassertions\\8.1.1\\fluentassertions.8.1.1.nupkg.sha512",
     "C:\\Users\\p.tabesh\\.nuget\\packages\\microsoft.aspnet.cors\\5.3.0\\microsoft.aspnet.cors.5.3.0.nupkg.sha512",
     "C:\\Users\\p.tabesh\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.13\\microsoft.aspnetcore.authentication.jwtbearer.8.0.13.nupkg.sha512",
     "C:\\Users\\p.tabesh\\.nuget\\packages\\microsoft.aspnetcore.mvc.testing\\8.0.13\\microsoft.aspnetcore.mvc.testing.8.0.13.nupkg.sha512",

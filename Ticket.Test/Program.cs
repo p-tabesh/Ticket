@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Sqlite;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Ticket.Test.Utilities;
 
 
 
@@ -31,18 +28,13 @@ public class TestingWebAppFactory<TStartup> : WebApplicationFactory<Program> whe
                 options.UseSqlite(connection);
             });
 
-            //service.RemoveAll(typeof(IAuthenticationHandlerProvider));
-            //service.RemoveAll(typeof(IAuthenticationSchemeProvider));
-            //service.AddAuthentication(TestAuthHandler.AuthenticationScheme)
-            //.AddScheme<TestAuthHandlerOptions, TestAuthHandler>(TestAuthHandler.AuthenticationScheme, options => { });
-
             var serviceProvider = service.BuildServiceProvider();
 
             using (var scope = serviceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<TicketDbContext>();
-                //db.Database.EnsureCreated();
+                db.Database.EnsureCreated();
             }
         });
     }
