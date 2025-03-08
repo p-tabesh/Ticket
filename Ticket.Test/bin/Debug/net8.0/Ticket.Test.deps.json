@@ -390,6 +390,24 @@
           "lib/netstandard2.0/Azure.Identity.dll": {}
         }
       },
+      "Coravel/6.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Memory": "8.0.1",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.2",
+          "Microsoft.Extensions.DependencyInjection": "8.0.1",
+          "Microsoft.Extensions.Hosting.Abstractions": "8.0.1",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/Coravel.dll": {
+            "assemblyVersion": "6.0.2.0",
+            "fileVersion": "6.0.2.0"
+          }
+        },
+        "compile": {
+          "lib/net6.0/Coravel.dll": {}
+        }
+      },
       "coverlet.collector/6.0.0": {},
       "Microsoft.AspNet.Cors/5.3.0": {
         "runtime": {
@@ -2659,14 +2677,12 @@
       "xunit.runner.visualstudio/2.4.5": {},
       "Ticket.Application/1.0.0": {
         "dependencies": {
+          "Coravel": "6.0.2",
           "Ticket.Domain": "1.0.0",
           "Ticket.Infrastructure": "1.0.0"
         },
         "runtime": {
-          "Ticket.Application.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Ticket.Application.dll": {}
         },
         "compile": {
           "Ticket.Application.dll": {}
@@ -2674,10 +2690,7 @@
       },
       "Ticket.Domain/1.0.0": {
         "runtime": {
-          "Ticket.Domain.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Ticket.Domain.dll": {}
         },
         "compile": {
           "Ticket.Domain.dll": {}
@@ -2690,10 +2703,7 @@
           "Ticket.Domain": "1.0.0"
         },
         "runtime": {
-          "Ticket.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Ticket.Infrastructure.dll": {}
         },
         "compile": {
           "Ticket.Infrastructure.dll": {}
@@ -2701,6 +2711,7 @@
       },
       "Ticket.Presentation/1.0.0": {
         "dependencies": {
+          "Coravel": "6.0.2",
           "Microsoft.AspNet.Cors": "5.3.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.13",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "9.0.2",
@@ -2715,10 +2726,7 @@
           "prometheus-net.AspNetCore": "8.2.1"
         },
         "runtime": {
-          "Ticket.Presentation.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Ticket.Presentation.dll": {}
         },
         "compile": {
           "Ticket.Presentation.dll": {}
@@ -4515,6 +4523,13 @@
       "sha512": "sha512-l1Xm2MWOF2Mzcwuarlw8kWQXLZk3UeB55aQXVyjj23aBfDwOZ3gu5GP2kJ6KlmZeZv2TCzw7x4L3V36iNr3gww==",
       "path": "azure.identity/1.10.3",
       "hashPath": "azure.identity.1.10.3.nupkg.sha512"
+    },
+    "Coravel/6.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/XZiRId4Ilar/OqjGKdxkZWfW97ekeT0wgiWNjGdqf8pPxiK508//Zkc0xrKMDOqchFT7B/oqAoQ+Vrx1txpPQ==",
+      "path": "coravel/6.0.2",
+      "hashPath": "coravel.6.0.2.nupkg.sha512"
     },
     "coverlet.collector/6.0.0": {
       "type": "package",

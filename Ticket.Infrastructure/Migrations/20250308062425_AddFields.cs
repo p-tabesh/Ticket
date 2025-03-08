@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Ticket.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class migrations : Migration
+    public partial class AddFields : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +18,7 @@ namespace Ticket.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false, comment: "None ,\r\n    String,\r\n     Int,\r\n   Enum"),
                     IsRequired = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -47,6 +48,9 @@ namespace Ticket.Infrastructure.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -68,7 +72,7 @@ namespace Ticket.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ParentId = table.Column<int>(type: "int", nullable: true),
-                    DefaultUserAsignId = table.Column<int>(type: "int", nullable: true)
+                    DefaultUserAsignId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,14 +125,14 @@ namespace Ticket.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ResponseBody = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Priority = table.Column<int>(type: "int", nullable: false),
+                    ResponseBody = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false, comment: "Open,\r\n    InProgress,\r\n    Finished,\r\n    Closed"),
+                    Priority = table.Column<int>(type: "int", nullable: false, comment: "Low,\r\n    Medium,\r\n    High,\r\n    Critical"),
                     NationalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    SubmitUserId = table.Column<int>(type: "int", nullable: false),
                     AssignUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -147,8 +151,8 @@ namespace Ticket.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tickets_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Tickets_Users_SubmitUserId",
+                        column: x => x.SubmitUserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -160,7 +164,7 @@ namespace Ticket.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Action = table.Column<int>(type: "int", nullable: false),
+                    Action = table.Column<int>(type: "int", nullable: false, comment: "Add,\r\n    Edit,\r\n    Update,\r\n    Delete,\r\n    StatusChange"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TicketId = table.Column<int>(type: "int", nullable: false),
@@ -191,7 +195,8 @@ namespace Ticket.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    TicketId = table.Column<int>(type: "int", nullable: false)
+                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,7 +221,7 @@ namespace Ticket.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false, comment: "Open,\r\n    InProgress,\r\n    Finished,\r\n    Closed"),
                     TicketId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -281,9 +286,9 @@ namespace Ticket.Infrastructure.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_UserId",
+                name: "IX_Tickets_SubmitUserId",
                 table: "Tickets",
-                column: "UserId");
+                column: "SubmitUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketStatusHistory_TicketId",

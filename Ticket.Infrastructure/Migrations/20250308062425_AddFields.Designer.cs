@@ -12,8 +12,8 @@ using Ticket.Infrastructure.Context;
 namespace Ticket.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketDbContext))]
-    [Migration("20241227122753_AddFiedForUser")]
-    partial class AddFiedForUser
+    [Migration("20250308062425_AddFields")]
+    partial class AddFields
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,7 +91,8 @@ namespace Ticket.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("None ,\r\n    String,\r\n     Int,\r\n   Enum");
 
                     b.HasKey("Id");
 
@@ -124,7 +125,8 @@ namespace Ticket.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Action")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Add,\r\n    Edit,\r\n    Update,\r\n    Delete,\r\n    StatusChange");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -156,6 +158,9 @@ namespace Ticket.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -184,7 +189,8 @@ namespace Ticket.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Open,\r\n    InProgress,\r\n    Finished,\r\n    Closed");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
@@ -226,19 +232,21 @@ namespace Ticket.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Low,\r\n    Medium,\r\n    High,\r\n    Critical");
 
                     b.Property<string>("ResponseBody")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Open,\r\n    InProgress,\r\n    Finished,\r\n    Closed");
 
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("SubmitUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -247,7 +255,7 @@ namespace Ticket.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("SubmitUserId");
 
                     b.ToTable("Tickets");
                 });
@@ -268,6 +276,9 @@ namespace Ticket.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
@@ -388,9 +399,9 @@ namespace Ticket.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ticket.Domain.Entity.User", "User")
+                    b.HasOne("Ticket.Domain.Entity.User", "SubmitUser")
                         .WithMany("Tickets")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("SubmitUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -398,7 +409,7 @@ namespace Ticket.Infrastructure.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("User");
+                    b.Navigation("SubmitUser");
                 });
 
             modelBuilder.Entity("Ticket.Domain.Entity.User", b =>

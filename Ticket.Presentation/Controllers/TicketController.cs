@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RedLockNet;
 using Ticket.Application.Models;
 using Ticket.Application.Models.TicketModels;
 using Ticket.Application.Services;
@@ -13,14 +12,9 @@ namespace Ticket.Presentation.Controllers;
 public class TicketController : BaseController
 {
     private readonly TicketService _ticketService;
-    private readonly ILogger<TicketController> _logger;
-    private readonly IDistributedLockFactory _lockFactory;
-    public TicketController(TicketService ticketService, ILogger<TicketController> logger/*, IDistributedCache distributedCache*/, IDistributedLockFactory lockFactory)
-    {
-        _lockFactory = lockFactory;
-        _logger = logger;
-        _ticketService = ticketService;
-    }
+
+    public TicketController(TicketService ticketService) => _ticketService = ticketService;
+
 
     [HttpPost]
     [Route("add")]
@@ -28,24 +22,6 @@ public class TicketController : BaseController
     {
         _ticketService.AddTicket(ticketDTO, RequestUserId);
         return Ok();
-    }
-
-    [HttpPost]
-    [Route("start-editing")]
-    public async Task<IActionResult> StartEdititing(int ticketId)
-    {
-        var expiryTime = TimeSpan.FromSeconds(60);
-        var waitTime = TimeSpan.FromSeconds(1);
-        var retryTime = TimeSpan.FromSeconds(1);
-        var resource = $"ticket-{ticketId}";
-
-        await using var _lock = await _lockFactory.CreateLockAsync(resource, expiryTime);
-        if (_lock.IsAcquired)
-        {
-            //await Task.Delay(5000);
-            return Ok("ticket locked");
-        }
-        return BadRequest("object locked");
     }
 
     [HttpPost]
@@ -76,7 +52,7 @@ public class TicketController : BaseController
     }
 
     [HttpPost]
-    [Route("get-tickets")]
+    [Route("get-filtered-tickets")]
     public IActionResult GetTicketWithFilter([FromQuery] TicketFilterDataModel ticketFilterDTO)
     {
         var filteredTickets = _ticketService.GetTicketWithFilter(ticketFilterDTO);

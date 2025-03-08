@@ -28,19 +28,14 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     {
         yield return new object[]
         {
-            "AddTeamTest4",
+            "AddTeamTest",
             HttpStatusCode.OK,
         };
-        //yield return new object[]
-        //{
-        //    "",
-        //    HttpStatusCode.InternalServerError
-        //};
-        //yield return new object[]
-        //{
-        //    "AddTeamTest",
-        //    HttpStatusCode.InternalServerError,
-        //};
+        yield return new object[]
+        {
+            "",
+            HttpStatusCode.InternalServerError
+        };
     }
 
     // Check Adding Team

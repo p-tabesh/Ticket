@@ -476,3 +476,4 @@ C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\Ticket.Pre
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\Ticket.Presentation.genruntimeconfig.cache
 C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\obj\Debug\net8.0\ref\Ticket.Presentation.dll
 C:\Users\Pooya\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Coravel.dll
+C:\Users\p.tabesh\Desktop\Ticket\Ticket.Presentation\bin\Debug\net8.0\Coravel.dll

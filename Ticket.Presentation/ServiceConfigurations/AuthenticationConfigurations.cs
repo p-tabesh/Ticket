@@ -8,14 +8,12 @@ public static class AuthenticationConfiguration
 {
     public static void AddAuthentications(this IServiceCollection services, IConfiguration configuration)
     {
-
         services.AddAuthentication(option =>
         {
             option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
