@@ -123,12 +123,22 @@ app.Services.UseScheduler(schedule =>
     .DailyAt(00,00)
     .PreventOverlapping(nameof(SetCloseForFinishTicketsJob));
 });
+
+app.UseRouting();
+
 app.UseCors("AllowAll");
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.UseEndpoints(endpoint =>
+{
+    endpoint.MapMetrics().AllowAnonymous();
+});
+
 app.MapControllers()
     .RequireAuthorization();
 app.Urls.Add("http://0.0.0.0:5000");
@@ -140,6 +150,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseMetricServer();
 app.UseHttpMetrics();
+
 //}
 
 app.Run();

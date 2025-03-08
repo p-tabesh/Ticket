@@ -352,7 +352,7 @@
   {
     "ContainingType": "Ticket.Presentation.Controllers.TicketController",
     "Method": "GetTicketWithFilter",
-    "RelativePath": "ticket/get-tickets",
+    "RelativePath": "ticket/get-filtered-tickets",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -385,22 +385,6 @@
       {
         "Name": "Priority",
         "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Ticket.Presentation.Controllers.TicketController",
-    "Method": "StartEdititing",
-    "RelativePath": "ticket/start-editing",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "ticketId",
-        "Type": "System.Int32",
         "IsRequired": false
       }
     ],

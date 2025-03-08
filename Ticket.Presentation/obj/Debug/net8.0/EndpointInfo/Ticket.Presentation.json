@@ -452,28 +452,6 @@
         }
       }
     },
-    "/ticket/start-editing": {
-      "post": {
-        "tags": [
-          "Ticket"
-        ],
-        "parameters": [
-          {
-            "name": "ticketId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/ticket/edit-ticket": {
       "post": {
         "tags": [
@@ -559,7 +537,7 @@
         }
       }
     },
-    "/ticket/get-tickets": {
+    "/ticket/get-filtered-tickets": {
       "post": {
         "tags": [
           "Ticket"
