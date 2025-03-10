@@ -55,7 +55,6 @@ public class TeamService
             UoW.TeamRepository.Add(team);
             UoW.Commit();
         }
-
     }
 
     public void Remove(RemoveTeamModel removeTeamModel)
@@ -69,6 +68,5 @@ public class TeamService
             UoW.TeamRepository.Remove(team);
             UoW.Commit();
         }
-
     }
 }

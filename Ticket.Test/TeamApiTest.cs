@@ -23,6 +23,14 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
         _scope = factory.Services.CreateScope();
         _dbContext = _scope.ServiceProvider.GetRequiredService<TicketDbContext>();
     }
+    
+    public void Dispose()
+    {
+        _dbContext.Team.RemoveRange(_dbContext.Team.ToList());
+        _dbContext.SaveChanges();
+        _dbContext.Dispose();
+        _scope.Dispose();
+    }
 
     public static IEnumerable<object[]> AddTeamData()
     {
@@ -53,6 +61,17 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
         response.StatusCode.Should().Be(expectedResult);
     }
 
+    // Checks Get teams users Data
+    [Fact]
+    public async void GetTeamUsers()
+    {
+        var requestUrl = $"/team/get-users?teamId=1";
+        var response = await _httpClient.GetAsync(requestUrl);
+        var responseContent = await response.Content.ReadAsStringAsync();
+        responseContent.Should().StartWith("[").And.EndWith("]");
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
     // Test get teams data
     [Fact]
     public async Task GetTeamsTest()
@@ -64,29 +83,20 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
-    // Checks Get teams users Data
-    [Fact]
-    public async void GetTeamUsers()
-    {
-        var existingTeam = _dbContext.Team.FirstOrDefault();
-        var requestUrl = $"/team/get-users?teamId={existingTeam.Id}";
-        var response = await _httpClient.GetAsync(requestUrl);
-        var responseContent = await response.Content.ReadAsStringAsync();
-        responseContent.Should().StartWith("[").And.EndWith("]");
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
 
     public static IEnumerable<object[]> RemoveTeamData()
     {
         
         yield return new object[]
         {
+            1,
             HttpStatusCode.OK,
             "success"
         };
 
         yield return new object[]
         {
+            99,
             HttpStatusCode.InternalServerError,
             "doesnt exists",
         };
@@ -95,33 +105,19 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     // Check Removing Team
     [Theory]
     [MemberData(nameof(RemoveTeamData))]
-    public async void RemoveTeamTest(HttpStatusCode expectedStatusCode, string expectedResponse)
+    public async void RemoveTeamTest(int cofficient,HttpStatusCode expectedStatusCode, string expectedResponse)
     {
         var requestUrl = "/team/remove";
         var existingTeam = _dbContext.Team.FirstOrDefault();
         var content = new
         {
-            Id = existingTeam.Id
+            Id = existingTeam.Id*cofficient
         };
         var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
         var response = await _httpClient.PostAsync(requestUrl, requestContent);
         var responseContent = await response.Content.ReadAsStringAsync();
         responseContent.Should().Contain(expectedResponse);
-    }
-
-    
-
-    //[Fact]
-    //public void Dispose()
-    //{
-    //    _dbContext.Team.RemoveRange(_dbContext.Team.ToList());
-    //    _dbContext.SaveChanges();
-    //    _dbContext.Dispose();
-    //    _scope.Dispose();
-    //}
+        response.StatusCode.Should().Be(expectedStatusCode);
+    }    
 }
-
-
-
-
 
