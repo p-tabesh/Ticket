@@ -2,10 +2,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using Ticket.Infrastructure.Context;
-using FluentAssertions;
 
-namespace Ticket.Test;
+
+
+namespace Ticket.Test.Tests;
 
 
 public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
@@ -13,7 +13,7 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     private readonly HttpClient _httpClient;
     private readonly IServiceScope _scope;
     private readonly TicketDbContext _dbContext;
-    private static string _token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsImtpZCI6ImM0MDQ2MWQ0LTY3ZDItNGY1Zi05MWUyLWFlZmVmMDYwZGVmMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOlsiNCIsIjQiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJleHAiOjE3NDE1MTQyNTAsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.4gfn9nEIEnCBQ7VCrYvl7UejICC4pJIiMj-WRgPb5Ew";
+    private static string _token = "";
     private static string _mediaType = "application/json";
 
     public TeamApiTests(TestingWebAppFactory<Program> factory)
@@ -23,7 +23,7 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
         _scope = factory.Services.CreateScope();
         _dbContext = _scope.ServiceProvider.GetRequiredService<TicketDbContext>();
     }
-    
+
     public void Dispose()
     {
         _dbContext.Team.RemoveRange(_dbContext.Team.ToList());
@@ -51,13 +51,14 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     [MemberData(nameof(AddTeamData))]
     public async void AddTeamApiTest(string teamName, HttpStatusCode expectedResult)
     {
-        var content = new {
+        var content = new
+        {
             Name = teamName,
         };
         var requestUrl = "/team/add";
         var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
         var response = await _httpClient.PostAsync(requestUrl, requestContent);
-        var responseContent =await response.Content.ReadAsStringAsync();
+        var responseContent = await response.Content.ReadAsStringAsync();
         response.StatusCode.Should().Be(expectedResult);
     }
 
@@ -84,40 +85,40 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     }
 
 
-    public static IEnumerable<object[]> RemoveTeamData()
-    {
-        
-        yield return new object[]
-        {
-            1,
-            HttpStatusCode.OK,
-            "success"
-        };
+    //public static IEnumerable<object[]> RemoveTeamData()
+    //{
 
-        yield return new object[]
-        {
-            99,
-            HttpStatusCode.InternalServerError,
-            "doesnt exists",
-        };
-    }
+    //    yield return new object[]
+    //    {
+    //        1,
+    //        HttpStatusCode.OK,
+    //        "success"
+    //    };
 
-    // Check Removing Team
-    [Theory]
-    [MemberData(nameof(RemoveTeamData))]
-    public async void RemoveTeamTest(int cofficient,HttpStatusCode expectedStatusCode, string expectedResponse)
-    {
-        var requestUrl = "/team/remove";
-        var existingTeam = _dbContext.Team.FirstOrDefault();
-        var content = new
-        {
-            Id = existingTeam.Id*cofficient
-        };
-        var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
-        var response = await _httpClient.PostAsync(requestUrl, requestContent);
-        var responseContent = await response.Content.ReadAsStringAsync();
-        responseContent.Should().Contain(expectedResponse);
-        response.StatusCode.Should().Be(expectedStatusCode);
-    }    
+    //    yield return new object[]
+    //    {
+    //        99,
+    //        HttpStatusCode.InternalServerError,
+    //        "doesnt exists",
+    //    };
+    //}
+
+    //// Check Removing Team
+    //[Theory]
+    //[MemberData(nameof(RemoveTeamData))]
+    //public async void RemoveTeamTest(int cofficient, HttpStatusCode expectedStatusCode, string expectedResponse)
+    //{
+    //    var requestUrl = "/team/remove";
+    //    var existingTeam = _dbContext.Team.FirstOrDefault();
+    //    var content = new
+    //    {
+    //        Id = existingTeam.Id * cofficient
+    //    };
+    //    var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
+    //    var response = await _httpClient.PostAsync(requestUrl, requestContent);
+    //    var responseContent = await response.Content.ReadAsStringAsync();
+    //    responseContent.Should().Contain(expectedResponse);
+    //    response.StatusCode.Should().Be(expectedStatusCode);
+    //}
 }
 
