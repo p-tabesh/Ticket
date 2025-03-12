@@ -1,4 +1,5 @@
 using Coravel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
 using RedLockNet;
@@ -103,6 +104,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 builder.Services.AddAuthentications(builder.Configuration);
 builder.Services.AddAuthorizations();
+
 
 
 

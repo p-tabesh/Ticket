@@ -24,7 +24,7 @@ public class TicketController : BaseController
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPut]
     [Route("edit-ticket")]
     public IActionResult EditTicket([FromBody] AddTicketModel ticketDTO)
     {
@@ -51,7 +51,7 @@ public class TicketController : BaseController
         return Ok(ticket);
     }
 
-    [HttpPost]
+    [HttpGet]
     [Route("get-filtered-tickets")]
     public IActionResult GetTicketWithFilter([FromQuery] TicketFilterDataModel ticketFilterDTO)
     {

@@ -30,12 +30,12 @@ public static class AuthenticationConfiguration
             {
                 OnAuthenticationFailed = context =>
                 {
-                    Console.WriteLine("Token failed validation: " + context.Exception.Message);
+                    Console.WriteLine("Token validation failed: " + context.Exception.Message);
                     return Task.CompletedTask;
                 },
                 OnTokenValidated = context =>
                 {
-                    Console.WriteLine("Token validated successfully");
+                    Console.WriteLine("Token validation success");
                     return Task.CompletedTask;
                 }
             };

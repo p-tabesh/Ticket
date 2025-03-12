@@ -34,7 +34,7 @@ public class CategoryController : BaseController
         return Ok();
     }
 
-    [HttpPost]
+    [HttpDelete]
     [Route("remove")]
     [Authorize(Policy = "Admin")]
     public IActionResult RemoveCategory(int categoryId)
@@ -70,7 +70,7 @@ public class CategoryController : BaseController
         return Ok();
     }
 
-    [HttpPost]
+    [HttpDelete]
     [Route("remove-field")]
     [Authorize(Policy = "Admin")]
     public IActionResult RemoveFieldFromCategory(int categoryId, int fieldId)

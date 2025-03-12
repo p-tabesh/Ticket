@@ -13,7 +13,7 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     private readonly HttpClient _httpClient;
     private readonly IServiceScope _scope;
     private readonly TicketDbContext _dbContext;
-    private static string _token = "";
+    private static string _token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsImtpZCI6ImE4YTFiMmM4LTkzNDYtNDhjNi1hNDJlLWFhZDMyZjI2OWU0NCIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOlsiNCIsIjQiXSwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJleHAiOjE3NDE3NTA3MTEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.7vb6MDzTswQ0pTudZWJZKEejrM1DRok2TYIRh1Nyjj4";
     private static string _mediaType = "application/json";
 
     public TeamApiTests(TestingWebAppFactory<Program> factory)
@@ -36,7 +36,7 @@ public class TeamApiTests : IClassFixture<TestingWebAppFactory<Program>>
     {
         yield return new object[]
         {
-            "AddTeamTests",
+            "AddTeamTests2",
             HttpStatusCode.OK,
         };
         yield return new object[]
