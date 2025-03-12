@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ticket.Application.Mapper;
 using Ticket.Application.Models;
 using Ticket.Application.Services;
+using Ticket.Domain.IService;
 using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers;
@@ -13,24 +15,35 @@ namespace Ticket.Presentation.Controllers;
 [Route("team")]
 public class TeamController : BaseController
 {
-    private TeamService _teamService;
-    public TeamController(TeamService teamService) => _teamService = teamService;
+    private ITeamService _teamService;
+    public TeamController(ITeamService teamService) => _teamService = teamService;
 
     [HttpGet]
     [Route("teams")]
-    public IActionResult GetTeams([FromQuery] int? id)
+    public IActionResult GetAllTeams()
     {
-
-        var teams = _teamService.GetTeams(id);
-        return Ok(teams);
+        var teams = _teamService.GetAllTeams();
+        var models = TeamMapper.MapToDto(teams);
+        return Ok(models);
     }
+
+    [HttpGet]
+    [Route("teams/{id}")]
+    public IActionResult GetTeam(int id)
+    {
+        var team = _teamService.GetTeam(id);
+        var model = TeamMapper.MapToDto(team);
+        return Ok(model);
+    }
+
 
     [HttpPost]
     [Route("add")]
     [Authorize(Policy = "Admin")]
     public IActionResult AddTeam([FromBody] AddTeamModel addTeamModel)
     {
-        _teamService.Add(addTeamModel);
+        var team = TeamMapper.MapToEntity(addTeamModel);
+        _teamService.AddTeam(team);
         return Ok();
     }
 
@@ -39,15 +52,16 @@ public class TeamController : BaseController
     [Authorize(Policy = "Admin")]
     public IActionResult RemoveTeam([FromBody] RemoveTeamModel removeTeamModel)
     {
-        _teamService.Remove(removeTeamModel);
+        _teamService.RemoveTeam(removeTeamModel.Id);
         return Ok();
     }
 
-    [HttpGet]
-    [Route("get-users")]
-    public IActionResult GetTeamUsers([FromQuery] int teamId)
-    {
-        var teams = _teamService.GetTeams(teamId);
-        return Ok(teams);
-    }
+    //[HttpGet]
+    //[Route("get-users")]
+    //public IActionResult GetTeamUsers([FromQuery] int teamId)
+    //{
+    //    var team = _teamService.GetTeam(teamId);
+    //    var teamUsers = TeamMapper.MapToDto(team).Users;
+    //    return Ok(teamUsers);
+    //}
 }
