@@ -56,6 +56,7 @@ public class ServicesTest : IClassFixture<TestingWebAppFactory<Program>>
             var requestContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, _mediaType);
             var response = await _httpClient.PostAsync(requestUrl, requestContent);
             var reply = await response.Content.ReadAsStringAsync();
+
             response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
         }
 
@@ -71,6 +72,7 @@ public class ServicesTest : IClassFixture<TestingWebAppFactory<Program>>
             var response = await _httpClient.PostAsync(requestUrl, requestContent);
             var reply = await response.Content.ReadAsStringAsync();
             int.TryParse(reply, out teamId);
+
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
@@ -78,7 +80,8 @@ public class ServicesTest : IClassFixture<TestingWebAppFactory<Program>>
         requestUrl = $"/team/teams/{teamId}";
         {
             var response = await _httpClient.GetAsync(requestUrl);
-            var reply = await response.Content.ReadAsStringAsync();            
+            var reply = await response.Content.ReadAsStringAsync();
+            
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
@@ -87,6 +90,7 @@ public class ServicesTest : IClassFixture<TestingWebAppFactory<Program>>
         {
             var response = await _httpClient.GetAsync(requestUrl);
             var reply = await response.Content.ReadAsStringAsync();
+
             reply.Should().StartWith("[").And.EndWith("]");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -95,6 +99,7 @@ public class ServicesTest : IClassFixture<TestingWebAppFactory<Program>>
         requestUrl = $"/team/remove/{teamId}";
         {
             var response = await _httpClient.DeleteAsync(requestUrl);
+
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
@@ -110,7 +115,8 @@ public class ServicesTest : IClassFixture<TestingWebAppFactory<Program>>
         requestUrl = "/team/teams";
         {
             var response = await _httpClient.GetAsync(requestUrl);
-            var reply = await response.Content.ReadAsStringAsync();            
+            var reply = await response.Content.ReadAsStringAsync();    
+            
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
     }
