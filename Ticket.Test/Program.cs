@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Ticket.Infrastructure.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Sqlite;
-
-
-
-
+using Ticket.Domain.Entity;
 
 public class TestingWebAppFactory<TStartup> : WebApplicationFactory<Program> where TStartup : Program
 {
@@ -35,8 +31,20 @@ public class TestingWebAppFactory<TStartup> : WebApplicationFactory<Program> whe
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<TicketDbContext>();
                 db.Database.EnsureCreated();
+
+                SeedDatabase(db);
             }
         });
+    }
+    void SeedDatabase(TicketDbContext db)
+    {
+        //team
+        var team = new Team("Test");
+        db.Team.Add(team);
+        db.SaveChanges();
+
+        db.Users.Add(new User("admin", "tV3NBjMRnyBUHNqlMznnwqvVXETW1rQXugBUSZ3PSSo=", "admin@gmail.com", team.Id, true));        
+        db.SaveChanges();
     }
 }
 

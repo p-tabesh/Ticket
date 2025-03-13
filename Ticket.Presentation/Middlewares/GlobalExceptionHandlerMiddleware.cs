@@ -1,4 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Net;
 using System.Text.Json;
 using Ticket.Application.Models;
 using Ticket.Domain.Exceptions;
@@ -31,27 +31,38 @@ namespace Ticket.Presentation.Middlewares
         public async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
-            var responseMessage = new ResponseBaseModel() { IsSuccess = false };
-            switch (exception)
-            {
-                case CategoryException:
-                    responseMessage.Message = exception.Message;
-                    context.Response.StatusCode = 500;
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
-                    break;
-                case UnauthorizedAccessException:
-                    responseMessage.Message = "UnAuthorization";
-                    context.Response.StatusCode = 401;
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
-                    break;
-                default:
-                    responseMessage.Message = exception.Message;
-                    context.Response.StatusCode = 500;
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
-                    break;
-            }
-        }
+            context.Response.StatusCode = 500;
+            var responseMessage = new ResponseBaseModel() { IsSuccess = false, Message = exception.Message };
 
+            if (exception.GetType() == typeof(BaseCustomException))
+            {
+                var customException = (BaseCustomException)exception;
+                switch (customException.ErrorType)
+                {
+                    case ErrorType.NotFound:
+                        context.Response.StatusCode = 404;
+                        break;
+                    case ErrorType.AddError:
+                        context.Response.StatusCode = 400;
+                        break;
+                    case ErrorType.EditError:
+                        context.Response.StatusCode = 400;
+                        break;
+                    case ErrorType.RemoveError:
+                        context.Response.StatusCode = 400;
+                        break;
+                    case ErrorType.ValidationError:
+                        context.Response.StatusCode = 400;
+                        break;
+                    default:
+                        context.Response.StatusCode = 500;
+                        break;
+                }
+                return;
+            }
+            await context.Response.WriteAsync(JsonSerializer.Serialize(responseMessage));
+            return;
+        }
     }
 }
 

@@ -9,7 +9,7 @@ public class BaseController : ControllerBase
     public int RequestUserId
     {
         get
-        {
+        {            
             return Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         }
     }

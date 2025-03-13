@@ -7,11 +7,11 @@ public class Category
 {
     public int Id { get; private set; }
     public string Title { get; private set; }
-    public Category? Parent { get; private set; }
-    public int? ParentId { get; private set; }
-    public ICollection<Category> ChildCategories { get; private set; }
-    public User DefaultUserAsign { get; private set; }
     public int DefaultUserAsignId { get; private set; }
+    public int? ParentId { get; private set; }
+    public Category? Parent { get; private set; }
+    public User DefaultUserAsign { get; private set; }
+    public ICollection<Category> ChildCategories { get; private set; }
     public ICollection<Field>? Fields { get; private set; }
     public ICollection<Tickets>? Tickets { get; private set; }
     private Category() { }
@@ -71,18 +71,10 @@ public class Category
         var field = Fields.FirstOrDefault(f => f.Id == fieldId);
         Fields.Remove(field);
     }
-    public void EditTitle(string title, int categoryId)
+    public void EditTitle(string title)
     {
         if (string.IsNullOrEmpty(title))
             throw new Exception("name is invalid");
-
-        //var categories = new List<Category>();
-
-        //if (categories.All(c => c.Id == categoryId))
-        //    throw new CategoryException("category doesnt exists");
-
-        //if (categories.Any(c => c.Title.Trim() == title.Trim()))
-        //    throw new CategoryException("Another category with this name already exists");
         
         Title = title;
     }

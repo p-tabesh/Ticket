@@ -48,24 +48,15 @@ public class TicketRepository : ITicketRepository
             tickets = tickets.Where(t => t.Status == status);
         }
 
-        if (startDate.HasValue && endDate.HasValue)
-        {
-            var startId = _context.Tickets.Where(t => t.CreationDate >= startDate).OrderBy(t => t.Id).Select(t => t.Id).FirstOrDefault();
-            var endId = _context.Tickets.Where(t => t.CreationDate >= endDate).OrderBy(t => t.Id).Select(t => t.Id).FirstOrDefault();
-
-            tickets = tickets.Where(t => t.Id >= startId && t.Id <= endId);
-        }
-
-        if (startDate.HasValue && !endDate.HasValue)
+        if (startDate.HasValue)
         {
             tickets = tickets.Where(t => t.CreationDate >= startDate);
         }
-
-        if (!startDate.HasValue && endDate.HasValue)
+        if (endDate.HasValue)
         {
             tickets = tickets.Where(t => t.CreationDate <= endDate);
         }
-
+        
         if (categoryId.HasValue)
         {
             tickets = tickets.Where(t => t.CategoryId == categoryId);

@@ -28,17 +28,17 @@ public class AccountService
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         securityKey.KeyId = Guid.NewGuid().ToString();
-        var rule = isAdmin == false ? null : "admin";
+        var role = isAdmin == false ? null : "admin";
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
         var claims = new List<Claim>()
         {
-            new Claim(JwtRegisteredClaimNames.NameId, Convert.ToString(userId)),
-            new Claim(JwtRegisteredClaimNames.NameId, Convert.ToString(userId))
+            new Claim(ClaimTypes.NameIdentifier, Convert.ToString(userId)),
+            new Claim(ClaimTypes.Sid,Guid.NewGuid().ToString())
         };
         if (isAdmin)
         {
-            claims.Add(new Claim(ClaimTypes.Role, rule));
+            claims.Add(new Claim(ClaimTypes.Role, role));
         }
 
         var token = new JwtSecurityToken(issuer: _configuration["Jwt:Issuer"],
@@ -59,22 +59,23 @@ public class AccountService
         if (user == null || !user.IsCorrectPassword(password.ToSha256()))
             throw new Exception("invalid username or password");
 
-        return user;        
+        return user;
     }
 
     public void Logout(JwtSecurityToken token)
     {
-        var userId = token.Claims.FirstOrDefault(t => t.Type == "nameid")?.Value;
-        var jti = token.Claims.FirstOrDefault(t => t.Type == "jti")?.Value;
-        _redisDistributedCache.SetString(jti,
+        var userId = token.Claims.FirstOrDefault(t => t.Type == ClaimTypes.NameIdentifier)?.Value;
+        var sid = token.Claims.FirstOrDefault(t => t.Type == ClaimTypes.Sid)?.Value;
+        _redisDistributedCache.SetString(
+            sid, 
             userId,
-            new DistributedCacheEntryOptions() { AbsoluteExpiration = DateTime.Now.AddMinutes(10) });
+            new DistributedCacheEntryOptions() { AbsoluteExpiration = DateTime.Now.AddDays(1) });
     }
 
-    public bool IsTokenBlackListed(string tokenJti)
+    public bool IsTokenBlackListed(string sid)
     {
         var redis = _redisDistributedCache;
-        var jti = redis.Get(tokenJti);
+        var jti = redis.Get(sid);
         return jti != null;
     }
 }

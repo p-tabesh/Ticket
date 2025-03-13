@@ -14,8 +14,7 @@ public static class ServiceConfigurations
         services.AddScoped<CategoryService>();
         services.AddScoped<TicketService>();
         services.AddScoped<UserService>();
-        services.AddScoped<ITeamService, TeamService>();
-        services.AddTransient<JwtMiddleware>();
+        services.AddScoped<ITeamService, TeamService>();        
         services.AddSingleton<IDistributedCache, RedisCache>();
     }
 }

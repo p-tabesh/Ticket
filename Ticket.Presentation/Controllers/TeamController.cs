@@ -8,9 +8,6 @@ using Ticket.Presentation.Extentions;
 
 namespace Ticket.Presentation.Controllers;
 
-
-
-
 [ApiController]
 [Route("team")]
 public class TeamController : BaseController
@@ -44,15 +41,15 @@ public class TeamController : BaseController
     {
         var team = TeamMapper.MapToEntity(addTeamModel);
         _teamService.AddTeam(team);
-        return Ok();
+        return Ok(team.Id);
     }
 
     [HttpDelete]
-    [Route("remove")]
+    [Route("remove/{id}")]
     [Authorize(Policy = "Admin")]
-    public IActionResult RemoveTeam([FromBody] RemoveTeamModel removeTeamModel)
+    public IActionResult RemoveTeam(int id)
     {
-        _teamService.RemoveTeam(removeTeamModel.Id);
+        _teamService.RemoveTeam(id);
         return Ok();
     }
 

@@ -35,7 +35,7 @@ public class CategoryService
         {
             var category = UoW.CategoryRepository.GetById(id);
             if (category == null)
-                throw new Exception("Category doesn't exists");
+                throw new BaseCustomException(ErrorType.NotFound,"Category doesn't exists");
             var model = CategoryViewMapper.MapToDTO(category);
             return model;
         }
@@ -66,7 +66,7 @@ public class CategoryService
             var category = UoW.CategoryRepository.GetById(categoryId);
 
             if (category == null)
-                throw new CategoryException("category doesnt exists");
+                throw new BaseCustomException(ErrorType.NotFound,"category doesnt exists");
 
             UoW.CategoryRepository.Delete(category);
             UoW.Commit();
@@ -80,14 +80,14 @@ public class CategoryService
             var category = UoW.CategoryRepository.GetById(categoryId);
 
             if (category == null)
-                throw new CategoryException("category doesnt exists");
+                throw new BaseCustomException(ErrorType.NotFound, "category doesnt exists");
 
             if (string.IsNullOrEmpty(title))
-                throw new CategoryException("title must have value");
+                throw new BaseCustomException(ErrorType.ValidationError, "title must have value");
 
 
 
-            category.EditTitle(title, category.Id);
+            category.EditTitle(title);
             UoW.CategoryRepository.Update(category);
             UoW.Commit();
         }
