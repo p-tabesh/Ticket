@@ -18,12 +18,20 @@ public class CategoryController : BaseController
 
     [HttpGet]
     [Route("categories")]
-    public IActionResult GetCategories([FromQuery] int? id)
+    public IActionResult GetCategories()
     {
-        var categories = _categoryService.GetCategories(id);
+        var categories = _categoryService.GetAllCategories();
         return Ok(categories);
     }
 
+
+    [HttpGet]
+    [Route("categories/{id}")]
+    public IActionResult GetCategory(int id)
+    {
+        var category = _categoryService.GetCategory(id);
+        return Ok(category);
+    }
 
     [HttpPost]
     [Route("add")]

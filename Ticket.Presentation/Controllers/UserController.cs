@@ -26,15 +26,18 @@ namespace Ticket.Presentation.Controllers
 
         [HttpGet]
         [Route("users")]
-        public IActionResult GetUser([FromQuery] int? id)
+        public IActionResult GetAllUsers()
         {
-            IEnumerable<UserViewModel> users;
-
-            if (!id.HasValue)
-                users = _userService.GetUsers();
-            else
-                users = _userService.GetUsers(id.Value);
+            var users = _userService.GetAllUsers();
             return Ok(users);
+        }
+
+        [HttpGet]
+        [Route("users/{id}")]
+        public IActionResult GetUser(int id)
+        {
+            var user = _userService.GetUser(id);
+            return Ok(user);
         }
 
         [HttpPost]

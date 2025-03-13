@@ -14,28 +14,33 @@ public class CategoryService
 
     public CategoryService(TicketDbContext dbContext) => _dbContext = dbContext;
 
-    public IEnumerable<CategoryViewModel> GetCategories(int? id)
+    public IEnumerable<CategoryViewModel> GetAllCategories()
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             List<Category> categoryList = new();
 
-            if (id.HasValue)
-            {
-                var category = UoW.CategoryRepository.GetById(id.Value);
-                categoryList.Add(category);
-            }
-            else
-            {
-                var categories = UoW.CategoryRepository.GetAll();
-                categoryList.AddRange(categories);
-            }
+            var categories = UoW.CategoryRepository.GetAll();
+            categoryList.AddRange(categories);
 
             var models = CategoryViewMapper.MapToDTO(categoryList);
 
             return models;
         }
     }
+
+    public CategoryViewModel GetCategory(int id)
+    {
+        using (var UoW =new UnitOfWork(_dbContext))
+        {
+            var category = UoW.CategoryRepository.GetById(id);
+            if (category == null)
+                throw new Exception("Category doesn't exists");
+            var model = CategoryViewMapper.MapToDTO(category);
+            return model;
+        }
+    }
+
     public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
     {
         using var UoW = new UnitOfWork(_dbContext);

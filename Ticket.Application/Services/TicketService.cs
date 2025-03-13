@@ -79,6 +79,8 @@ public class TicketService
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var ticket = UoW.TicketRepository.GetById(ticketId);
+            if (ticket == null)
+                throw new Exception("Ticket doesn't exists");
             var ticketData = TicketMapper.MapToDTO(ticket);
             return ticketData;
         }

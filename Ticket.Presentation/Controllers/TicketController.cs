@@ -15,7 +15,6 @@ public class TicketController : BaseController
 
     public TicketController(TicketService ticketService) => _ticketService = ticketService;
 
-
     [HttpPost]
     [Route("add")]
     public IActionResult AddTicket([FromBody] AddTicketModel ticketDTO)
@@ -39,15 +38,18 @@ public class TicketController : BaseController
     }
 
     [HttpGet]
-    [Route("tickets/{id?}")]
-    public IActionResult GetTickets([FromRoute] int? id)
+    [Route("tickets")]
+    public IActionResult GetAllTicket()
     {
-        if (id == null)
-        {
-            var tickets = _ticketService.GetAllTickets();
-            return Ok(tickets);
-        }
-        var ticket = _ticketService.GetTicket(id.Value);
+        var tickets = _ticketService.GetAllTickets();
+        return Ok(tickets);
+    }
+
+    [HttpGet]
+    [Route("tickets/{id}")]
+    public IActionResult GetTicket([FromRoute] int id)
+    {
+        var ticket = _ticketService.GetTicket(id);
         return Ok(ticket);
     }
 

@@ -41,19 +41,12 @@ public class UserService
             UoW.Commit();
         }
     }
-    public IEnumerable<UserViewModel> GetUsers(int? id = null)
+    public IEnumerable<UserViewModel> GetAllUsers()
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var userModels = new List<UserViewModel>();
 
-            if (id.HasValue)
-            {
-                var user = UoW.UserRepository.GetById(id.Value);
-                var model = UserMapper.MapToDto(user);
-                userModels.Add(model);
-                return userModels;
-            }
             var users = UoW.UserRepository.GetAll().ToList();
             
             foreach (var user in users)
@@ -61,11 +54,23 @@ public class UserService
                 var model = UserMapper.MapToDto(user);
                 userModels.Add(model);
             }
-            
             return userModels;
         }
     }
 
+    public UserViewModel GetUser(int id)
+    {
+        using (var UoW = new UnitOfWork (_dbContext))
+        {
+            var user = UoW.UserRepository.GetById(id);
+
+            if (user == null)
+                throw new Exception("User doesn't exists");
+
+            var model = UserMapper.MapToDto(user);
+            return model;
+        }
+    }
 
     public void ChangeUsername(int id, string newUsername)
     {
