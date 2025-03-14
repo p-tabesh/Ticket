@@ -1,7 +1,4 @@
 ﻿namespace Ticket.Application.Models.CategoryModels;
 
-public class AddFieldModel
-{
-    public int categoryId { get; set; }
-    public int fieldId { get; set; }
-}
+public record AddFieldModel(int CategoryId, int FieldId);
+

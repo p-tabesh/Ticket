@@ -1,42 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Ticket.Domain.Entity;
 using Ticket.Domain.Enums;
 using Ticket.Domain.IRepository;
 using Ticket.Infrastructure.Context;
+
 namespace Ticket.Infrastructure.Repository;
 
 public class TicketRepository : ITicketRepository
 {
-    private readonly TicketDbContext _context;
-    public TicketRepository(TicketDbContext context)
+    private readonly TicketDbContext _dbContext;
+
+    public TicketRepository(TicketDbContext context) => _dbContext = context;
+
+    public void Add(Domain.Entity.Ticket ticket)
     {
-        _context = context;
-    }
-    public void Add(Tickets ticket)
-    {
-        _context.Tickets.Add(ticket);
+        _dbContext.Ticket.Add(ticket);
     }
 
-    public void Update(Tickets ticket)
+    public void Update(Domain.Entity.Ticket ticket)
     {
-        _context.Tickets.Update(ticket);
+        _dbContext.Ticket.Update(ticket);
     }
 
-    public Tickets GetById(int id)
+    public Domain.Entity.Ticket GetById(int id)
     {
-        var ticket = _context.Tickets
+        var ticket = _dbContext.Ticket
             .Include(u => u.SubmitUser)
             .Include(u => u.AssignUser)
             .Include(c => c.Category)
             .Include(n => n.TicketNote).ThenInclude(u => u.User)
             .Include(a => a.TicketAudit).ThenInclude(u => u.User)
             .FirstOrDefault(t => t.Id == id);
+
         return ticket;
     }
 
-    public IEnumerable<Tickets> GetFilteredTickets(DateTime? startDate, DateTime? endDate, int? categoryId, Status? status, Priority? priority)
+    public IEnumerable<Domain.Entity.Ticket> GetWithFilters(DateTime? startDate, DateTime? endDate, int? categoryId, Status? status, Priority? priority)
     {
-        IQueryable<Tickets> tickets = _context.Tickets.Include(u => u.SubmitUser).Include(u => u.AssignUser).Include(c => c.Category);
+        IQueryable<Domain.Entity.Ticket> tickets = _dbContext.Ticket.Include(u => u.SubmitUser)
+            .Include(u => u.AssignUser)
+            .Include(c => c.Category);
 
         if (priority.HasValue)
         {
@@ -52,11 +54,12 @@ public class TicketRepository : ITicketRepository
         {
             tickets = tickets.Where(t => t.CreationDate >= startDate);
         }
+
         if (endDate.HasValue)
         {
             tickets = tickets.Where(t => t.CreationDate <= endDate);
         }
-        
+
         if (categoryId.HasValue)
         {
             tickets = tickets.Where(t => t.CategoryId == categoryId);
@@ -65,16 +68,22 @@ public class TicketRepository : ITicketRepository
         return tickets.ToList();
     }
 
-
-    public IEnumerable<Tickets> GetAll()
+    public IEnumerable<Domain.Entity.Ticket> GetAll()
     {
-        var tickets = _context.Tickets
+        var tickets = _dbContext.Ticket
             .Include(u => u.SubmitUser)
             .Include(u => u.AssignUser)
             .Include(c => c.Category)
             .Include(n => n.TicketNote).ThenInclude(u => u.User)
-            .Include(a => a.TicketAudit).ThenInclude(u => u.User)
+            .Include(a => a.TicketAudit).ThenInclude(u => u.User).Take(100)
             .ToList();
+
         return tickets;
+    }
+
+    public void Remove(Domain.Entity.Ticket entity)
+    {
+        // No Need To Remove
+        throw new NotImplementedException();
     }
 }

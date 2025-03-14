@@ -8,21 +8,21 @@ public enum ErrorType
     RemoveError,
     ValidationError
 }
-public class BaseCustomException : Exception
+public class BusinessException : Exception
 {
     public ErrorType ErrorType { get; }
-    public BaseCustomException(ErrorType errorType) 
+    public BusinessException(ErrorType errorType) 
         : base()
     {
         ErrorType = errorType;
     }
-    public BaseCustomException(ErrorType errorType, string message)
+    public BusinessException(ErrorType errorType, string message)
         : base(message)
     {
         ErrorType = errorType;
     }
 
-    public BaseCustomException(ErrorType errorType, string message, Exception inner)
+    public BusinessException(ErrorType errorType, string message, Exception inner)
         : base(message, inner)
     {
         ErrorType = errorType;

@@ -12,8 +12,8 @@ public class User
     public Team Team { get; private set; }
     public int TeamId { get; private set; }
 
-    public ICollection<Tickets> Tickets { get; private set; }
-    public ICollection<Tickets> AssignedTickets { get; private set; }
+    public ICollection<Ticket> Tickets { get; private set; }
+    public ICollection<Ticket> AssignedTickets { get; private set; }
     public ICollection<TicketAudit> TicketAudits { get; private set; }
     public ICollection<TicketNote> Notes { get; private set; }
     public ICollection<Category> Categories { get; private set; }
@@ -30,7 +30,6 @@ public class User
         IsAdmin = isAdmin;
     }
 
-
     public void ChangePassword(string newPassword)
     {
         if (string.IsNullOrEmpty(newPassword))
@@ -43,8 +42,6 @@ public class User
     {
         if (string.IsNullOrEmpty(newUsername))
             throw new Exception("username invalid");
-
-        // and check if username doesnt exists 
 
         Username = newUsername.ToLower();
     }
@@ -76,10 +73,11 @@ public class User
 
     public bool IsCorrectPassword(string password)
     {
-        if(this.Password == password)
+        if(Password == password)
             return true;
         return false;
     }
+
     public void Promote()
     {
         if (IsAdmin == true)

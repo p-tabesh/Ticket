@@ -5,41 +5,45 @@ using Ticket.Infrastructure.Context;
 
 namespace Ticket.Infrastructure.Repository;
 
-
-
 public class CategoryRepository : ICategoryRepository
 {
-    private readonly TicketDbContext _context;
+    private readonly TicketDbContext _dbContext;
 
-    public CategoryRepository(TicketDbContext context)
-    {
-        _context = context;
-    }
+    public CategoryRepository(TicketDbContext context) => _dbContext = context;
+
     public IEnumerable<Category> GetAll()
     {
-        var categories = _context.Category.Include(c => c.Parent).Include(c => c.DefaultUserAsign).ToList();
+        var categories = _dbContext.Category.Include(c => c.Parent)
+            .Include(c => c.DefaultUserAsign)
+            .ToList();
+
         return categories;
     }
+
     public void Add(Category category)
     {
-        _context.Category.Add(category);
+        _dbContext.Category.Add(category);
     }
 
     public Category GetById(int id)
     {
-        var category = _context.Category.Include(f => f.Fields).Include(defUser => defUser.DefaultUserAsign).FirstOrDefault(c => c.Id == id);
+        var category = _dbContext.Category.Include(f => f.Fields)
+            .Include(defUser => defUser.DefaultUserAsign)
+            .FirstOrDefault(c => c.Id == id);
+
         return category;
     }
 
-    public void Delete(Category category)
+    public void Remove(Category category)
     {
         // If Its Parent, childs will be deleted too
-        var categories = _context.Category.Where(c => c.ParentId == category.Id || c.Id == category.Id).ToList();
-        _context.Category.RemoveRange(categories);
+        var categories = _dbContext.Category.Where(c => c.ParentId == category.Id || c.Id == category.Id).ToList();
+
+        _dbContext.Category.RemoveRange(categories);
     }
 
     public void Update(Category category)
     {
-        _context.Category.Update(category);
+        _dbContext.Category.Update(category);
     }
 }

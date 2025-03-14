@@ -38,7 +38,7 @@ public class CategoryController : BaseController
     [Authorize(Policy = "Admin")]
     public IActionResult AddCategory([FromBody] AddCategoryModel categoryModel)
     {
-        _categoryService.AddCategory(categoryModel.Title, categoryModel.ParentCategory, categoryModel.DefaultAssigneUserId);
+        _categoryService.AddCategory(categoryModel);
         return Ok();
     }
 
@@ -74,7 +74,7 @@ public class CategoryController : BaseController
     [Authorize(Policy = "Admin")]
     public IActionResult AddFieldToCategory([FromBody] AddFieldModel addFieldModel)
     {
-        _categoryService.AddField(addFieldModel.categoryId, addFieldModel.fieldId);
+        _categoryService.AddField(addFieldModel);
         return Ok();
     }
 

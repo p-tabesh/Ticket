@@ -8,7 +8,7 @@ public class TicketNote
     public int TicketId { get; private set; }
     public DateTime CreationDate { get;set; }
     public User User { get; private set; }
-    public Tickets Ticket { get; private set; }
+    public Ticket Ticket { get; private set; }
 
     private TicketNote() { }
     public TicketNote(string note, int userId)

@@ -3,7 +3,7 @@
 namespace Ticket.Domain.Entity;
 
 
-public class Tickets
+public class Ticket
 {
     public int Id { get; private set; }
     public string Subject { get; private set; }
@@ -14,27 +14,20 @@ public class Tickets
     public string NationalCode { get; private set; }
     public string PhoneNumber { get; private set; }
     public DateTime CreationDate { get; private set; }
-
-    // Relations
-    // Category
-    public Category Category { get; private set; }
-    public int CategoryId { get; private set; }
-
-    // User
-    public User SubmitUser { get; private set; }
-    public int SubmitUserId { get; private set; }
-    // AssignUser
-    public User AssignUser { get; private set; }
     public int AssignUserId { get; private set; }
+    public int CategoryId { get; private set; }
+    public int SubmitUserId { get; private set; }
+    public Category Category { get; private set; }
+    public User SubmitUser { get; private set; }
+    public User AssignUser { get; private set; }
 
-    // Audit
     public ICollection<TicketAudit> TicketAudit { get; private set; }
     public ICollection<TicketStatusHistory> TicketStatusHistory { get; private set; }
     public ICollection<TicketNote> TicketNote { get; private set; }
 
+    private Ticket() { }
 
-    private Tickets() { }
-    public Tickets(string subject,
+    public Ticket(string subject,
                     string body,
                     Priority priority,
                     string nationalCode,

@@ -34,30 +34,32 @@ public class CategoryService
         using (var UoW =new UnitOfWork(_dbContext))
         {
             var category = UoW.CategoryRepository.GetById(id);
+
             if (category == null)
-                throw new BaseCustomException(ErrorType.NotFound,"Category doesn't exists");
+                throw new BusinessException(ErrorType.NotFound,"Category doesn't exists");
+
             var model = CategoryViewMapper.MapToDTO(category);
+
             return model;
         }
     }
 
-    public void AddCategory(string title, int? parentId, int defaultUserAssingeId)
+    public void AddCategory(AddCategoryModel model)
     {
         using var UoW = new UnitOfWork(_dbContext);
 
-        if (title == null)
+        if (model.Title == null)
             throw new ArgumentNullException("title must have value.");
 
-        var user = UoW.UserRepository.GetById(defaultUserAssingeId);
+        var user = UoW.UserRepository.GetById(model.DefaultAssigneUserId);
 
         if (user == null)
             throw new ArgumentException("user doesnt exists");
 
-        var category = new Category(title, parentId, user);
+        var category = new Category(model.Title, model.ParentCategoryId, user);
         UoW.CategoryRepository.Add(category);
         UoW.Commit();
     }
-
 
     public void RemoveCategory(int categoryId)
     {
@@ -66,9 +68,9 @@ public class CategoryService
             var category = UoW.CategoryRepository.GetById(categoryId);
 
             if (category == null)
-                throw new BaseCustomException(ErrorType.NotFound,"category doesnt exists");
+                throw new BusinessException(ErrorType.NotFound,"category doesnt exists");
 
-            UoW.CategoryRepository.Delete(category);
+            UoW.CategoryRepository.Remove(category);
             UoW.Commit();
         }
     }
@@ -80,12 +82,10 @@ public class CategoryService
             var category = UoW.CategoryRepository.GetById(categoryId);
 
             if (category == null)
-                throw new BaseCustomException(ErrorType.NotFound, "category doesnt exists");
+                throw new BusinessException(ErrorType.NotFound, "category doesnt exists");
 
             if (string.IsNullOrEmpty(title))
-                throw new BaseCustomException(ErrorType.ValidationError, "title must have value");
-
-
+                throw new BusinessException(ErrorType.ValidationError, "title must have value");
 
             category.EditTitle(title);
             UoW.CategoryRepository.Update(category);
@@ -107,19 +107,19 @@ public class CategoryService
         UoW.Commit();
     }
 
-    public void AddField(int categoryId, int fieldId)
+    public void AddField(AddFieldModel model)
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var categoryField = UoW.CategoryFieldRepository.GetByCategoryIdAndFieldId(categoryId, fieldId);
+            var categoryField = UoW.CategoryFieldRepository.GetByCategoryIdAndFieldId(model.CategoryId,model.FieldId);
             if (categoryField != null)
                 throw new Exception("this field already exists for this category");
 
-            var category = UoW.CategoryRepository.GetById(categoryId);
+            var category = UoW.CategoryRepository.GetById(model.CategoryId);
             if (category == null)
                 throw new Exception("category doesnt exists");
 
-            var field = UoW.FieldRepository.GetById(fieldId);
+            var field = UoW.FieldRepository.GetById(model.FieldId);
             if (field == null)
                 throw new Exception("field doesnt exists");
 
@@ -133,7 +133,6 @@ public class CategoryService
     {
         using (var UoW = new UnitOfWork(_dbContext))
         {
-
             var category = UoW.CategoryRepository.GetById(categoryId);
             category.RemoveField(fieldId);
             UoW.CategoryRepository.Update(category);
@@ -146,7 +145,7 @@ public class CategoryService
         using (var UoW = new UnitOfWork(_dbContext))
         {
             var field = UoW.FieldRepository.GetById(model.Id);
-            field.Edit(model.Name, model.type, model.IsRequired);
+            field.Edit(model.Name, model.FieldType, model.IsRequired);
             UoW.FieldRepository.Update(field);
         }
     }

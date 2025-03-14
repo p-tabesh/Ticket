@@ -2,12 +2,8 @@
 
 namespace Ticket.Domain.IRepository;
 
-public interface IUserRepository
+public interface IUserRepository : ICrudRepository<User>
 {
-    void Add(User user);
-    void Remove(User user);
-    void Update(User user);
-    User GetById(int id);
+    User GetByUsernameAndPassword(string username, string password);
     User GetByUsername(string username);
-    IEnumerable<User> GetAll();
 }

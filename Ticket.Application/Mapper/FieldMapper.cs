@@ -7,13 +7,8 @@ public static class FieldMapper
 {
     public static FieldViewModel MapToDto(Field field)
     {
-        var fieldModel = new FieldViewModel()
-        {
-            Id = field.Id,
-            FieldType = field.Type.ToString(),
-            IsRequired = field.IsRequired,
-            Name = field.Name,
-        };
+        var fieldModel = new FieldViewModel(field.Id, field.Name, field.Type.ToString(), field.IsRequired);
+        
         return fieldModel;
     }
 }

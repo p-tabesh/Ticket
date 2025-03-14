@@ -34,9 +34,9 @@ namespace Ticket.Presentation.Middlewares
             context.Response.StatusCode = 500;
             var responseMessage = new ResponseBaseModel() { IsSuccess = false, Message = exception.Message };
 
-            if (exception.GetType() == typeof(BaseCustomException))
+            if (exception.GetType() == typeof(BusinessException))
             {
-                var customException = (BaseCustomException)exception;
+                var customException = (BusinessException)exception;
                 switch (customException.ErrorType)
                 {
                     case ErrorType.NotFound:

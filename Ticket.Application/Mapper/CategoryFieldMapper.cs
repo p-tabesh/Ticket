@@ -14,12 +14,8 @@ public static class CategoryFieldMapper
             fields.Add(model);
         }
 
-        var fieldModel = new CategoryFieldsViewModel
-        {
-            CategoryId = category.Id,
-            CategoryTitle = category.Title,
-            Fields = fields,
-        };
+        var fieldModel = new CategoryFieldsViewModel(category.Id, category.Title, fields);
+
         return fieldModel;
     }
 }

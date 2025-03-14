@@ -92,7 +92,7 @@ public class TicketService
 
         using (var UoW = new UnitOfWork(_dbContext))
         {
-            var tickets = UoW.TicketRepository.GetFilteredTickets(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status, ticketFilterDTO.Priority);
+            var tickets = UoW.TicketRepository.GetWithFilters(ticketFilterDTO.StartDate, ticketFilterDTO.EndDate, ticketFilterDTO.CategoryId, ticketFilterDTO.Status, ticketFilterDTO.Priority);
             foreach (var ticket in tickets)
             {
                 var ticketDTO = TicketMapper.MapToDTO(ticket);

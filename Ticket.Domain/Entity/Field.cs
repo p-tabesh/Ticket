@@ -10,7 +10,9 @@ public class Field
     public bool IsRequired { get; private set; }
 
     public ICollection<Category> Categories { get; private set; }
+
     public Field() { }
+
     public Field(string name, FieldType type, bool isRequired)
     {
         if (String.IsNullOrEmpty(name))

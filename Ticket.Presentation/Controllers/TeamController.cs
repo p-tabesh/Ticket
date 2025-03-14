@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Ticket.Application.Mapper;
 using Ticket.Application.Models;
-using Ticket.Application.Services;
 using Ticket.Domain.IService;
 using Ticket.Presentation.Extentions;
 

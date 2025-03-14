@@ -7,48 +7,44 @@ namespace Ticket.Infrastructure.Repository;
 
 public class UserRepository : IUserRepository
 {
-    private TicketDbContext _ticketDbContext;
-    public UserRepository(TicketDbContext ticketDbContext)
-    {
-        _ticketDbContext = ticketDbContext;
-    }
+    private TicketDbContext _dbContext;
+
+    public UserRepository(TicketDbContext ticketDbContext) => _dbContext = ticketDbContext;
 
     public void Add(User user)
     {
-        _ticketDbContext.Users.Add(user);
+        _dbContext.User.Add(user);
+    }
+    public void Remove(User user)
+    {
+        _dbContext.User.Remove(user);
+    }
+
+    public void Update(User user)
+    {
+        _dbContext.User.Update(user);
     }
 
     public User GetById(int id)
     {
-        try
-        {
-            var user = _ticketDbContext.Users.Include(t => t.Team).FirstOrDefault(c => c.Id == id);
-            return user;
-        }
-        catch (Exception e)
-        {
-            throw new Exception(e.Message);
-        }
+        var user = _dbContext.User.Include(t => t.Team).FirstOrDefault(c => c.Id == id);
+        return user;
     }
-    public User GetByUsername(string username)
+    public User GetByUsernameAndPassword(string username, string password)
     {
-        var user = _ticketDbContext.Users.FirstOrDefault(user => user.Username.ToLower() == username);
+        var user = _dbContext.User.FirstOrDefault(user => user.Username.ToLower() == username);
         return user;
     }
 
     public IEnumerable<User> GetAll()
     {
-        var users = _ticketDbContext.Users.Include(t => t.Team).ToList();
+        var users = _dbContext.User.Include(t => t.Team).ToList();
         return users;
     }
 
-    public void Remove(User user)
+    public User GetByUsername(string username)
     {
-        _ticketDbContext.Users.Remove(user);
-    }
-
-    public void Update(User user)
-    {
-        _ticketDbContext.Users.Update(user);
+        var user = _dbContext.User.FirstOrDefault(u => u.Username == username.Trim());
+        return user;
     }
 }

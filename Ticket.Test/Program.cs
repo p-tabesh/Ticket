@@ -43,7 +43,7 @@ public class TestingWebAppFactory<TStartup> : WebApplicationFactory<Program> whe
         db.Team.Add(team);
         db.SaveChanges();
 
-        db.Users.Add(new User("admin", "tV3NBjMRnyBUHNqlMznnwqvVXETW1rQXugBUSZ3PSSo=", "admin@gmail.com", team.Id, true));        
+        db.User.Add(new User("admin", "tV3NBjMRnyBUHNqlMznnwqvVXETW1rQXugBUSZ3PSSo=", "admin@gmail.com", team.Id, true));        
         db.SaveChanges();
     }
 }

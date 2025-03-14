@@ -14,7 +14,6 @@ namespace Ticket.Presentation.Controllers
 
         public UserController(UserService userService) => _userService = userService;
 
-        [Authorize(Policy = "Admin")]
         [HttpPost]
         [Route("add-user")]
         [Authorize(Policy = "Admin")]
@@ -42,7 +41,7 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("change-username")]
-        public IActionResult ChangeUsername(string newUsername)
+        public IActionResult ChangeUsername([FromBody] string newUsername)
         {
             _userService.ChangeUsername(RequestUserId, newUsername);
             return Ok();
@@ -50,7 +49,7 @@ namespace Ticket.Presentation.Controllers
 
         [HttpPost]
         [Route("change-password")]
-        public IActionResult ChangePassword(string newPassword)
+        public IActionResult ChangePassword([FromBody] string newPassword)
         {
             _userService.ChangePassword(RequestUserId, newPassword);
             return Ok();

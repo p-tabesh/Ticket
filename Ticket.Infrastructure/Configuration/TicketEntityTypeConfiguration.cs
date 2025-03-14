@@ -4,9 +4,9 @@ using Ticket.Domain.Entity;
 
 namespace Ticket.Infrastructure.Configuration;
 
-public class TicketEntityTypeConfiguration : IEntityTypeConfiguration<Tickets>
+public class TicketEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Entity.Ticket>
 {
-    public void Configure(EntityTypeBuilder<Tickets> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entity.Ticket> builder)
     {
         builder.HasKey(t => t.Id);
 

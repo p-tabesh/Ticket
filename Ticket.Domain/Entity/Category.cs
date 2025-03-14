@@ -13,7 +13,7 @@ public class Category
     public User DefaultUserAsign { get; private set; }
     public ICollection<Category> ChildCategories { get; private set; }
     public ICollection<Field>? Fields { get; private set; }
-    public ICollection<Tickets>? Tickets { get; private set; }
+    public ICollection<Ticket>? Tickets { get; private set; }
     private Category() { }
 
     public Category(string title, int? parentId, User defaultUserAsign)

@@ -1,4 +1,5 @@
-﻿using Ticket.Domain.IUnitOfWork;
+﻿using Ticket.Domain.IRepository;
+using Ticket.Domain.IUnitOfWork;
 using Ticket.Infrastructure.Context;
 using Ticket.Infrastructure.Repository;
 
@@ -6,96 +7,33 @@ namespace Ticket.Infrastructure.UnitOfWork;
 
 public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private readonly TicketDbContext _context;
+    private readonly TicketDbContext _dbContext;
     private bool _disposed;
 
-    private CategoryFieldRepository _categoryFieldRepository;
-    private CategoryRepository _categoryRepository;
-    private TeamRepository _teamRepository;
-    private TicketRepository _ticketRepository;
-    private UserRepository _userRepository;
-    private FieldRepository _fieldRepository;
+    private ICategoryFieldRepository _categoryFieldRepository;
+    private ICategoryRepository _categoryRepository;
+    private ITeamRepository _teamRepository;
+    private ITicketRepository _ticketRepository;
+    private IUserRepository _userRepository;
+    private IFieldRepository _fieldRepository;
+
     public UnitOfWork(TicketDbContext context)
     {
-        _context = context;
+        _dbContext = context;
     }
 
-    public TicketRepository TicketRepository
-    {
-        get
-        {
-            if (_ticketRepository == null)
-            {
-                _ticketRepository = new TicketRepository(_context);
-                return _ticketRepository;
-            }
-            return _ticketRepository;
-        }
-    }
+    public ITicketRepository TicketRepository => _ticketRepository ??= new TicketRepository(_dbContext);
+    public ICategoryRepository CategoryRepository => _categoryRepository ??= new CategoryRepository(_dbContext);
+    public IUserRepository UserRepository => _userRepository ??= new UserRepository(_dbContext);
+    public ITeamRepository TeamRepository => _teamRepository ??= new TeamRepository(_dbContext);
+    public ICategoryFieldRepository CategoryFieldRepository => _categoryFieldRepository ??= new CategoryFieldRepository(_dbContext);
+    public IFieldRepository FieldRepository => _fieldRepository ??= new FieldRepository(_dbContext);
 
-    public FieldRepository FieldRepository
-    {
-        get
-        {
-            if (_fieldRepository == null)
-                _fieldRepository = new FieldRepository(_context);
-            return _fieldRepository;
-        }
-    }
-    public UserRepository UserRepository
-    {
-        get
-        {
-            if (_userRepository == null)
-            {
-                _userRepository = new UserRepository(_context);
-            }
-            return _userRepository;
-        }
-    }
-    public TeamRepository TeamRepository
-    {
-        get
-        {
-            if (_teamRepository == null)
-            {
-                _teamRepository = new TeamRepository(_context);
-                return _teamRepository;
-            }
-            return _teamRepository;
-        }
-    }
-
-    public CategoryFieldRepository CategoryFieldRepository
-    {
-        get
-        {
-            if (_categoryFieldRepository == null)
-            {
-                _categoryFieldRepository = new CategoryFieldRepository(_context);
-                return _categoryFieldRepository;
-            }
-            return _categoryFieldRepository;
-        }
-    }
-
-    public CategoryRepository CategoryRepository
-    {
-        get
-        {
-            if (_categoryRepository == null)
-            {
-                _categoryRepository = new CategoryRepository(_context);
-                return (_categoryRepository);
-            }
-            return _categoryRepository;
-        }
-    }
     public void Commit()
     {
         try
         {
-            _context.SaveChanges();
+            _dbContext.SaveChanges();
         }
         catch (Exception ex)
         {
@@ -103,21 +41,24 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
             throw new Exception(ex.Message, ex.InnerException);
         }
     }
+
     public void Rollback()
     {
-        _context.ChangeTracker.Clear();
+        _dbContext.ChangeTracker.Clear();
     }
+
     public void Dispose(bool disposing)
     {
         if (!_disposed)
         {
             if (disposing)
             {
-                _context?.Dispose();
+                _dbContext?.Dispose();
             }
             _disposed = true;
         }
     }
+
     public void Dispose()
     {
         Dispose(true);

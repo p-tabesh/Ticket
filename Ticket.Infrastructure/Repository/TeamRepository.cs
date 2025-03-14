@@ -7,32 +7,32 @@ namespace Ticket.Infrastructure.Repository;
 
 public class TeamRepository : ITeamRepository
 {
-    private TicketDbContext _context;
-    public TeamRepository(TicketDbContext context) => _context = context;
+    private TicketDbContext _dbContext;
+    public TeamRepository(TicketDbContext context) => _dbContext = context;
 
     public IEnumerable<Team> GetAll()
     {
-        var teams = _context.Team.Include(t => t.Users).ToList();
+        var teams = _dbContext.Team.Include(t => t.Users).ToList();
         return teams;
     }
     public void Add(Team team)
     {
-        _context.Team.Add(team);
+        _dbContext.Team.Add(team);
     }
 
     public void Remove(Team team)
     {
-        _context.Team.Remove(team);
+        _dbContext.Team.Remove(team);
     }
 
     public Team GetById(int id)
     {
-        var team = _context.Team.Include(t => t.Users).FirstOrDefault(t => t.Id == id);
+        var team = _dbContext.Team.Include(t => t.Users).FirstOrDefault(t => t.Id == id);
         return team;
     }
 
     public void Update(Team team)
     {
-        _context.Team.Update(team);
+        _dbContext.Team.Update(team);
     }
 }

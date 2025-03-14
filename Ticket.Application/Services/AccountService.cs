@@ -36,6 +36,7 @@ public class AccountService
             new Claim(ClaimTypes.NameIdentifier, Convert.ToString(userId)),
             new Claim(ClaimTypes.Sid,Guid.NewGuid().ToString())
         };
+
         if (isAdmin)
         {
             claims.Add(new Claim(ClaimTypes.Role, role));
@@ -44,7 +45,7 @@ public class AccountService
         var token = new JwtSecurityToken(issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.Now.AddDays(1),
+            expires: DateTime.Now.AddDays(Convert.ToInt32(_configuration["Jwt:TokenLifeTime"])),
             signingCredentials: credentials);
 
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
@@ -54,9 +55,9 @@ public class AccountService
     public User GetUser(string username, string password)
     {
         using var UoW = new UnitOfWork(_dbContext);
-        var user = UoW.UserRepository.GetByUsername(username.ToLower());
-        var t = password.ToSha256();
-        if (user == null || !user.IsCorrectPassword(password.ToSha256()))
+        var user = UoW.UserRepository.GetByUsernameAndPassword(username.ToLower(), password.ToSha256());
+
+        if (user == null)
             throw new Exception("invalid username or password");
 
         return user;
@@ -66,16 +67,19 @@ public class AccountService
     {
         var userId = token.Claims.FirstOrDefault(t => t.Type == ClaimTypes.NameIdentifier)?.Value;
         var sid = token.Claims.FirstOrDefault(t => t.Type == ClaimTypes.Sid)?.Value;
+
         _redisDistributedCache.SetString(
-            sid, 
+            sid,
             userId,
-            new DistributedCacheEntryOptions() { AbsoluteExpiration = DateTime.Now.AddDays(1) });
+            new DistributedCacheEntryOptions() { AbsoluteExpiration = DateTime.Now.AddDays(1) }
+            );
     }
 
     public bool IsTokenBlackListed(string sid)
     {
         var redis = _redisDistributedCache;
-        var jti = redis.Get(sid);
-        return jti != null;
+        var blackListedSid = redis.Get(sid);
+
+        return blackListedSid != null;
     }
 }

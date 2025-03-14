@@ -7,7 +7,7 @@ namespace Ticket.Application.Mapper;
 public static class TicketMapper
 {
 
-    public static TicketViewModel MapToDTO(Tickets ticket)
+    public static TicketViewModel MapToDTO(Domain.Entity.Ticket ticket)
     {
         var audits = new List<TicketAuditViewModel>();
 
@@ -45,9 +45,9 @@ public static class TicketMapper
         return model;
     }
 
-    public static Tickets MapToEntity(AddTicketModel ticketModel)
+    public static Domain.Entity.Ticket MapToEntity(AddTicketModel ticketModel)
     {
-        var ticket = new Tickets(
+        var ticket = new Domain.Entity.Ticket(
             ticketModel.Subject,
             ticketModel.Body,
             ticketModel.Priority,

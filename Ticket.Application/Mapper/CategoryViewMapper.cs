@@ -8,13 +8,11 @@ public static class CategoryViewMapper
     public static CategoryViewModel MapToDTO(Category category)
     {
 
-        var categoryViewModel = new CategoryViewModel()
-        {
-            CategoryId = category.Id,
-            CategoryName = category.Title,
-            CategoryParentName = category.Parent?.Title,
-            DefaultUserAssigneName = category.DefaultUserAsign.Username
-        };
+        var categoryViewModel = new CategoryViewModel(category.Id,
+            category.Title,
+            category.Parent?.Title,
+            category.DefaultUserAsign.Username);
+
         return categoryViewModel;
     }
     public static IEnumerable<CategoryViewModel> MapToDTO(IEnumerable<Category> categories)
@@ -25,15 +23,12 @@ public static class CategoryViewMapper
             if (category == null)
                 continue;
 
-            var model = new CategoryViewModel()
-            {
-                CategoryId = category.Id,
-                CategoryName = category.Title,
-                CategoryParentName = category.Parent?.Title,
-                DefaultUserAssigneName = category.DefaultUserAsign.Username
-            };
+            var categoryViewModel = new CategoryViewModel(category.Id,
+            category.Title,
+            category.Parent?.Title,
+            category.DefaultUserAsign.Username);
 
-            categoryViewModels.Add(model);
+            categoryViewModels.Add(categoryViewModel);
         }
         return categoryViewModels;
     }
