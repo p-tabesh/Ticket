@@ -28,3 +28,18 @@ jobs:
     
     - name: publish
       run: dotnet publish -c Release --output ./Release
+
+    - name: appsettings configurations
+      uses: microsoft/variable-substitution@v1
+      with: 
+         files: './Release/appsettings.json'
+      env:
+         ConnectionStrings.SqlConnectionString: ${{secrets.CONNECTION_STRING}}
+
+    - name: ftp deploy deploy 
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+         server: ${{secrets.ftp_server}}
+         username: ${{secrets.ftp_username}}
+         password: ${{secrets.ftp_password}}
+         local-dir: ./Release/
